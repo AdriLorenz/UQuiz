@@ -1,0 +1,65 @@
+<link rel="stylesheet" type="text/css" href="/css/register.css" />
+<div class="register">
+    <h1>Edit User</h1>
+
+    <form method="POST" action="/users/edit/<%= user_id %>?_method=PUT">
+        <label for="name" class="name">Name</label>
+        <input type="text" value="<%=userInfo.user_name %>" id="user_name" name="user_name" 
+        placeholder="Your name..." required>
+
+        <label for="email" class="name">Email</label>
+        <input type="text" value="<%=userInfo.user_email %>" id="user_email" name="user_email" 
+        placeholder="Your email..." required>
+    
+        <label for="password">Password</label>
+        <input type="password" id="user_password" 
+        name="user_password" placeholder="Your password.."
+        required>
+
+        <label for="repeatPassword">Repeat password</label>
+        <input type="password" id="repeatPassword" 
+        name="repeatPassword" 
+        placeholder="Repeat password.." required>
+
+        <div class="selects">
+          <div class="roles">
+            <label for="role_id_fk">Role</label>
+            <select name="role_id_fk" id="role_id_fk">
+              <% for ( let role of roles ) { %>
+              <option value="<%=userInfo.role_id_fk %>"
+                <% if ( userInfo.role_id_fk == role.role_id ) { %>
+                  selected
+                <% } %>>
+                <%=role.role_name %></option>
+              <% } %>
+            </select>
+          </div>
+
+          <div class="classroom">
+            <label for="classroom_id_fk">Classroom</label>
+            <select name="classroom_id_fk" id="classroom_id_fk">
+              <% for ( let classroom of classrooms ) { %>
+              <option value="<%=userInfo.classroom_id_fk %>"
+                <% if ( userInfo.classroom_id_fk == classroom.classroom_id ) { %>
+                  selected
+                <% } %>>
+                <%=classroom.classroom_name %></option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+        <br>
+        <br>
+        <% if (messages.error) { %>
+            <p style="color:#FF0000">*<%= messages.error %></p>
+            <% } %>
+      <div class="buttons">
+        <input class="registerButton" type="submit" value="Submit">
+
+    </form>
+        <a href="/users">
+          <input class="backButton" type="button" value="Back" />
+        </a>
+    </div>
+
+</div>

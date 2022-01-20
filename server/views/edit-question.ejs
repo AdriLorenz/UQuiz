@@ -1,0 +1,64 @@
+<link rel="stylesheet" type="text/css" href="/css/create.css" />
+<div class="container">
+  <div class="header">
+    <div class="links">
+      <a href="/questions" class="link1">Questions</a>
+      <a class="link2">Themes</a>
+      <a class="link3">Users</a>
+      <form action="/logout?_method=DELETE" method="POST">
+        <button class="logout" type="submit">Log Out</button>
+    </form>
+    </div>
+  </div>
+
+  <div class="content">
+    <form method="POST" action="/questions/edit/<%= question_id %>?_method=PUT">
+      <div class="questionContent">
+        <label name="question_content">Question content</label>
+        <input name="question_content" value= "<%= questionContent.question_content %>" autocomplete="off" type="text">
+      </div>
+
+      <div class="correctAnswer">
+        <label name="correctAnswer">Correct Answer</label>
+        <input name="correctAnswer" value= "<%= correctAnswer.answer_content %>" type="text" autocomplete="off">
+      </div>
+
+      <div class="wrongAnswer1">
+        <label name="wrongAnswer1">Wrong Answer 1</label>
+        <input name="wrongAnswer1" value= "<%= incorrectAnswer1.answer_content %>" type="text" autocomplete="off">
+      </div>
+
+      <div class="wrongAnswer2">
+        <label name="wrongAnswer2">Wrong Answer 2</label>
+        <input name="wrongAnswer2" value= "<%= incorrectAnswer2.answer_content %>" type="text" autocomplete="off">
+      </div>
+
+      <div class="topic">
+        <label name="topic_id_fk">Topic</label>
+        <select name="topic_id_fk" id="topic_id_fk">
+          <% for ( let topic of topics ) { %>
+          <option value="<%=questionContent.topic_id_fk %>"
+            <% if ( questionContent.topic_id_fk == topic.topic_id ) { %>
+              selected
+            <% } %>
+            ><%=topic.topic_name %></option>
+          <% } %>
+        </select>
+      </div>
+
+<<<<<<< HEAD
+=======
+      <div class="topic">
+        <label name="topic_id_fk">Topic</label>
+        <select name="topic_id_fk" id="topic_id_fk">
+          <% for ( let topic of topics ) { %>
+          <option value="<%=topic.topic_id %>"><%=topic.topic_name %></option>
+          <% } %>
+        </select>
+      </div>
+
+>>>>>>> dee1210061b1d233363db9532f1e861fe291c3f9
+      <button class="buttonSubmit" type="submit">Edit question</button>
+    </form>
+  </div>
+</div>
