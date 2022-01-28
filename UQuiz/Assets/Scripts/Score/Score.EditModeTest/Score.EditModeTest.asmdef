@@ -1,0 +1,9 @@
+{
+    "name": "Score.EditModeTest",
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ]
+}

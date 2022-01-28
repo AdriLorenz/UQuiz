@@ -28,6 +28,7 @@ const routerTopics = require("./routes/routes-topics.js");
 const routerClassrooms = require("./routes/routes-classrooms.js");
 const routerRoles = require("./routes/routes-roles.js");
 const User = require("./models/user.js");
+const routerGeneral = require("./routes/routes.js");
 
 // Init express
 const app = express();
@@ -56,6 +57,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cors());
 
 // Set view engine to .ejs
+app.engine('html', require('ejs').renderFile);
 app.set('view-engine', 'ejs')
 
 app.use(methodOverride('_method'))
@@ -114,7 +116,9 @@ app.use(routerQuestions);
 app.use(routerAnswers);
 app.use(routerTopics);
 app.use(routerClassrooms);
+app.use(routerGeneral);
 app.use(routerRoles);
+
 
 // listen on port
 app.listen(5000, () => console.log('Server running at http://localhost:5000'));

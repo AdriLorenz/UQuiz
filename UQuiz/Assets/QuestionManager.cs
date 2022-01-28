@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class QuestionManager : MonoBehaviour
 {
+    private AudioSource beep;
+
     [Header("Question Settings")]
     [SerializeField] GameObject question;
     [SerializeField] Text QuestionText;
@@ -56,6 +58,7 @@ public class QuestionManager : MonoBehaviour
     }
     void Start()
     {
+        
     }
 
     // Update is called once per frame
@@ -66,6 +69,7 @@ public class QuestionManager : MonoBehaviour
 
     void OnEnable() {
         QuestionIndex++;
+        beep = GetComponent<AudioSource>();
 
         if (QuestionIndex == 1) {
             QuestionText.text = question_1;
@@ -74,6 +78,7 @@ public class QuestionManager : MonoBehaviour
             AnswerText3.text = answerRed_1;
 
             question.SetActive(true);
+            beep.Play();
             Debug.Log("Llego a la pregunta 1");
             spawn1();
             SnapZone.Invoke();
@@ -85,6 +90,7 @@ public class QuestionManager : MonoBehaviour
             AnswerText3.text = answerRed_2;
 
             question.SetActive(true);
+            beep.Play();
             Debug.Log("Llego a la pregunta 2");
             spawn2();
             SnapZone.Invoke();
@@ -96,6 +102,7 @@ public class QuestionManager : MonoBehaviour
             AnswerText3.text = answerRed_3;
 
             question.SetActive(true);
+            beep.Play();
             Debug.Log("Llego a la pregunta 3");
             spawn3();
             SnapZone.Invoke();

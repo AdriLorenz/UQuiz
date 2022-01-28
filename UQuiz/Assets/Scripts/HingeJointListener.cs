@@ -15,12 +15,15 @@ public class HingeJointListener : MonoBehaviour
 
     public enum HingeJointState { Min,Max,None}
     private HingeJoint hinge;
-    private int counter = 0;
+    private Quaternion lastPosition;
+    private GameObject lever;
 
     // Start is called before the first frame update
     void Start()
     {
+        lever = this.gameObject;
         hinge = GetComponent<HingeJoint>();
+        lastPosition = lever.transform.rotation;
     }
 
     private void FixedUpdate()
@@ -31,12 +34,13 @@ public class HingeJointListener : MonoBehaviour
         //Reached Min
         if(angleWithMinLimit < angleBetweenThreshold)
         {
-            if (hingeJointState != HingeJointState.Min && counter < 1)
+            if (hingeJointState != HingeJointState.Min)
                 Debug.Log("Min");
-                counter++;
                 OnMinLimitReached.Invoke();
 
             hingeJointState = HingeJointState.Min;
+            lever.transform.rotation = lastPosition;
+            Debug.Log(lastPosition);
         }
         //Reached Max
         else if (angleWithMaxLimit < angleBetweenThreshold)

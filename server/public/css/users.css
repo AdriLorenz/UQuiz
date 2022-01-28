@@ -29,7 +29,7 @@ html {
 .links {
   display: grid;
   grid-template-areas:
-  'item1 item2 item3 item4';
+  'item1 item2 item3 item4 item5';
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -62,8 +62,11 @@ a:visited {
 .link3{
   grid-area: item3;
 }
-.logout{
+.link4{
   grid-area: item4;
+}
+.logout{
+  grid-area: item5;
   border:none;
   background: none;
   color: white;

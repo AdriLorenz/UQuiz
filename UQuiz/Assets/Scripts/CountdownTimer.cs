@@ -8,7 +8,8 @@ public class CountdownTimer : MonoBehaviour
 {
     float currentTime = 0f;
     float startingTime = 10f;
-
+    int valueChanged = 0;
+    private AudioSource beep;
 
     public UnityEvent CountdownOver;
 
@@ -18,7 +19,7 @@ public class CountdownTimer : MonoBehaviour
 
     void Start()
     {
-        
+        beep = GetComponent<AudioSource>();
     }
 
 
@@ -42,6 +43,11 @@ public class CountdownTimer : MonoBehaviour
         if (currentTime <= 0) {
             countdownText.gameObject.SetActive(false);
             CountdownOver.Invoke();
+        }
+
+        if ((int)currentTime != valueChanged) {
+            valueChanged = (int)currentTime;
+            beep.PlayDelayed(0.6f);
         }
     }
 }

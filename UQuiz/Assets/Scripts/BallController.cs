@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BallController : MonoBehaviour
 {
@@ -10,21 +11,28 @@ public class BallController : MonoBehaviour
     private GameObject ball3;
     private GameObject ball4;
 
-    void Start() {
+    public UnityEvent finished;
+
+    void OnEnable() {
+        despawn();
         spawn();
+        finished.Invoke();
+    }
+    void Start() {
+
     }
     public void spawn()
     {
-        ball1 = Instantiate(ballPrefab, new Vector3(-44.866f, 10.016f, 54.235f), Quaternion.identity);
+        ball1 = Instantiate(ballPrefab, new Vector3(-31.144f, 12.067f, 44.659f), Quaternion.identity);
         ball1.layer = LayerMask.NameToLayer("Grab");
 
-        ball2 = Instantiate(ballPrefab, new Vector3(-44.866f, 10.016f, 54.798f), Quaternion.identity);
+        ball2 = Instantiate(ballPrefab, new Vector3(-31.668f, 12.067f, 44.659f), Quaternion.identity);
         ball2.layer = LayerMask.NameToLayer("Grab");
 
-        ball3 = Instantiate(ballPrefab, new Vector3(-44.866f, 10.016f, 55.131f), Quaternion.identity);
+        ball3 = Instantiate(ballPrefab, new Vector3(-32.086f, 12.067f, 44.659f), Quaternion.identity);
         ball3.layer = LayerMask.NameToLayer("Grab");
 
-        ball4 = Instantiate(ballPrefab, new Vector3(-44.866f, 10.016f, 55.588f), Quaternion.identity);
+        ball4 = Instantiate(ballPrefab, new Vector3(-32.474f, 12.067f, 44.659f), Quaternion.identity);
         ball4.layer = LayerMask.NameToLayer("Grab");
 
         Debug.Log("Balls have spawned");

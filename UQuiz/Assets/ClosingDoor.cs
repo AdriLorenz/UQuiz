@@ -10,9 +10,17 @@ public class ClosingDoor : MonoBehaviour
     public GameObject snapZone;
     public GameObject table;
 
+    public GameObject door;
+
+    public AudioClip doorClosingSound;
+
+    new AudioSource audio;
+    private int counter;
+
     void Start()
     {
-        
+        counter = 0;
+        audio = door.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -30,6 +38,10 @@ public class ClosingDoor : MonoBehaviour
                 Destroy (snapZone);
                 Destroy (table);
 
+                if (counter != 1) {
+                    audio.PlayOneShot(doorClosingSound, 0.7f);
+                    counter++;
+                }
          }
      }
 }
