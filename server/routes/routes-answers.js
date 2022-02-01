@@ -12,6 +12,7 @@ const routerAnswers = express.Router();
  
 // Route get all answers
 routerAnswers.get('/answers', returnAnswers);
+routerAnswers.get('/answers/data', getAnswers);
 // Route get answer by id
 routerAnswers.get('/answers/:answer_id', getAnswerById);
 // Route get answer by theme

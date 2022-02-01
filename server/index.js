@@ -1,23 +1,30 @@
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
 }
 
-const flash = require('express-flash');
-const session = require('express-session');
+const flash = require("express-flash");
+const session = require("express-session");
 
-const passport = require('passport');
-const initializePassport = require('./config/passport-config');
+const passport = require("passport");
+const initializePassport = require("./config/passport-config");
 
 // Import express
-const express = require('express');
+const express = require("express");
 
 // Import cors
-const cors = require('cors');
+const cors = require("cors");
 
 // Import connection
-const db = require("./config/database.js");
+const dbConfig = require("./config/database.js");
 
-const methodOverride = require('method-override')
+const methodOverride = require("method-override");
+
+// Import dbModels
+const db = require("./models");
+
+db.sequelize.sync().then(() => {
+  console.log("Dropped an resync db");
+});
 
 // Import routers
 const routerUsers = require("./routes/routes-users.js");
@@ -27,87 +34,93 @@ const routerAnswers = require("./routes/routes-answers.js");
 const routerTopics = require("./routes/routes-topics.js");
 const routerClassrooms = require("./routes/routes-classrooms.js");
 const routerRoles = require("./routes/routes-roles.js");
-const User = require("./models/user.js");
+const User = db.users;
+
 const routerGeneral = require("./routes/routes.js");
 
 // Init express
 const app = express();
-const WebSocket = require('ws');
-const { data } = require('jquery');
+const WebSocket = require("ws");
+const { data } = require("jquery");
 
-const wss = new WebSocket.Server({port:8080},() => {
-    console.log('server started')
-})
+const wss = new WebSocket.Server({ port: 8080 }, () => {
+  console.log("server started");
+});
 
-wss.on('connection', (ws) => {
-    ws.on('message', (data) => {
-        console.log('data recieved %o ' + data)
-        ws.send(data)
-    })
-})
-wss.on('listening',() => {
-    console.log('server is listening on port 8080')
-})
+wss.on("connection", (ws) => {
+  ws.on("message", (data) => {
+    console.log("data recieved %o " + data);
+    ws.send(data);
+  });
+});
+wss.on("listening", () => {
+  console.log("server is listening on port 8080");
+});
 
 // use express json and URLenconded
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false }));
 
 // use cors
 app.use(cors());
 
 // Set view engine to .ejs
-app.engine('html', require('ejs').renderFile);
-app.set('view-engine', 'ejs')
+app.engine("html", require("ejs").renderFile);
+app.set("view-engine", "ejs");
 
-app.use(methodOverride('_method'))
+app.use(methodOverride("_method"));
 
-
-app.use(flash())
-app.use(session({
+app.use(flash());
+app.use(
+  session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
-}))
+    saveUninitialized: false,
+  })
+);
 
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + "/public"));
 app.use(express.static("public"));
 
-initializePassport(passport, email =>
+initializePassport(
+  passport,
+  (email) =>
     User.findOne({
-        where: {
-            user_email: email
-        }
+      where: {
+        user_email: email,
+      },
     }),
-    id => User.findOne({
-        where: {
-            user_id: id
-        }
+  (id) =>
+    User.findOne({
+      where: {
+        user_id: id,
+      },
     }),
-    role => User.findOne({
-        where: {
-            role_id_fk: role
-        }
+  (role) =>
+    User.findOne({
+      where: {
+        role_id_fk: role,
+      },
     })
-)
+);
 
-app.delete('/logout', (req, res) => {
-    req.logOut();
-    res.redirect('/login')
-})
+app.delete("/logout", (req, res) => {
+  req.logOut();
+  res.redirect("/login");
+});
 
-// Testing database connection 
+// Testing database connection
 async (req, res) => {
-    try {
-        await db.authenticate();
-        console.log('Connection has been established successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    }
-}
+  try {
+    await dbConfig.authenticate();
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+};
 
 // use router
 app.use(routerUsers);
@@ -119,6 +132,5 @@ app.use(routerClassrooms);
 app.use(routerGeneral);
 app.use(routerRoles);
 
-
 // listen on port
-app.listen(5000, () => console.log('Server running at http://localhost:5000'));
+app.listen(5000, () => console.log("Server running at http://localhost:5000"));

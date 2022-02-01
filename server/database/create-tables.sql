@@ -64,6 +64,3 @@ create table if not exists Answers (
 );
 
 drop table Answers;
-
-
-
