@@ -1,20 +1,25 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using SimpleJSON;
-using System.Threading.Tasks;
 
-public class ThemeRequest: MonoBehaviour
+public class QuestionRequest : MonoBehaviour
 {
-    const string url = "http://localhost:5000/themes";
+
+    int id;
+    
 
     void Start() {
-        StartCoroutine(GetThemes(url));
+        id = 0;
+    }
+    void Update() {
+        string url = "http://localhost:5000/answers/question/" + id.ToString();
+        StartCoroutine(GetQuestions(url));
     }
 
-    private IEnumerator GetThemes(string url)
+    private IEnumerator GetQuestions(string url)
     {
+        id++;
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
             request.SetRequestHeader("Content-Type", "application/json");
@@ -30,10 +35,16 @@ public class ThemeRequest: MonoBehaviour
                 //Debug.Log(request.downloadHandler.text);
 
                 JSONArray itemsData = (JSONArray) JSON.Parse(request.downloadHandler.text);
-                JSONNode themes = itemsData["theme_name"];
-
+                JSONNode themes = itemsData["question"]["question_content"];
+                string lastOne = "";
+                var list = new ArrayList();
                 foreach (JSONNode i in itemsData) {
-                    Debug.Log("The generated item is: \nName: " + i["theme_name"]);
+                    if (!lastOne.Equals(i["question"]["question_content"])) {
+                        Debug.Log("The generated item is: \nName: " + i["question"]["question_content"]);
+                        lastOne = i["question"]["question_content"];
+                    } else {
+
+                    }
                 }
             }
         }
