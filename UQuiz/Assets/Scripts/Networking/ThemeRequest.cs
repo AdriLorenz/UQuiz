@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using SimpleJSON;
+<<<<<<< HEAD
 using System.Threading.Tasks;
 
 public class ThemeRequest: MonoBehaviour
@@ -11,6 +12,28 @@ public class ThemeRequest: MonoBehaviour
 
     void Start() {
         StartCoroutine(GetThemes(url));
+=======
+using UnityEngine.UI;
+
+public class ThemeRequest: MonoBehaviour
+{
+    Dropdown dropdown;
+    string theme;
+    private string test;
+    string[] themesArray;
+    List<string> items;
+    
+    const string url = "http://localhost:5000/themes";
+
+    void Start() {
+        dropdown = GetComponent<Dropdown>();
+        items = new List<string>();
+        StartCoroutine(GetThemes(url));
+        
+        dropdown.options.Clear();
+        
+
+>>>>>>> 0677bb891e947b6b86cf9c72d3baac52ea3caec4
     }
 
     private IEnumerator GetThemes(string url)
@@ -34,7 +57,17 @@ public class ThemeRequest: MonoBehaviour
 
                 foreach (JSONNode i in itemsData) {
                     Debug.Log("The generated item is: \nName: " + i["theme_name"]);
+<<<<<<< HEAD
                 }
+=======
+                    items.Add(i["theme_name"]);
+                }
+                foreach (var option in items) {
+                    Debug.Log(option);
+                    dropdown.options.Add(new Dropdown.OptionData() { text = option});
+                }
+                dropdown.value=1;
+>>>>>>> 0677bb891e947b6b86cf9c72d3baac52ea3caec4
             }
         }
     }

@@ -38,7 +38,6 @@ exports.getAnswerById = async (req, res) => {
 };
 
 // Get answers of a question
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 exports.getAnswerByQuestion = async (req, res) => {
   try {
     const answer = await Answer.findAll({
@@ -49,23 +48,6 @@ exports.getAnswerByQuestion = async (req, res) => {
     });
 
     res.send(answer);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-// ????????????????????????????????
-exports.getCorrectAnswerByQuestion = async (t, req, res) => {
-  try {
-    const answer = await Answer.findAll({
-      where: {
-        question_id_fk: t,
-        answer_points: 10,
-      },
-      include: [{ model: Question, required: true }],
-    });
-
-    return answer[0];
   } catch (err) {
     console.log(err);
   }

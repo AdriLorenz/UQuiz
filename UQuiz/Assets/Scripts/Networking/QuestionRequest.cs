@@ -1,22 +1,41 @@
 using System.Collections;
 using UnityEngine;
+<<<<<<< HEAD
+=======
+using UnityEngine.UI;
+>>>>>>> 0677bb891e947b6b86cf9c72d3baac52ea3caec4
 using UnityEngine.Networking;
 using SimpleJSON;
 
 public class QuestionRequest : MonoBehaviour
 {
+<<<<<<< HEAD
 
+=======
+    Dropdown dropdown;
+>>>>>>> 0677bb891e947b6b86cf9c72d3baac52ea3caec4
     int id;
     
 
     void Start() {
         id = 0;
+<<<<<<< HEAD
     }
+=======
+        dropdown = GetComponent<Dropdown>();
+    }
+
+>>>>>>> 0677bb891e947b6b86cf9c72d3baac52ea3caec4
     void Update() {
         string url = "http://localhost:5000/answers/question/" + id.ToString();
         StartCoroutine(GetQuestions(url));
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 0677bb891e947b6b86cf9c72d3baac52ea3caec4
     private IEnumerator GetQuestions(string url)
     {
         id++;
