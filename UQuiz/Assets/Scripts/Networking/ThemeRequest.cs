@@ -2,41 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using SimpleJSON;
+using UnityEngine.UI;
 
-using Newtonsoft.Json;
-using System.Threading.Tasks;
-
-public class ThemeRequest
+public class ThemeRequest: MonoBehaviour
 {
-    public async Task<Theme> Get(string url) {
+    Dropdown dropdown;
+    string theme;
+    private string test;
+    string[] themesArray;
+    List<string> items;
+    
+    const string url = "http://localhost:5000/themes";
 
-        using var www = UnityWebRequest.Get(url);
-        www.SetRequestHeader("Content-Type", "application/json");
+    void Start() {
+        dropdown = GetComponent<Dropdown>();
+        items = new List<string>();
+        StartCoroutine(GetThemes(url));
+        
+        dropdown.options.Clear();
+        
 
-        var operation = www.SendWebRequest();
+    }
 
-        while (!operation.isDone) {
-            await Task.Yield();
-        }
+    private IEnumerator GetThemes(string url)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            request.SetRequestHeader("Content-Type", "application/json");
 
-        var jsonResponse = www.downloadHandler.text;
+            yield return request.SendWebRequest();
 
-        if (www.result != UnityWebRequest.Result.Success) {
-            Debug.LogError($"Failed: {www.error}");
-        }
-
-        try {
-            List<Theme> result = JsonConvert.DeserializeObject<List<Theme>>(jsonResponse);
-            foreach (Theme theme in result) {
-                Debug.Log($"theme_id: {theme.theme_id},  user_name: {theme.theme_name}");
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(request.error);
             }
+            else
+            {
+                //Debug.Log(request.downloadHandler.text);
 
-            Debug.Log($"Success: {www.downloadHandler.text}");
-            return result[0];
-        } catch (UnityException ex) {
-            Debug.LogError($"{this} could not parse json {jsonResponse}. {ex.Message}");
-            return default;
+                JSONArray itemsData = (JSONArray) JSON.Parse(request.downloadHandler.text);
+                JSONNode themes = itemsData["theme_name"];
+
+                foreach (JSONNode i in itemsData) {
+                    Debug.Log("The generated item is: \nName: " + i["theme_name"]);
+                    items.Add(i["theme_name"]);
+                }
+                foreach (var option in items) {
+                    Debug.Log(option);
+                    dropdown.options.Add(new Dropdown.OptionData() { text = option});
+                }
+                dropdown.value=1;
+            }
         }
-
     }
 }

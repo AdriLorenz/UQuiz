@@ -1,6 +1,6 @@
 // Import express
 const express = require("express");
-const { getAnswers, getCorrectAnswerByQuestion,
+const { getAnswers, returnAnswers, getCorrectAnswerByQuestion,
     getIncorrectAnswer1ByQuestion, getIncorrectAnswer2ByQuestion } = require("../controllers/answers-controller.js");
 const { returnThemes, getThemes } = require("../controllers/themes-controller.js");
 var app = express();
@@ -25,7 +25,7 @@ routerQuestions.get('/questions/data', getQuestions);
 routerQuestions.get('/questions', checkAuthenticated, 
 authRole(2), async (req, res, next) => {
     try {
-        let answers = await getAnswers();
+        let answers = await returnAnswers();
         let questions = await returnQuestions();
         let themes = await returnThemes();
         res.render('../views/questions.ejs', { answers, questions, themes })

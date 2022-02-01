@@ -3,7 +3,7 @@ const Question = require("../models/question.js");
 const Answer = require("../models/answer.js");
  
 // Get all answer
-exports.getAnswers = async (req, res) => {
+exports.returnAnswers = async (req, res) => {
     try {
         const answer = await Answer.findAll({
             include:[{model: Question, required:true}]
@@ -14,7 +14,7 @@ exports.getAnswers = async (req, res) => {
     }
 }
 
-exports.returnAnswers = async (req, res) => {
+exports.getAnswers = async (req, res) => {
     try {
         const answer = await Answer.findAll({
             include:[{model: Question, required:true}]
@@ -47,12 +47,11 @@ exports.getAnswerByQuestion = async(req, res) => {
         const answer = await Answer.findAll({
             where: {
                 question_id_fk: req.params.question_id_fk,
-                answer_points: 10
             },
             include:[{model: Question, required:true}]
         });
         
-        return answer[0];
+        res.send(answer);
     } catch (err) {
         console.log(err);
     }
