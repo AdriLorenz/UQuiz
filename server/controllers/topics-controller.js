@@ -31,34 +31,6 @@ exports.getTopicById = async (req, res) => {
   }
 };
 
-//??????????????????????????????????
-exports.getTopicByQuestion = async (t, req, res) => {
-  try {
-    const topic = await Topic.findAll({
-      where: {
-        topic_id: t,
-      },
-    });
-    res.send(topic[0]);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-// ?????????????????????????????????
-exports.getTopicByThemeId = async (req, res) => {
-  try {
-    const topic = await Topic.findAll({
-      where: {
-        topic_id: req.params.topic_id,
-      },
-    });
-    res.send(topic[0]);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 // Create a new topic
 exports.createTopic = async (req, res) => {
   try {

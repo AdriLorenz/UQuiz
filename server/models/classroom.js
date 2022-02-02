@@ -20,5 +20,12 @@ module.exports = (sequelize, Sequelize) => {
       freezeTableName: true,
     }
   );
+
+  Classroom.associate = (models) => {
+    Classroom.hasMany(models.users, {
+      onDelete: "CASCADE",
+    });
+  };
+
   return Classroom;
 };

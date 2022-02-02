@@ -20,5 +20,13 @@ module.exports = (sequelize, Sequelize) => {
       freezeTableName: true,
     }
   );
+
+  Theme.associate = (models) => {
+    Theme.hasMany(models.topics, {
+      onDelete: "CASCADE",
+      foreignKey: "theme_id_fk",
+    });
+  };
+
   return Theme;
 };

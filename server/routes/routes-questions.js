@@ -1,140 +1,80 @@
-// Import express
-const express = require("express");
-const {
-  getAnswers,
-  returnAnswers,
-  getCorrectAnswerByQuestion,
-  getIncorrectAnswer1ByQuestion,
-  getIncorrectAnswer2ByQuestion,
-} = require("../controllers/answers-controller.js");
-const {
-  returnThemes,
-  getThemes,
-} = require("../controllers/themes-controller.js");
-var app = express();
-const {
-  authUser,
-  authRole,
-  checkNotAuthenticated,
-  checkAuthenticated,
-} = require("../controllers/auth");
+module.exports = (app) => {
+  // Import Controller
+  const answer = require("../controllers/answers-controller");
+  const theme = require("../controllers/themes-controller");
+  const auth = require("../controllers/auth");
+  const questions = require("../controllers/questions-controller");
+  const topic = require("../controllers/topics-controller");
 
-// Import Questions Controller
+  // Init express router
+  const routerQuestions = require("express").Router();
 
-const {
-  createQuestion,
-  deleteQuestion,
-  getQuestionById,
-  getQuestionByTheme,
-  getQuestions,
-  returnQuestions,
-  updateQuestion,
-  createQuestionAndAnswers,
-  updateQuestionAndAnswers,
-  getQuestionByIdEJS,
-  getQuestionsWithAnswers,
-} = require("../controllers/questions-controller.js");
-const {
-  returnTopics,
-  getTopicByQuestion,
-} = require("../controllers/topics-controller.js");
+  routerQuestions.get("/data", questions.getQuestions);
 
-// Init express router
-const routerQuestions = express.Router();
+  //question with topics with themes page
+  routerQuestions.get(
+    "/theme/:theme_id_fk",
+    auth.checkAuthenticated,
+    auth.authRole(2),
+    async (req, res, next) => {
+      try {
+        const questionsWithTopicsWithThemes =
+          await theme.getThemesWithTopicAndQuestions();
 
-routerQuestions.get("/questions/data", getQuestions);
-
-// Route get all questions
-routerQuestions.get("/questions", async (req, res, next) => {
-  try {
-    let answers = await returnAnswers();
-    let questions = await returnQuestions();
-    let themes = await returnThemes();
-    res.render("../views/questions.ejs", { answers, questions, themes });
-  } catch (error) {
-    next(error);
-  }
-});
-
-routerQuestions.get(
-  "/questions/theme/:theme_id_fk",
-  checkAuthenticated,
-  authRole(2),
-  async (req, res, next) => {
-    try {
-      const id = req.params.theme_id_fk;
-      let answers = await getAnswers();
-      let questions = await getQuestions();
-      let themes = await getThemes();
-      let questionsByThemes = await getQuestionByTheme(req, res);
-      res.render("../views/questionsByThemes.ejs", {
-        id,
-        answers,
-        questions,
-        themes,
-        questionsByThemes,
-      });
-    } catch (error) {
-      next(error);
+        res.render("../views/questionsByThemes.ejs", {
+          questionsWithTopicsWithThemes,
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  }
-);
+  );
 
-routerQuestions.get(
-  "/questions/create",
-  checkAuthenticated,
-  authRole(2),
-  async (req, res) => {
-    let themes = await returnThemes();
-    let topics = await returnTopics();
-    res.render("../views/create-question.ejs", { themes, topics });
-  }
-);
+  // create page
+  routerQuestions.get(
+    "/create",
+    auth.checkAuthenticated,
+    auth.authRole(2),
+    async (req, res) => {
+      let themes = await theme.returnThemes();
+      let topics = await topic.returnTopics();
+      res.render("../views/create-question.ejs", { themes, topics });
+    }
+  );
 
-routerQuestions.get(
-  "/questions/edit/:question_id",
-  checkAuthenticated,
-  authRole(2),
-  async (req, res) => {
-    const questionId = req.params.question_id;
-    let questionContent = await getQuestionByIdEJS(questionId);
-    let correctAnswer = await getCorrectAnswerByQuestion(questionId);
-    let incorrectAnswer1 = await getIncorrectAnswer1ByQuestion(questionId);
-    let incorrectAnswer2 = await getIncorrectAnswer2ByQuestion(questionId);
-    let themes = await returnThemes();
-    let topics = await returnTopics();
-    res.render("../views/edit-question.ejs", {
-      question_id: questionId,
-      questionContent,
-      correctAnswer,
-      incorrectAnswer1,
-      incorrectAnswer2,
-      themes,
-      topics,
-    });
-  }
-);
+  // edit page
+  routerQuestions.get(
+    "/edit/:question_id",
+    auth.checkAuthenticated,
+    auth.authRole(2),
+    async (req, res) => {
+      const question = await questions.getAQuestionWithAnswers;
+      res.render("../views/edit-question.ejs", {
+        question,
+      });
+    }
+  );
 
-routerQuestions.delete("/logout", (req, res) => {
-  req.logOut();
-  res.redirect("/login");
-});
-// Route get question by id
-routerQuestions.get("/questions/:question_id", getQuestionById);
-// Route get question by theme
-routerQuestions.get("/questions/theme/:theme_id_fk", getQuestionByTheme);
-// Post page
+  //get questions with answers
+  routerQuestions.get("/WithAnswers", questions.getQuestionsWithAnswers);
+  // Route get question by id
+  routerQuestions.get(
+    "/:question_id",
+    questions.getQuestionWithTopicByIdQuestion
+  );
+  // Route get question by theme
+  routerQuestions.get("/theme/:theme_id_fk", questions.getQuestionByTheme);
 
-// Route create a new question
-routerQuestions.post("/questions", createQuestionAndAnswers);
-routerQuestions.post("/questions/data", createQuestion);
-// Route update question by id
-routerQuestions.put("/questions/edit/:question_id", updateQuestionAndAnswers);
-routerQuestions.put("/questions/data/:question_id", updateQuestion);
-// Route delete question by id
-routerQuestions.delete("/questions/:question_id", deleteQuestion);
+  // Route create a new question
+  routerQuestions.post("/", questions.createQuestionAndAnswers);
+  //routerQuestions.post("/questions/data", questions.createQuestion);
 
-//get questions with answers
-routerQuestions.get("/questionsWithAnswers", getQuestionsWithAnswers);
-// export router
-module.exports = routerQuestions;
+  // Route update question by id
+  routerQuestions.put("/edit/:question_id", questions.updateQuestionAndAnswers);
+  routerQuestions.put("/data/:question_id", questions.updateQuestion);
+
+  // Route delete question by id
+  routerQuestions.delete("/:question_id", questions.deleteQuestion);
+
+  app.use("/questions", routerQuestions);
+};

@@ -24,7 +24,7 @@ exports.returnClassrooms = async (req, res) => {
 exports.getClassroomById = async (req, res) => {
   try {
     const classroom = await Classroom.findbypk(req.params.classroom_id);
-    res.send(classroom[0]);
+    res.send(classroom);
   } catch (err) {
     console.log(err);
   }

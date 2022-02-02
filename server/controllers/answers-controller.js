@@ -4,7 +4,6 @@ const Question = db.questions;
 const Answer = db.answers;
 
 // Get all answer
-//?????????????????????????????????
 exports.returnAnswers = async (req, res) => {
   try {
     const answer = await Answer.findAll({
@@ -15,7 +14,7 @@ exports.returnAnswers = async (req, res) => {
     console.log(err);
   }
 };
-//?????????????????????????????????
+
 exports.getAnswers = async (req, res) => {
   try {
     const answer = await Answer.findAll({
@@ -38,7 +37,7 @@ exports.getAnswerById = async (req, res) => {
 };
 
 // Get answers of a question
-exports.getAnswerByQuestion = async (req, res) => {
+exports.getAnswerOfQuestion = async (req, res) => {
   try {
     const answer = await Answer.findAll({
       where: {
@@ -48,38 +47,6 @@ exports.getAnswerByQuestion = async (req, res) => {
     });
 
     res.send(answer);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-exports.getIncorrectAnswer1ByQuestion = async (t, req, res) => {
-  try {
-    const answer = await Answer.findAll({
-      where: {
-        question_id_fk: t,
-        answer_points: 0,
-      },
-      include: [{ model: Question, required: true }],
-    });
-
-    return answer[0];
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-exports.getIncorrectAnswer2ByQuestion = async (t, req, res) => {
-  try {
-    const answer = await Answer.findAll({
-      where: {
-        question_id_fk: t,
-        answer_points: 0,
-      },
-      include: [{ model: Question, required: true }],
-    });
-
-    return answer[1];
   } catch (err) {
     console.log(err);
   }

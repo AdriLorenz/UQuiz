@@ -131,3 +131,15 @@ exports.deleteUser = async (req, res) => {
     console.log(err);
   }
 };
+// Needs to be tested
+exports.getAUserWithClassroomAndRole = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      where: { user_id: req.params.user_id },
+      include: [db.classrooms, db.roles],
+    });
+    res.send(user);
+  } catch (error) {
+    console.log(error);
+  }
+};

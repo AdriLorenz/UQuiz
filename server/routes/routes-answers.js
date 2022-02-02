@@ -1,28 +1,29 @@
 // Import express
-const express = require("express");
+module.exports = (app) => {
+  // Import Answers Controller
+  const answer = require("../controllers/answers-controller");
 
-// Import Answers Controller
-const { createAnswer, deleteAnswer, 
-    getAnswerById, getAnswerByQuestion, 
-    getAnswers, updateAnswer, returnAnswers } = 
-    require("../controllers/answers-controller.js");
- 
- // Init express router
-const routerAnswers = express.Router();
- 
-// Route get all answers
-routerAnswers.get('/answers', returnAnswers);
-routerAnswers.get('/answers/data', getAnswers);
-// Route get answer by id
-routerAnswers.get('/answers/:answer_id', getAnswerById);
-// Route get answer by theme
-routerAnswers.get('/answers/question/:question_id_fk', getAnswerByQuestion);
-// Route create a new answer
-routerAnswers.post('/answers', createAnswer);
-// Route update answer by id
-routerAnswers.put('/answers/:answer_id', updateAnswer);
-// Route delete answer by id
-routerAnswers.delete('/answers/:answer_id', deleteAnswer);
- 
-// export router
-module.exports = routerAnswers;
+  // Init express router
+  const routerAnswers = require("express").Router();
+
+  // Route get all answers
+  routerAnswers.get("/", answer.returnAnswers);
+  routerAnswers.get("/data", answer.getAnswers);
+
+  // Route get answer by id
+  routerAnswers.get("/:answer_id", answer.getAnswerById);
+
+  // Route get answer by theme
+  routerAnswers.get("/question/:question_id_fk", answer.getAnswerOfQuestion);
+
+  // Route create a new answer
+  routerAnswers.post("/", answer.createAnswer);
+
+  // Route update answer by id
+  routerAnswers.put("/:answer_id", answer.updateAnswer);
+
+  // Route delete answer by id
+  routerAnswers.delete("/:answer_id", answer.deleteAnswer);
+
+  app.use("/answers", routerAnswers);
+};

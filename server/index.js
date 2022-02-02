@@ -4,44 +4,23 @@ if (process.env.NODE_ENV !== "production") {
 
 const flash = require("express-flash");
 const session = require("express-session");
-
+const express = require("express");
+const cors = require("cors");
+const methodOverride = require("method-override");
 const passport = require("passport");
+
 const initializePassport = require("./config/passport-config");
 
-// Import express
-const express = require("express");
-
-// Import cors
-const cors = require("cors");
-
-// Import connection
-const dbConfig = require("./config/database.js");
-
-const methodOverride = require("method-override");
-
-// Import dbModels
 const db = require("./models");
 
 db.sequelize.sync().then(() => {
   console.log("Dropped an resync db");
 });
 
-// Import routers
-const routerUsers = require("./routes/routes-users.js");
-const routerThemes = require("./routes/routes-themes.js");
-const routerQuestions = require("./routes/routes-questions.js");
-const routerAnswers = require("./routes/routes-answers.js");
-const routerTopics = require("./routes/routes-topics.js");
-const routerClassrooms = require("./routes/routes-classrooms.js");
-const routerRoles = require("./routes/routes-roles.js");
-const User = db.users;
-
-const routerGeneral = require("./routes/routes.js");
-
 // Init express
 const app = express();
+
 const WebSocket = require("ws");
-const { data } = require("jquery");
 
 const wss = new WebSocket.Server({ port: 8080 }, () => {
   console.log("server started");
@@ -57,11 +36,8 @@ wss.on("listening", () => {
   console.log("server is listening on port 8080");
 });
 
-// use express json and URLenconded
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-// use cors
 app.use(cors());
 
 // Set view engine to .ejs
@@ -112,25 +88,15 @@ app.delete("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-// Testing database connection
-async (req, res) => {
-  try {
-    await dbConfig.authenticate();
-    console.log("Connection has been established successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-  }
-};
-
 // use router
-app.use(routerUsers);
-app.use(routerThemes);
-app.use(routerQuestions);
-app.use(routerAnswers);
-app.use(routerTopics);
-app.use(routerClassrooms);
-app.use(routerGeneral);
-app.use(routerRoles);
+require("./routes/routes-answers")(app);
+require("./routes/routes-users")(app);
+require("./routes/routes-themes")(app);
+require("./routes/routes-questions")(app);
 
-// listen on port
+require("./routes/routes-topics")(app);
+require("./routes/routes-classrooms")(app);
+require("./routes/routes-roles")(app);
+require("./routes/routes")(app);
+
 app.listen(5000, () => console.log("Server running at http://localhost:5000"));

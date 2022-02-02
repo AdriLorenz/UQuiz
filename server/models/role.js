@@ -20,5 +20,9 @@ module.exports = (sequelize, Sequelize) => {
       freezeTableName: true,
     }
   );
+  Role.associate = (models) => {
+    Role.hasMany(models.users);
+  };
+
   return Role;
 };

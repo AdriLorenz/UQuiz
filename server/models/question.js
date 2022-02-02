@@ -12,6 +12,9 @@ module.exports = (sequelize, Sequelize) => {
       question_content: {
         type: Sequelize.STRING,
       },
+      question_difficulty: {
+        type: Sequelize.INTEGER,
+      },
       topic_id_fk: {
         type: Sequelize.INTEGER,
       },

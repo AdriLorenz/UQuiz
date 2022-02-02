@@ -33,31 +33,15 @@ exports.returnQuestions = async (req, res) => {
 };
 
 // Get question by id
-// name unclear
-exports.getQuestionById = async (req, res) => {
+exports.getQuestionWithTopicByIdQuestion = async (req, res) => {
   try {
-    //const question = await Question.findByPk(req.params.question_id);
-    const question = await Question.findAll({
+    const question = await Question.findOne({
       where: {
         question_id: req.params.question_id,
       },
-      include: [{ model: Topic, required: true }],
+      include: [{ model: db.topics, required: true }],
     });
-    res.send(question[0]);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-exports.getQuestionByIdEJS = async (t, req, res) => {
-  try {
-    const question = await Question.findAll({
-      where: {
-        question_id: t,
-      },
-      include: [{ model: Topic, required: true }],
-    });
-    return question[0];
+    res.send(question);
   } catch (err) {
     console.log(err);
   }
@@ -125,8 +109,7 @@ async function createAnswer(content, status) {
   }
 }
 
-// Update question and answers by id
-// ???????????????????????????????????????????????????
+// Update question and answers by id question
 exports.updateQuestionAndAnswers = async (req, res) => {
   try {
     await Question.update(req.body, {
@@ -188,6 +171,18 @@ exports.updateQuestionAndAnswers = async (req, res) => {
       }
     );
     res.redirect("/questions");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.getAQuestionWithAnswers = async (req, res) => {
+  try {
+    const question = await Question.findOne({
+      where: { question_id: req.params.question_id },
+      include: [db.answers],
+    });
+    res.send(question);
   } catch (err) {
     console.log(err);
   }

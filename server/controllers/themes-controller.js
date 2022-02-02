@@ -11,6 +11,30 @@ exports.getThemes = async (req, res) => {
     console.log(err);
   }
 };
+
+exports.getThemesWithTopicAndQuestions = async (req, res) => {
+  try {
+    const theme = await Theme.findAll({
+      include: [{ model: db.topics, include: { model: db.questions } }],
+    });
+    res.send(theme);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getThemeWithTopics = async (req, res) => {
+  try {
+    const theme = Theme.findOne({
+      where: { topic_id: req.params.topic_id },
+      include: [db.topics],
+    });
+    res.send(theme);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 exports.returnThemes = async (req, res) => {
   try {
     const theme = await Theme.findAll();

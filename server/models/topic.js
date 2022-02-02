@@ -25,6 +25,10 @@ module.exports = (sequelize, Sequelize) => {
 
   // Specify the relationship
   Topic.associate = (models) => {
+    Topic.hasMany(models.questions, {
+      onDelete: "CASCADE",
+      foreignKey: "topic_id_fk",
+    });
     Topic.belongsTo(models.themes, {
       foreignKey: "theme_id_fk",
     });
