@@ -13,9 +13,9 @@ exports.getQuestionsWithAnswers = async (req, res) => {
 };
 
 // Get all question
-exports.getQuestions = async (req, res) => {
+exports.getQuestionsWithTopic = async (req, res) => {
   try {
-    const question = await Question.findAll();
+    const question = await Question.findAll({ include: [db.topics] });
     res.send(question);
   } catch (err) {
     console.log(err);

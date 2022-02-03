@@ -9,7 +9,7 @@ module.exports = (app) => {
   // Init express router
   const routerQuestions = require("express").Router();
 
-  routerQuestions.get("/data", questions.getQuestions);
+  routerQuestions.get("/data", questions.getQuestionsWithTopic);
 
   //question with topics with themes page
   routerQuestions.get(
@@ -67,7 +67,7 @@ module.exports = (app) => {
 
   // Route create a new question
   routerQuestions.post("/", questions.createQuestionAndAnswers);
-  //routerQuestions.post("/questions/data", questions.createQuestion);
+  routerQuestions.post("/data", questions.createQuestion);
 
   // Route update question by id
   routerQuestions.put("/edit/:question_id", questions.updateQuestionAndAnswers);
