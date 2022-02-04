@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="header">
+    <div class="links row">
+      <a href="/themes" class="link2 col-1">Themes</a>
+      <a href="/users" class="link3 col-1">Users</a>
+      <a href="/reports" class="link4 col-1">Reports</a>
+      <div class="col-1">
+        <form action="/logout?_method=DELETE" method="POST">
+          <button class="logout" type="submit">Log Out</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="headerMobile row align-items-start">
+    <div class="col-6">
+      <img class="logo" src="../../../assets/images/UQuiz-logo.png" />
+    </div>
+    <div class="dropdown col-6">
+      <button
+        class="btn"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <img class="menuButton" src="../../../assets/images/menu-button.png" />
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Themes</a>
+        <a class="dropdown-item" href="#">Users</a>
+        <a class="dropdown-item" href="#">Reports</a>
+        <form action="/logout?_method=DELETE" method="POST">
+          <button class="dropdown-item logout" type="submit">Log Out</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

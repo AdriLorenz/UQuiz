@@ -15,8 +15,8 @@ module.exports = (app) => {
   routerThemes.delete("/themes/:theme_id", themes.deleteTheme);
 
   routerThemes.get(
-    "/themesWithTopicsWithQuestions",
-    themes.getThemesWithTopicAndQuestions
+    "/withTopicsWithQuestionsWithAnswers",
+    themes.getThemesWithTopicsWithQuestionsWithAnswers
   );
 
   app.use("/themes", routerThemes);

@@ -12,10 +12,15 @@ exports.getThemes = async (req, res) => {
   }
 };
 
-exports.getThemesWithTopicAndQuestions = async (req, res) => {
+exports.getThemesWithTopicsWithQuestionsWithAnswers = async (req, res) => {
   try {
     const theme = await Theme.findAll({
-      include: [{ model: db.topics, include: { model: db.questions } }],
+      include: [
+        {
+          model: db.topics,
+          include: { model: db.questions, include: [db.answers] },
+        },
+      ],
     });
     res.send(theme);
   } catch (error) {

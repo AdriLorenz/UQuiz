@@ -12,14 +12,19 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { CreateQuestionComponent } from './components/question/create-question/create-question.component';
 import { CreateTopicComponent } from './components/topic/create-topic/create-topic.component';
-import { CreateThemeComponent } from './components/topic/create-theme/create-theme.component';
 import { EditTopicComponent } from './components/topic/edit-topic/edit-topic.component';
-import { EditThemeComponent } from './components/topic/edit-theme/edit-theme.component';
 import { EditQuestionComponent } from './components/question/edit-question/edit-question.component';
 import { DetailQuestionComponent } from './components/question/detail-question/detail-question.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 import { DetailUserComponent } from './components/user/detail-user/detail-user.component';
 import { SingleQuestionComponent } from './components/question/single-question/single-question.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ThemeComponent } from './components/theme/theme.component';
+import { EditThemeComponent } from './components/theme/edit-theme/edit-theme.component';
+import { AddThemeComponent } from './components/theme/add-theme/add-theme.component';
+import { SingleThemeComponent } from './components/theme/single-theme/single-theme.component';
+import { SingleTopicComponent } from './components/topic/single-topic/single-topic.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -31,16 +36,20 @@ import { SingleQuestionComponent } from './components/question/single-question/s
     RegisterComponent,
     CreateQuestionComponent,
     CreateTopicComponent,
-    CreateThemeComponent,
     EditTopicComponent,
-    EditThemeComponent,
     EditQuestionComponent,
     DetailQuestionComponent,
     EditUserComponent,
     DetailUserComponent,
     SingleQuestionComponent,
+    ThemeComponent,
+    EditThemeComponent,
+    AddThemeComponent,
+    SingleThemeComponent,
+    SingleTopicComponent,
+    HeaderComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
   providers: [QuestionService],
   bootstrap: [AppComponent],
 })

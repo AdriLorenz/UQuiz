@@ -1,0 +1,86 @@
+.header {
+  background-color: rgb(49, 49, 49);
+  height: 80px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 769px) {
+  .headerMobile {
+    display: none;
+  }
+}
+
+.headerMobile {
+  background-color: rgb(49, 49, 49);
+  height: 80px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.menuButton:hover {
+  filter: brightness(120%) contrast(80%);
+}
+
+.links {
+  justify-content: right;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  grid-gap: 50px;
+  font-size: 0.6cm;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.logout {
+  border: none;
+  background: none;
+  color: #ffb52e;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+a {
+  cursor: pointer;
+  color: #ffb52e;
+}
+
+a:-webkit-any-link {
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  color: #ffb52e;
+}
+
+@media screen and (max-width: 768px) {
+  a {
+    font-size: 15px;
+  }
+  .header {
+    display: none;
+  }
+  .headerMobile {
+    text-align: end;
+  }
+  .headerMobile > div > button > img {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  .dropdown-item {
+    font-weight: bold;
+  }
+  .headerMobile > div > .logo {
+    width: 150px;
+    margin-top: 10px;
+    margin-right: 70px;
+  }
+}
+
+a:visited {
+  color: none;
+}

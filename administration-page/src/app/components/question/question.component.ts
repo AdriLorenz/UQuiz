@@ -14,6 +14,7 @@ export class QuestionComponent implements OnInit {
 
   constructor(
     private questionService: QuestionService,
+
     private router: Router,
     route: ActivatedRoute
   ) {}
