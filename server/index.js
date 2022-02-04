@@ -8,6 +8,7 @@ const express = require("express");
 const cors = require("cors");
 const methodOverride = require("method-override");
 const passport = require("passport");
+const path = require("path");
 
 const initializePassport = require("./config/passport-config");
 
@@ -19,6 +20,10 @@ db.sequelize.sync().then(() => {
 
 // Init express
 const app = express();
+
+// Function to serve all static files
+// inside public directory.
+app.use(express.static("public"));
 
 const WebSocket = require("ws");
 
@@ -56,9 +61,6 @@ app.use(
 );
 
 app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(express.static(__dirname + "/public"));
 app.use(express.static("public"));
 
 initializePassport(

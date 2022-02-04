@@ -13,6 +13,9 @@ module.exports = (sequelize, Sequelize) => {
       theme_name: {
         type: Sequelize.STRING,
       },
+      theme_img_path: {
+        type: Sequelize.STRING,
+      },
     },
     {
       // Freeze Table Name, turn of timestamps fields
