@@ -24,6 +24,7 @@ module.exports = (sequelize, Sequelize) => {
   Classroom.associate = (models) => {
     Classroom.hasMany(models.users, {
       onDelete: "CASCADE",
+      foreignKey: "classroom_id_fk",
     });
   };
 

@@ -3,21 +3,34 @@ module.exports = (app) => {
 
   const routerThemes = require("express").Router();
 
+  const multer = require("multer");
+  const upload = multer({ dest: "images/themes/", limit: 1000000 });
+
+  // save image then create theme
+  routerThemes.post("/", upload.single("themeImage"), themes.createTheme);
+
+  // get image test theme
+  routerThemes.get("/image/:id", themes.getImageTest);
+
   // Route get all themes
-  routerThemes.get("/themes", themes.getThemes);
+  routerThemes.get("/", themes.getThemes);
   // Route get theme by id
-  routerThemes.get("/themes/:theme_id", themes.getThemeById);
+  routerThemes.get("/:theme_id", themes.getThemeById);
   // Route create a new theme
-  routerThemes.post("/themes", themes.createTheme);
+  //routerThemes.post("/", upload.single("themeImage"), themes.createTheme);
   // Route update theme by id
-  routerThemes.put("/themes/:theme_id", themes.updateTheme);
+  routerThemes.put("/:theme_id", themes.updateTheme);
   // Route delete theme by id
-  routerThemes.delete("/themes/:theme_id", themes.deleteTheme);
+  routerThemes.delete("/:theme_id", themes.deleteTheme);
 
   routerThemes.get(
+<<<<<<< HEAD
     "/withTopicsWithQuestionsWithAnswers",
     themes.getThemesWithTopicsWithQuestionsWithAnswers
+=======
+    "/WithTopicsWithQuestions",
+    themes.getThemesWithTopicAndQuestions
+>>>>>>> e935dd1b02ba9d835816a388be5017dfae074b38
   );
-
   app.use("/themes", routerThemes);
 };

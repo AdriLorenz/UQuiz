@@ -59,10 +59,36 @@ exports.getThemeById = async (req, res) => {
   }
 };
 
+// Save image
+exports.saveImage = async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.file.path);
+};
+
+exports.getImageTest = async (req, res) => {
+  const theme = await Theme.findByPk(req.params.id);
+  const path = theme.theme_img_path;
+
+  res.send(
+    `
+<h1>Welome</h1>
+<img
+src="/images/themes/33ca799fa2299be3fda2a3ac26cc722d"
+style="height:300px;"/>
+<p>some text</p>`
+  );
+};
+
 // Create a new theme
 exports.createTheme = async (req, res) => {
+  console.log(req.file);
+  console.log(req.body);
+
   try {
-    await Theme.create(req.body);
+    await Theme.create({
+      theme_name: req.body.theme_name,
+      theme_img_path: req.file.path,
+    });
     res.json({
       message: "Theme Created",
     });
