@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Question } from 'src/app/models/question';
+import { QuestionWithAnswers } from 'src/app/models/questionWithAnswers';
 
 @Component({
   selector: 'app-single-question',
@@ -7,17 +7,18 @@ import { Question } from 'src/app/models/question';
   styleUrls: ['./single-question.component.css'],
 })
 export class SingleQuestionComponent implements OnInit {
-  @Input() question: Question;
+  @Input() questionWithAnswers: QuestionWithAnswers;
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.question);
+    console.log(this.questionWithAnswers);
   }
 
-  // route to detail-question
+  // redirect to detail-question page
   showDetails() {}
 
-  @Output() questionToDelete: EventEmitter<Question> = new EventEmitter();
+  @Output() questionToDelete: EventEmitter<QuestionWithAnswers> =
+    new EventEmitter();
   handleDelete() {
     this.questionToDelete.emit();
   }

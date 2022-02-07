@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Theme } from 'src/app/models/theme';
 
 @Component({
@@ -9,6 +9,10 @@ import { Theme } from 'src/app/models/theme';
 export class SingleThemeComponent implements OnInit {
   @Input() theme: Theme;
 
+  @Output() themeToDelete: EventEmitter<Theme> = new EventEmitter();
+  handleDelete() {
+    this.themeToDelete.emit();
+  }
   constructor() {}
 
   ngOnInit(): void {}

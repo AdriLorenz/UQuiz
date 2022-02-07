@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Question } from 'src/app/models/question';
+import { QuestionWithAnswers } from 'src/app/models/questionWithAnswers';
 
 @Component({
   selector: 'app-detail-question',
@@ -7,7 +7,7 @@ import { Question } from 'src/app/models/question';
   styleUrls: ['./detail-question.component.css'],
 })
 export class DetailQuestionComponent implements OnInit {
-  @Input() question: Question;
+  @Input() questionWithAnswers: QuestionWithAnswers;
 
   constructor() {}
 
