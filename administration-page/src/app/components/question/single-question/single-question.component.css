@@ -4,3 +4,16 @@
   float: none; /* Added */
   margin-bottom: 10px; /* Added */
 }
+
+input {
+  width: 30px;
+}
+
+.crud {
+  margin-top: 12px;
+}
+
+.delete {
+  justify-content: end;
+  text-align: right;
+}
