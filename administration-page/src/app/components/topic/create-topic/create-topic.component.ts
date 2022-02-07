@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Topic } from 'src/app/models/topic';
+import { TopicService } from 'src/app/services/topic.service';
 
 @Component({
   selector: 'app-create-topic',
