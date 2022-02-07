@@ -5,6 +5,10 @@
   *ngFor="let question of questions"
 >
   <div class="col-12 col-md-12">
-    <app-single-question [question]="question"></app-single-question>
+    <app-single-question
+      [question]="question"
+      (questionToDelete)="deleteQuestion(question)"
+      questionToUpdate="updateQuestion(question)"
+    ></app-single-question>
   </div>
 </div>

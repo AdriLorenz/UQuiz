@@ -59,35 +59,33 @@ exports.getThemeById = async (req, res) => {
   }
 };
 
-// Save image
-exports.saveImage = async (req, res, next) => {
-  console.log(req.body);
-  console.log(req.file.path);
-};
-
 exports.getImageTest = async (req, res) => {
-  const theme = await Theme.findByPk(req.params.id);
-  const path = theme.theme_img_path;
+  try {
+    const theme = await Theme.findByPk(req.params.id);
 
-  res.send(
-    `
-<h1>Welome</h1>
-<img
-src="/images/themes/33ca799fa2299be3fda2a3ac26cc722d"
-style="height:300px;"/>
-<p>some text</p>`
-  );
+    const chemin = theme.theme_img_path;
+
+    res.send(
+      `
+  <h1>Welome</h1>
+  <img
+  src="${chemin}"
+  style="height:300px;"/>
+  <p>some text</p>`
+    );
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // Create a new theme
 exports.createTheme = async (req, res) => {
-  console.log(req.file);
-  console.log(req.body);
+  const themeImagesDir = "\\images\\themes\\";
 
   try {
     await Theme.create({
       theme_name: req.body.theme_name,
-      theme_img_path: req.file.path,
+      theme_img_path: themeImagesDir + req.file.filename,
     });
     res.json({
       message: "Theme Created",

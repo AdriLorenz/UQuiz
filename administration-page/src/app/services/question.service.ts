@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { QuestionWithAnswers } from '../models/questionWithAnswers';
 import { Question } from '../models/question';
-import { Theme } from '../models/theme';
-import { Topic } from '../models/topic';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -23,20 +22,33 @@ export class QuestionService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getQuestions(): Observable<Question[]> {
-    return this.httpClient.get<Question[]>(this.endpoint + '/data');
+  getQuestionsWithAnswers(): Observable<QuestionWithAnswers[]> {
+    return this.httpClient.get<QuestionWithAnswers[]>(this.endpoint + '/data');
   }
 
-  getQuestionById(id: number): Observable<Question> {
-    return this.httpClient.get<Question>(this.endpoint + '/' + id);
+  getQuestionWithAnswersById(id: number): Observable<QuestionWithAnswers> {
+    return this.httpClient.get<QuestionWithAnswers>(this.endpoint + '/' + id);
   }
 
-  // createQuestion(): any {
+  createQuestionWithAnswers(
+    newQuestion: QuestionWithAnswers
+  ): Observable<QuestionWithAnswers> {
+    return this.httpClient.post<QuestionWithAnswers>(
+      this.endpoint + '/',
+      newQuestion
+    );
+  }
 
-  //   return this.httpClient.post(
-  //     this.endpoint + '/data',
-  //     question.$question_id,
-  //     httpOptionsUsingUrlEncoded
-  //   );
-  // }
+  deleteQuestionWithAnswers(id: number): Observable<any> {
+    return this.httpClient.delete<QuestionWithAnswers>(
+      this.endpoint + '/' + id
+    );
+  }
+
+  editQuestionWithAnswers(updatedQuestionWithAnswers: QuestionWithAnswers) {
+    return this.httpClient.put(
+      this.endpoint + '/edit/' + updatedQuestionWithAnswers.question_id,
+      updatedQuestionWithAnswers
+    );
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Question } from 'src/app/models/question';
 
 @Component({
@@ -12,5 +12,13 @@ export class SingleQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.question);
+  }
+
+  // route to detail-question
+  showDetails() {}
+
+  @Output() questionToDelete: EventEmitter<Question> = new EventEmitter();
+  handleDelete() {
+    this.questionToDelete.emit();
   }
 }

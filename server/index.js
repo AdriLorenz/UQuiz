@@ -101,4 +101,6 @@ require("./routes/routes-classrooms")(app);
 require("./routes/routes-roles")(app);
 require("./routes/routes")(app);
 
-app.listen(5000, () => console.log("Server running at http://localhost:5000"));
+app.listen(5000, () =>
+  console.log("Server running at http://localhost:5000", " ", global.appRoot)
+);

@@ -4,7 +4,7 @@ module.exports = (app) => {
   const routerThemes = require("express").Router();
 
   const multer = require("multer");
-  const upload = multer({ dest: "images/themes/", limit: 1000000 });
+  const upload = multer({ dest: "public/images/themes/" });
 
   // save image then create theme
   routerThemes.post("/", upload.single("themeImage"), themes.createTheme);
@@ -24,13 +24,8 @@ module.exports = (app) => {
   routerThemes.delete("/:theme_id", themes.deleteTheme);
 
   routerThemes.get(
-<<<<<<< HEAD
     "/withTopicsWithQuestionsWithAnswers",
     themes.getThemesWithTopicsWithQuestionsWithAnswers
-=======
-    "/WithTopicsWithQuestions",
-    themes.getThemesWithTopicAndQuestions
->>>>>>> e935dd1b02ba9d835816a388be5017dfae074b38
   );
   app.use("/themes", routerThemes);
 };
