@@ -18,16 +18,6 @@ export class QuestionComponent implements OnInit {
     route: ActivatedRoute
   ) {}
 
-  createQuestion(questionWithAnswers: QuestionWithAnswers) {
-    try {
-      this.questionService.createQuestionWithAnswers(questionWithAnswers);
-      // display success popup
-    } catch (err) {
-      console.log(err);
-      // display error message
-    }
-  }
-
   deleteQuestion(questionWithAnswers: QuestionWithAnswers) {
     try {
       this.questionService.deleteQuestionWithAnswers(
@@ -37,16 +27,6 @@ export class QuestionComponent implements OnInit {
     } catch (err) {
       console.log(err);
       // display error popup
-    }
-  }
-
-  editQuestion(questionWithAnswers: QuestionWithAnswers) {
-    try {
-      this.questionService.editQuestionWithAnswers(questionWithAnswers);
-      // display success popup
-    } catch (error) {
-      console.log(error);
-      //display error popup
     }
   }
 
