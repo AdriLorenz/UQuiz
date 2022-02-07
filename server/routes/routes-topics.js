@@ -4,13 +4,15 @@ module.exports = (app) => {
   const routerTopics = require("express").Router();
 
   // Route get all topics
-  routerTopics.get("/topics", topic.getTopics);
+  routerTopics.get("/", topic.getTopics);
   // Route get topic by id
-  routerTopics.get("/topics/:topic_id", topic.getTopicById);
+  routerTopics.get("/:topic_id", topic.getTopicById);
   // Route create a new topic
-  routerTopics.post("/topics", topic.createTopic);
+  routerTopics.post("/", topic.createTopic);
   // Route update topic by id
-  routerTopics.put("/topics/:topic_id", topic.updateTopic);
+  routerTopics.put("/:topic_id", topic.updateTopic);
   // Route delete topic by id
-  routerTopics.delete("/topics/:topic_id", topic.deleteTopic);
+  routerTopics.delete("/:topic_id", topic.deleteTopic);
+
+  app.use("/topics", routerTopics);
 };

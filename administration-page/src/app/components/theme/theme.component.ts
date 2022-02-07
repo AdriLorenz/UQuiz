@@ -13,10 +13,18 @@ export class ThemeComponent implements OnInit {
   constructor(private themeService: ThemeService) {}
 
   ngOnInit(): void {
-    this.themeService
-      .getThemesWithTopicWithQuestionsWithAnswers()
-      .subscribe((data) => {
-        this.themes = data;
-      });
+    this.themeService.getThemes().subscribe((data) => {
+      this.themes = data;
+    });
+  }
+
+  deleteTheme(themeToDelete: Theme) {
+    try {
+      this.themeService.deleteTheme(themeToDelete.theme_id);
+      // display success message
+    } catch (error) {
+      console.log(error);
+      // display error message
+    }
   }
 }

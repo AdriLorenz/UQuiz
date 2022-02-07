@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Question } from 'src/app/models/question';
+import { QuestionWithAnswers } from 'src/app/models/questionWithAnswers';
 import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
@@ -9,8 +9,7 @@ import { QuestionService } from 'src/app/services/question.service';
   styleUrls: ['./question.component.css'],
 })
 export class QuestionComponent implements OnInit {
-  public questions: Array<Question> = [];
-  public myQuestion: Question;
+  public questionsWithAnswers: Array<QuestionWithAnswers> = [];
 
   constructor(
     private questionService: QuestionService,
@@ -19,9 +18,9 @@ export class QuestionComponent implements OnInit {
     route: ActivatedRoute
   ) {}
 
-  createQuestion(questionData: any) {
+  createQuestion(questionWithAnswers: QuestionWithAnswers) {
     try {
-      this.questionService.createQuestion(questionData);
+      this.questionService.createQuestionWithAnswers(questionWithAnswers);
       // display success popup
     } catch (err) {
       console.log(err);
@@ -29,9 +28,11 @@ export class QuestionComponent implements OnInit {
     }
   }
 
-  deleteQuestion(question: Question) {
+  deleteQuestion(questionWithAnswers: QuestionWithAnswers) {
     try {
-      this.questionService.deleteQuestion(question.question_id);
+      this.questionService.deleteQuestionWithAnswers(
+        questionWithAnswers.question_id
+      );
       // display success popup
     } catch (err) {
       console.log(err);
@@ -39,9 +40,9 @@ export class QuestionComponent implements OnInit {
     }
   }
 
-  editQuestion(question: Question) {
+  editQuestion(questionWithAnswers: QuestionWithAnswers) {
     try {
-      this.questionService.editQuestion(question);
+      this.questionService.editQuestionWithAnswers(questionWithAnswers);
       // display success popup
     } catch (error) {
       console.log(error);
@@ -50,10 +51,10 @@ export class QuestionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.questionService.getQuestions().subscribe((data) => {
+    this.questionService.getQuestionsWithAnswers().subscribe((data) => {
       {
-        this.questions = data;
-        console.log(this.questions);
+        this.questionsWithAnswers = data;
+        console.log(this.questionsWithAnswers);
       }
     });
   }

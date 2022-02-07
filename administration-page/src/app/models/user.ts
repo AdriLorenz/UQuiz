@@ -1,5 +1,3 @@
-import { Role } from './role';
-
 export class User {
   constructor(
     $id: number,
@@ -9,8 +7,7 @@ export class User {
     $user_score: number,
     $user_games_played: number,
     $classroom_id_fk: number,
-    $role_id_fk: number,
-    $role: Role
+    $role_id_fk: number
   ) {
     this.id = $id;
     this.user_name = $user_name;
@@ -20,7 +17,6 @@ export class User {
     this.user_games_played = $user_games_played;
     this.classroom_id_fk = $classroom_id_fk;
     this.role_id_fk = $role_id_fk;
-    this.role = $role;
   }
   public id: number;
   public user_name: string;
@@ -30,5 +26,4 @@ export class User {
   public user_games_played: number;
   public classroom_id_fk: number;
   public role_id_fk: number;
-  public role: Role;
 }
