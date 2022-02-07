@@ -26,6 +26,8 @@ import { SingleThemeComponent } from './components/theme/single-theme/single-the
 import { SingleTopicComponent } from './components/topic/single-topic/single-topic.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CreateQuestionButtonComponent } from './components/question/create-question-button/create-question-button.component';
+import { CreateTopicButtonComponent } from './components/topic/create-topic-button/create-topic-button.component';
+import { CreateThemeButtonComponent } from './components/theme/create-theme-button/create-theme-button.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { CreateQuestionButtonComponent } from './components/question/create-ques
     SingleTopicComponent,
     HeaderComponent,
     CreateQuestionButtonComponent,
+    CreateTopicButtonComponent,
+    CreateThemeButtonComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
   providers: [QuestionService],
