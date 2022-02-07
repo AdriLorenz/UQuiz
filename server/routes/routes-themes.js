@@ -4,7 +4,7 @@ module.exports = (app) => {
   const routerThemes = require("express").Router();
 
   const multer = require("multer");
-  const upload = multer({ dest: "images/themes/", limit: 1000000 });
+  const upload = multer({ dest: "public/images/themes/" });
 
   // save image then create theme
   routerThemes.post("/", upload.single("themeImage"), themes.createTheme);

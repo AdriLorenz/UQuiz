@@ -26,4 +26,23 @@ export class ThemeService {
       this.endpoint + '/withTopicsWithQuestionsWithAnswers'
     );
   }
+
+  getThemes(): Observable<Theme[]> {
+    return this.httpClient.get<Theme[]>(this.endpoint);
+  }
+
+  createTheme(newThemeData: Theme): Observable<any> {
+    return this.httpClient.post(this.endpoint, newThemeData);
+  }
+
+  deleteTheme(id: number): Observable<any> {
+    return this.httpClient.delete(this.endpoint + '/' + id);
+  }
+
+  updateTheme(updatedTheme: Theme): Observable<any> {
+    return this.httpClient.put(
+      this.endpoint + '/' + updatedTheme.theme_id,
+      updatedTheme
+    );
+  }
 }

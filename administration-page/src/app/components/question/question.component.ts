@@ -19,21 +19,42 @@ export class QuestionComponent implements OnInit {
     route: ActivatedRoute
   ) {}
 
+  createQuestion(questionData: any) {
+    try {
+      this.questionService.createQuestion(questionData);
+      // display success popup
+    } catch (err) {
+      console.log(err);
+      // display error message
+    }
+  }
+
+  deleteQuestion(question: Question) {
+    try {
+      this.questionService.deleteQuestion(question.question_id);
+      // display success popup
+    } catch (err) {
+      console.log(err);
+      // display error popup
+    }
+  }
+
+  editQuestion(question: Question) {
+    try {
+      this.questionService.editQuestion(question);
+      // display success popup
+    } catch (error) {
+      console.log(error);
+      //display error popup
+    }
+  }
+
   ngOnInit(): void {
     this.questionService.getQuestions().subscribe((data) => {
       {
         this.questions = data;
         console.log(this.questions);
       }
-
-      this.questionService.getQuestionById(1).subscribe((data) => {
-        this.myQuestion = data;
-        console.log(this.myQuestion);
-      });
-
-      // this.questionService.createQuestion().subscribe((data: any) => {
-      //   console.log(data);
-      // });
     });
   }
 }
