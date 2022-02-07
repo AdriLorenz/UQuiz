@@ -1,15 +1,19 @@
 <div class="container desktop">
   <div class="row">
-    <div class="col-6" *ngFor="let question of questions">
-      <app-single-question [question]="question"></app-single-question>
+    <div class="col-6" *ngFor="let question of questionsWithAnswers">
+      <app-single-question
+        [questionWithAnswers]="question"
+      ></app-single-question>
     </div>
   </div>
 </div>
 
 <div class="container mobile">
-  <div class="row" *ngFor="let question of questions">
+  <div class="row" *ngFor="let question of questionsWithAnswers">
     <div class="col-16">
-      <app-single-question [question]="question"></app-single-question>
+      <app-single-question
+        [questionWithAnswers]="question"
+      ></app-single-question>
     </div>
   </div>
 </div>
