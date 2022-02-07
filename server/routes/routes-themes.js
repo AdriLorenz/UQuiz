@@ -24,13 +24,8 @@ module.exports = (app) => {
   routerThemes.delete("/:theme_id", themes.deleteTheme);
 
   routerThemes.get(
-<<<<<<< HEAD
     "/withTopicsWithQuestionsWithAnswers",
     themes.getThemesWithTopicsWithQuestionsWithAnswers
-=======
-    "/WithTopicsWithQuestions",
-    themes.getThemesWithTopicAndQuestions
->>>>>>> e935dd1b02ba9d835816a388be5017dfae074b38
   );
   app.use("/themes", routerThemes);
 };
