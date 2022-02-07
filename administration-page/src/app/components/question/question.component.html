@@ -2,12 +2,12 @@
 
 <div
   class="col-lg-4 border-bottom border-end my-2 text-center row"
-  *ngFor="let question of questions"
+  *ngFor="let questionWithAnswers of questionsWithAnswers"
 >
   <div class="col-12 col-md-12">
     <app-single-question
-      [question]="question"
-      (questionToDelete)="deleteQuestion(question)"
+      [questionWithAnswers]="questionWithAnswers"
+      (questionToDelete)="deleteQuestion(questionWithAnswers)"
       questionToUpdate="updateQuestion(question)"
     ></app-single-question>
   </div>
