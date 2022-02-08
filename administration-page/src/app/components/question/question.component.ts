@@ -18,10 +18,15 @@ export class QuestionComponent implements OnInit {
     route: ActivatedRoute
   ) {}
 
-  deleteQuestion(questionWithAnswers: QuestionWithAnswers) {
+  deleteQuestion(questionToDelete: QuestionWithAnswers) {
     try {
-      this.questionService.deleteQuestionWithAnswers(
-        questionWithAnswers.question_id
+      this.questionService
+        .deleteQuestionWithAnswers(questionToDelete.question_id)
+        .subscribe((res) => console.log(res));
+
+      this.questionsWithAnswers.splice(
+        this.questionsWithAnswers.indexOf(questionToDelete),
+        1
       );
       // display success popup
     } catch (err) {
@@ -34,7 +39,6 @@ export class QuestionComponent implements OnInit {
     this.questionService.getQuestionsWithAnswers().subscribe((data) => {
       {
         this.questionsWithAnswers = data;
-        console.log(this.questionsWithAnswers);
       }
     });
   }

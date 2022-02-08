@@ -1,1 +1,18 @@
-<p>single-topic works!</p>
+<div class="card" style="width: 15rem">
+  <div class="card-body">
+    <a class="card-title text-center">
+      <h5>{{ topic.topic_name }}</h5>
+    </a>
+  </div>
+  <div class="row crud">
+    <div class="col-4 test">
+      <input type="image" src="../../../../assets/images/edit.png" />
+    </div>
+    <div class="col-4">
+      <p class="card-text"></p>
+    </div>
+    <div (click)="handleDelete()" class="col-4 delete">
+      <input type="image" src="../../../../assets/images/trash-can.png" />
+    </div>
+  </div>
+</div>

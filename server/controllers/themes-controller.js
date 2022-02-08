@@ -5,7 +5,7 @@ const Theme = db.themes;
 // Get all theme
 exports.getThemes = async (req, res) => {
   try {
-    const theme = await Theme.findAll();
+    const theme = await Theme.findAll({ include: [db.topics] });
     res.send(theme);
   } catch (err) {
     console.log(err);
@@ -28,12 +28,13 @@ exports.getThemesWithTopicsWithQuestionsWithAnswers = async (req, res) => {
   }
 };
 
-exports.getThemeWithTopics = async (req, res) => {
+exports.getOneThemeWithTopics = async (req, res) => {
   try {
-    const theme = Theme.findOne({
-      where: { topic_id: req.params.topic_id },
+    const theme = await Theme.findOne({
+      where: { theme_name: req.params.theme_name },
       include: [db.topics],
     });
+    console.log(theme);
     res.send(theme);
   } catch (error) {
     console.log(error);

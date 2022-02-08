@@ -3,6 +3,7 @@
     <div class="col-6" *ngFor="let question of questionsWithAnswers">
       <app-single-question
         [questionWithAnswers]="question"
+        (questionToDelete)="deleteQuestion(question)"
       ></app-single-question>
     </div>
   </div>

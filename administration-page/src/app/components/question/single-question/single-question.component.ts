@@ -8,6 +8,7 @@ import { QuestionWithAnswers } from 'src/app/models/questionWithAnswers';
 })
 export class SingleQuestionComponent implements OnInit {
   @Input() questionWithAnswers: QuestionWithAnswers;
+
   constructor() {}
 
   ngOnInit(): void {

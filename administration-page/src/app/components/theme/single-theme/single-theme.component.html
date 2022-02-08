@@ -1,5 +1,27 @@
 <div class="card" style="width: 15rem">
+  <img
+    class="card-img-top"
+    src="{{ this.serverLocation + theme.theme_img_path }}"
+    alt="Card image cap"
+    routerLink="/themes/{{ theme.theme_name }}/topics"
+  />
   <div class="card-body">
-    <h5 class="card-title">{{ theme.theme_name }}</h5>
+    <a
+      routerLink="/themes/{{ theme.theme_name }}/topics"
+      class="card-title text-center"
+    >
+      <h5>{{ theme.theme_name }}</h5>
+    </a>
+  </div>
+  <div class="row crud">
+    <div class="col-4 test">
+      <input type="image" src="../../../../assets/images/edit.png" />
+    </div>
+    <div class="col-4">
+      <p class="card-text"></p>
+    </div>
+    <div (click)="handleDelete()" class="col-4 delete">
+      <input type="image" src="../../../../assets/images/trash-can.png" />
+    </div>
   </div>
 </div>

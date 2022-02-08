@@ -73,4 +73,22 @@ exports.deleteTopic = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+
+  // exports.getTopicsOfTheme = async (req, res) => {
+  //   try {
+  //     themeReceived = await theme.findOne({
+  //       where: { theme_name: req.body.theme_name },
+  //     });
+
+  //     const topic = await Topic.findAll({
+  //       where: {
+  //         theme_id_fk: themeReceived.theme_id,
+  //       },
+  //     });
+
+  //     res.send(topic);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 };

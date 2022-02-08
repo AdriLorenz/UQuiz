@@ -1,5 +1,5 @@
 import { Topic } from './../../../models/topic';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-single-topic',
@@ -8,6 +8,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SingleTopicComponent implements OnInit {
   @Input() topic: Topic;
+
+  @Output() topicToDelete: EventEmitter<Topic> = new EventEmitter();
+  handleDelete() {
+    this.topicToDelete.emit();
+  }
 
   constructor() {}
 

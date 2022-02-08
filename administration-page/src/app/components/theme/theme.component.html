@@ -1,3 +1,25 @@
-<div *ngFor="let theme of themes">
-  <app-single-theme [theme]="theme"></app-single-theme>
+<div class="container desktop">
+  <div class="row">
+    <div class="col-4" *ngFor="let theme of themes">
+      <div class="margins">
+        <app-single-theme
+          [theme]="theme"
+          (themeToDelete)="deleteTheme(theme)"
+          (themeToUpdate)="updateTheme(theme)"
+        ></app-single-theme>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mobile">
+  <div class="row" *ngFor="let theme of themes">
+    <div class="col-12">
+      <app-single-theme
+        [theme]="theme"
+        (themeToDelete)="deleteTheme(theme)"
+        (themeToUpdate)="updateTheme(theme)"
+      ></app-single-theme>
+    </div>
+  </div>
 </div>

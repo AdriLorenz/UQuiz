@@ -29,6 +29,21 @@ import { CreateQuestionButtonComponent } from './components/question/create-ques
 import { CreateTopicButtonComponent } from './components/topic/create-topic-button/create-topic-button.component';
 import { CreateThemeButtonComponent } from './components/theme/create-theme-button/create-theme-button.component';
 
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: RegisterComponent },
+  { path: 'themes/:theme_name/topics', component: TopicComponent },
+  { path: 'themes', component: ThemeComponent },
+  // {path:"", component:},
+  // {path:"", component:},
+  // {path:"", component:},
+  // {path:"", component:},
+  // {path:"", component:},
+  // {path:"", component:},
+  //{path:"**", component: NotFoundComponent},
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +70,13 @@ import { CreateThemeButtonComponent } from './components/theme/create-theme-butt
     CreateTopicButtonComponent,
     CreateThemeButtonComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NgbModule,
+    RouterModule.forRoot(appRoutes),
+  ],
   providers: [QuestionService],
   bootstrap: [AppComponent],
 })

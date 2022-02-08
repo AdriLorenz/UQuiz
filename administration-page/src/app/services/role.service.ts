@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Classroom } from '../models/classroom';
+import { Role } from '../models/role';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -16,27 +16,27 @@ const httpOptionsUsingUrlEncoded = {
 @Injectable({
   providedIn: 'root',
 })
-export class ClassroomService {
-  endpoint: string = 'http://localhost:5000/classrooms';
+export class RoleService {
+  endpoint: string = 'http://localhost:5000/roles';
 
   constructor(private httpClient: HttpClient) {}
 
-  getClassrooms(): Observable<Classroom[]> {
-    return this.httpClient.get<Classroom[]>(this.endpoint);
+  getRoles(): Observable<Role[]> {
+    return this.httpClient.get<Role[]>(this.endpoint);
   }
 
-  createClassroom(newClassroomData: Classroom): Observable<any> {
-    return this.httpClient.post(this.endpoint, newClassroomData);
+  createRole(newThemeData: Role): Observable<any> {
+    return this.httpClient.post(this.endpoint, newThemeData);
   }
 
-  deleteClassroom(id: number): Observable<any> {
+  deleteRole(id: number): Observable<any> {
     return this.httpClient.delete(this.endpoint + '/' + id);
   }
 
-  updateClassroom(updatedClassroom: Classroom): Observable<any> {
+  updateRole(updatedRole: Role): Observable<any> {
     return this.httpClient.put(
-      this.endpoint + '/' + updatedClassroom.classroom_id,
-      updatedClassroom
+      this.endpoint + '/' + updatedRole.role_id,
+      updatedRole
     );
   }
 }

@@ -5,6 +5,9 @@ module.exports = (app) => {
 
   // Route get all topics
   routerTopics.get("/", topic.getTopics);
+
+  // Route to get topics of a theme name
+  // routerTopics.get("/ofTheme/:theme_name", topic.getTopicsOfTheme);
   // Route get topic by id
   routerTopics.get("/:topic_id", topic.getTopicById);
   // Route create a new topic

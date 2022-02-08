@@ -90,7 +90,9 @@
     <div class="col-6">
       <div class="options">
         <select name="role_id_fk" id="role_id_fk">
-          <option>Pepe</option>
+          <option *ngFor="let role of roles" value="{{ role.role_id }}">
+            {{ role.role_name }}
+          </option>
         </select>
       </div>
     </div>
@@ -103,7 +105,12 @@
     <div class="col-6">
       <div class="options">
         <select name="classroom_id_fk" id="classroom_id_fk">
-          <option>Pepe</option>
+          <option
+            *ngFor="let classroom of classrooms"
+            value="{{ classroom.classroom_id }}"
+          >
+            {{ classroom.classroom_name }}
+          </option>
         </select>
       </div>
     </div>

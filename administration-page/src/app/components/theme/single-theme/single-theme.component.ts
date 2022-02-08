@@ -9,11 +9,15 @@ import { Theme } from 'src/app/models/theme';
 export class SingleThemeComponent implements OnInit {
   @Input() theme: Theme;
 
+  public serverLocation: string;
+
   @Output() themeToDelete: EventEmitter<Theme> = new EventEmitter();
   handleDelete() {
     this.themeToDelete.emit();
   }
-  constructor() {}
+  constructor() {
+    this.serverLocation = 'http://localhost:5000';
+  }
 
   ngOnInit(): void {}
 }
