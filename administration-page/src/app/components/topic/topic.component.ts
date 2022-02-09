@@ -1,6 +1,9 @@
 import { Topic } from './../../models/topic';
 import { Component, OnInit } from '@angular/core';
 import { TopicService } from 'src/app/services/topic.service';
+import { ActivatedRoute } from '@angular/router';
+import { ThemeService } from 'src/app/services/theme.service';
+import { ThemeWithTopics } from 'src/app/models/themeWithTopics';
 
 @Component({
   selector: 'app-topic',
@@ -8,13 +11,24 @@ import { TopicService } from 'src/app/services/topic.service';
   styleUrls: ['./topic.component.css'],
 })
 export class TopicComponent implements OnInit {
-  topics: Topic[];
+  public themeName: string;
 
-  constructor(private topicService: TopicService) {}
+  themeWithTopics: ThemeWithTopics;
+
+  constructor(
+    private themeService: ThemeService,
+    private topicService: TopicService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.topicService.getTopics().subscribe((data) => {
-      this.topics = data;
+    this.route.paramMap.subscribe(
+      (params) => (this.themeName = params.get('theme_name') || '')
+    );
+
+    this.themeService.getTopicsByThemeName(this.themeName).subscribe((data) => {
+      this.themeWithTopics = data;
+      console.log(this.themeWithTopics.topics);
     });
   }
 

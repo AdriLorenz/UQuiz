@@ -206,6 +206,7 @@ exports.updateQuestion = async (req, res) => {
 // Delete question by id
 exports.deleteQuestion = async (req, res) => {
   try {
+    console.log(req.params.question_id);
     await Question.destroy({
       where: {
         question_id: req.params.question_id,

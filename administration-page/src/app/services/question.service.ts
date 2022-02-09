@@ -23,7 +23,9 @@ export class QuestionService {
   constructor(private httpClient: HttpClient) {}
 
   getQuestionsWithAnswers(): Observable<QuestionWithAnswers[]> {
-    return this.httpClient.get<QuestionWithAnswers[]>(this.endpoint + '/data');
+    return this.httpClient.get<QuestionWithAnswers[]>(
+      this.endpoint + '/WithAnswers'
+    );
   }
 
   getQuestionWithAnswersById(id: number): Observable<QuestionWithAnswers> {
@@ -39,10 +41,9 @@ export class QuestionService {
     );
   }
 
-  deleteQuestionWithAnswers(id: number): Observable<any> {
-    return this.httpClient.delete<QuestionWithAnswers>(
-      this.endpoint + '/' + id
-    );
+  deleteQuestionWithAnswers(id: number) {
+    console.log(id);
+    return this.httpClient.delete(this.endpoint + '/' + id);
   }
 
   editQuestionWithAnswers(updatedQuestionWithAnswers: QuestionWithAnswers) {

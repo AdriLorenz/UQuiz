@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Theme } from '../models/theme';
+import { ThemeWithTopics } from '../models/themeWithTopics';
+import { Topic } from '../models/topic';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -24,6 +26,12 @@ export class ThemeService {
   getThemesWithTopicWithQuestionsWithAnswers(): Observable<Theme[]> {
     return this.httpClient.get<Theme[]>(
       this.endpoint + '/withTopicsWithQuestionsWithAnswers'
+    );
+  }
+
+  getTopicsByThemeName(theme_name: string): Observable<ThemeWithTopics> {
+    return this.httpClient.get<ThemeWithTopics>(
+      this.endpoint + '/' + theme_name + '/topics'
     );
   }
 

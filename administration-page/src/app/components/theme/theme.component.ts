@@ -20,11 +20,25 @@ export class ThemeComponent implements OnInit {
 
   deleteTheme(themeToDelete: Theme) {
     try {
-      this.themeService.deleteTheme(themeToDelete.theme_id);
+      // delete in db
+      this.themeService
+        .deleteTheme(themeToDelete.theme_id)
+        .subscribe((res) => console.log(res));
+
+      // delete in local array
+      this.themes.splice(this.themes.indexOf(themeToDelete), 1);
+
       // display success message
     } catch (error) {
       console.log(error);
       // display error message
+    }
+  }
+  updateTheme(themeToUpdate: Theme) {
+    try {
+      this.themeService.updateTheme(themeToUpdate);
+    } catch (error) {
+      console.log(error);
     }
   }
 }

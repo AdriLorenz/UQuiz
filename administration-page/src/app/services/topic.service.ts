@@ -11,7 +11,7 @@ export class TopicService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getTopics(): Observable<Topic[]> {
+  getTopicsOfTheme(): Observable<Topic[]> {
     return this.httpClient.get<Topic[]>(this.endpoint);
   }
 

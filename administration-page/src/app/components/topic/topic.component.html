@@ -1,1 +1,33 @@
-<p>topic works!</p>
+<div class="container desktop">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{ themeWithTopics.theme_name }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4" *ngFor="let topic of themeWithTopics.topics">
+      <div class="margins">
+        <app-single-topic
+          [topic]="topic"
+          (topicToDelete)="deleteTopic(topic)"
+        ></app-single-topic>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mobile">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{ themeWithTopics.theme_name }}</h1>
+    </div>
+  </div>
+  <div class="row" *ngFor="let topic of themeWithTopics.topics">
+    <div class="col-12">
+      <app-single-topic
+        [topic]="topic"
+        (topicToDelete)="deleteTopic(topic)"
+      ></app-single-topic>
+    </div>
+  </div>
+</div>

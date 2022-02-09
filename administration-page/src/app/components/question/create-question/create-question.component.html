@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="content">
+  <div class="contentMobile">
     <div class="questionContent">
       <div class="row">
         <div class="col-4">
@@ -10,6 +10,8 @@
         </div>
       </div>
     </div>
+
+    <br /><br />
 
     <div class="correctAnswer">
       <div class="row">
@@ -22,16 +24,87 @@
       </div>
     </div>
 
+    <br /><br />
+
     <div class="wrongAnswer1">
-      <label name="wrongAnswer1">Wrong Answer 1: </label>
-      <input name="wrongAnswer1" type="text" autocomplete="off" />
+      <div class="row">
+        <div class="col-4">
+          <label name="wrongAnswer1">Wrong Answer 1: </label>
+        </div>
+        <div class="col-8">
+          <input name="wrongAnswer1" type="text" autocomplete="off" />
+        </div>
+      </div>
     </div>
+
+    <br /><br />
 
     <div class="wrongAnswer2">
-      <label name="wrongAnswer2">Wrong Answer 2: </label>
-      <input name="wrongAnswer2" type="text" autocomplete="off" />
+      <div class="row">
+        <div class="col-4">
+          <label name="wrongAnswer2">Wrong Answer 2: </label>
+        </div>
+        <div class="col-8">
+          <input name="wrongAnswer2" type="text" autocomplete="off" />
+        </div>
+      </div>
     </div>
 
+    <br /><br />
+
     <button class="buttonSubmit" type="submit">Create question</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="contentDesktop">
+    <div class="questionContent">
+      <div class="row">
+        <div class="col-4">
+          <label name="question_content">Question content: </label>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <input name="question_content" autocomplete="off" type="text" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br /><br />
+
+    <div class="row">
+      <div class="col-4 correctAnswerLabel">
+        <label name="correctAnswer">Correct Answer: </label>
+      </div>
+      <div class="col-4 wrongAnswer1Label">
+        <label name="wrongAnswer1">Wrong Answer 1: </label>
+      </div>
+      <div class="col-4 wrongAnswer2Label">
+        <label name="wrongAnswer2">Wrong Answer 2: </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4 correctAnswerField">
+        <input name="correctAnswer" type="text" autocomplete="off" />
+      </div>
+      <div class="col-4 wrongAnswer1Field">
+        <input name="wrongAnswer1" type="text" autocomplete="off" />
+      </div>
+      <div class="col-4 wrongAnswer2Field">
+        <input name="wrongAnswer2" type="text" autocomplete="off" />
+      </div>
+    </div>
+
+    <br /><br /><br />
+
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4"></div>
+      <div class="col-4">
+        <button class="buttonSubmit" type="submit">Create question</button>
+      </div>
+    </div>
   </div>
 </div>

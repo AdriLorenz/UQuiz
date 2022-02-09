@@ -1,9 +1,12 @@
 <div class="card">
   <div class="card-header">{{ questionWithAnswers.question_content }}</div>
   <div class="card-body">
-    <li class="list-group-item">First answer</li>
-    <li class="list-group-item">Second answer</li>
-    <li class="list-group-item">Third answer</li>
+    <li
+      *ngFor="let answer of questionWithAnswers.answers"
+      class="list-group-item"
+    >
+      {{ answer.answer_content }}
+    </li>
     <div class="row crud">
       <div class="col-4">
         <input type="image" src="../../../../assets/images/edit.png" />
@@ -11,7 +14,7 @@
       <div class="col-4">
         <p class="card-text"></p>
       </div>
-      <div class="col-4 delete">
+      <div (click)="handleDelete()" class="col-4 delete">
         <input type="image" src="../../../../assets/images/trash-can.png" />
       </div>
     </div>
