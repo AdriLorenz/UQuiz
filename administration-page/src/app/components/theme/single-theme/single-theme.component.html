@@ -3,11 +3,11 @@
     class="card-img-top"
     src="{{ this.serverLocation + theme.theme_img_path }}"
     alt="Card image cap"
-    routerLink="/themes/{{ theme.theme_name }}/topics"
+    routerLink="/{{ theme.theme_name }}/topics"
   />
   <div class="card-body">
     <a
-      routerLink="/themes/{{ theme.theme_name }}/topics"
+      routerLink="/{{ theme.theme_name }}/topics"
       class="card-title text-center"
     >
       <h5>{{ theme.theme_name }}</h5>

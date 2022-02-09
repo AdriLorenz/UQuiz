@@ -1,0 +1,94 @@
+html {
+  font-size: 20px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+:root {
+  --black: #353535;
+}
+
+body {
+  font-weight: bold;
+  font-family: Arial;
+  font-weight: bolder;
+}
+
+a {
+  cursor: pointer;
+}
+
+.content {
+  margin: 20px;
+}
+
+.content > form > * > label {
+  color: var(--black);
+  margin-bottom: 5px;
+}
+
+.contentDesktop > * > * > * > * > input {
+  border: 1px solid #707070;
+  padding: 10px;
+  border-radius: 2px;
+  text-indent: 5px;
+}
+
+.contentDesktop > * > * > input {
+  border: 1px solid #707070;
+  padding: 10px;
+  border-radius: 2px;
+  text-indent: 5px;
+}
+
+.content > form > * > input:focus {
+  outline: none;
+}
+
+.buttonSubmit {
+  padding: 12px;
+  border: none;
+  background-color: rgb(34, 34, 34);
+  color: #ffb52e;
+  font-size: 80%;
+  font-weight: bold;
+  border-radius: 20px;
+  transition: all 0.3s;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.267);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 70%;
+  margin-left: 30px;
+}
+
+.buttonSubmit:hover {
+  transform: translateY(-1px);
+  background-color: rgba(34, 34, 34, 0.856);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.623);
+}
+
+input {
+  width: 100%;
+}
+
+@media only screen and (min-width: 769px) {
+  .contentMobile {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contentDesktop {
+    display: none;
+  }
+}
+
+.contentDesktop {
+  padding-top: 20px;
+}
+
+.contentMobile {
+  padding-top: 40px;
+}

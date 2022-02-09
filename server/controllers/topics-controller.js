@@ -3,9 +3,22 @@ const db = require("../models");
 const Topic = db.topics;
 
 // Get all topic
+
 exports.getTopics = async (req, res) => {
   try {
-    const topic = await Topic.findAll();
+    const topics = await Topic.findAll();
+    res.send(topics);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getOneTopicWithQuestionsWithAnswers = async (req, res) => {
+  try {
+    const topic = await Topic.findOne({
+      where: { topic_name: req.params.topic_name },
+      include: [{ model: db.questions, include: { model: db.answers } }],
+    });
     res.send(topic);
   } catch (err) {
     console.log(err);

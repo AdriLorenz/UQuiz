@@ -30,14 +30,23 @@ import { CreateTopicButtonComponent } from './components/topic/create-topic-butt
 import { CreateThemeButtonComponent } from './components/theme/create-theme-button/create-theme-button.component';
 
 import { RouterModule, Routes } from '@angular/router';
+import { RegisterButtonComponent } from './components/user/register-button/register-button.component';
+
+import { FormsModule } from '@angular/forms';
+import { ModalComponent } from './components/modal/modal.component';
 
 const appRoutes: Routes = [
   { path: '', component: RegisterComponent },
-  { path: 'themes/:theme_name/topics', component: TopicComponent },
+
+  { path: ':theme_name/:topic_name/questions', component: QuestionComponent },
+  {
+    path: ':theme_name/:topic_name/:question_id',
+    component: EditQuestionComponent,
+  },
+  { path: ':theme_name/topics', component: TopicComponent },
   { path: 'themes', component: ThemeComponent },
-  // {path:"", component:},
-  // {path:"", component:},
-  // {path:"", component:},
+  { path: 'users', component: UserComponent },
+
   // {path:"", component:},
   // {path:"", component:},
   // {path:"", component:},
@@ -69,6 +78,8 @@ const appRoutes: Routes = [
     CreateQuestionButtonComponent,
     CreateTopicButtonComponent,
     CreateThemeButtonComponent,
+    RegisterButtonComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +87,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     NgbModule,
     RouterModule.forRoot(appRoutes),
+    FormsModule,
   ],
   providers: [QuestionService],
   bootstrap: [AppComponent],

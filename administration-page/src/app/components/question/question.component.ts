@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionWithAnswers } from 'src/app/models/questionWithAnswers';
 import { QuestionService } from 'src/app/services/question.service';
+import { TopicService } from 'src/app/services/topic.service';
+import { TopicWithQuestions } from 'src/app/models/topicWithQuestions';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-question',
@@ -9,13 +12,15 @@ import { QuestionService } from 'src/app/services/question.service';
   styleUrls: ['./question.component.css'],
 })
 export class QuestionComponent implements OnInit {
-  public questionsWithAnswers: Array<QuestionWithAnswers> = [];
+  public topicWithQuestions: TopicWithQuestions;
+  public topic_name: string;
+  public theme_name: string;
+  public modal: ModalComponent;
 
   constructor(
     private questionService: QuestionService,
-
-    private router: Router,
-    route: ActivatedRoute
+    private topicService: TopicService,
+    private route: ActivatedRoute
   ) {}
 
   deleteQuestion(questionToDelete: QuestionWithAnswers) {
@@ -24,10 +29,10 @@ export class QuestionComponent implements OnInit {
         .deleteQuestionWithAnswers(questionToDelete.question_id)
         .subscribe((res) => console.log(res));
 
-      this.questionsWithAnswers.splice(
-        this.questionsWithAnswers.indexOf(questionToDelete),
-        1
-      );
+      // this.questionsWithAnswers.splice(
+      //   this.questionsWithAnswers.indexOf(questionToDelete),
+      //   1
+      // );
       // display success popup
     } catch (err) {
       console.log(err);
@@ -36,10 +41,20 @@ export class QuestionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.questionService.getQuestionsWithAnswers().subscribe((data) => {
-      {
-        this.questionsWithAnswers = data;
-      }
+    this.route.paramMap.subscribe((params) => {
+      this.theme_name = params.get('theme_name') || '';
+      this.topic_name = params.get('topic_name') || '';
     });
+
+    this.topicService
+      .getOneTopicWithQuestions(this.topic_name)
+      .subscribe((data) => {
+        {
+          this.topicWithQuestions = data;
+          console.log(this.topicWithQuestions);
+        }
+      });
   }
+
+  openModal() {}
 }

@@ -8,6 +8,12 @@ module.exports = (app) => {
 
   // Route to get topics of a theme name
   // routerTopics.get("/ofTheme/:theme_name", topic.getTopicsOfTheme);
+
+  // Route to get questions with answers of a topic
+  routerTopics.get(
+    "/:topic_name/WithQuestions",
+    topic.getOneTopicWithQuestionsWithAnswers
+  );
   // Route get topic by id
   routerTopics.get("/:topic_id", topic.getTopicById);
   // Route create a new topic

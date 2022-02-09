@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { QuestionWithAnswers } from 'src/app/models/questionWithAnswers';
+import { ModalComponent } from '../../modal/modal.component';
 
 @Component({
   selector: 'app-single-question',
@@ -8,11 +9,14 @@ import { QuestionWithAnswers } from 'src/app/models/questionWithAnswers';
 })
 export class SingleQuestionComponent implements OnInit {
   @Input() questionWithAnswers: QuestionWithAnswers;
+  @Input() theme_name: string;
+  @Input() topic_name: string;
+  @Input() modal: ModalComponent;
 
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.questionWithAnswers);
+    console.log(this.theme_name, this.topic_name);
   }
 
   // redirect to detail-question page
@@ -22,5 +26,10 @@ export class SingleQuestionComponent implements OnInit {
     new EventEmitter();
   handleDelete() {
     this.questionToDelete.emit();
+  }
+
+  @Output() openModal: EventEmitter<ModalComponent> = new EventEmitter();
+  open() {
+    this.openModal.emit();
   }
 }

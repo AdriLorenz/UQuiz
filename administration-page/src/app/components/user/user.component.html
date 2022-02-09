@@ -1,1 +1,50 @@
-<p>user works!</p>
+<app-register-button></app-register-button>
+<div class="table-responsive usersTable">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Score</th>
+        <th scope="col">Games played</th>
+        <th scope="col">Role</th>
+        <th scope="col">Classroom</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.user_name }}</td>
+        <td>{{ user.user_email }}</td>
+        <td>{{ user.user_score }}</td>
+        <td>{{ user.user_games_played }}</td>
+        <td>{{ user.role_id_fk }}</td>
+        <td>{{ user.classroom_id_fk }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mobile" *ngFor="let user of users">
+  <div class="card" style="width: 18rem">
+    <div class="card-header">
+      <a>{{ user.user_name }}</a>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        Email: <a>{{ user.user_email }}</a>
+      </li>
+      <li class="list-group-item">
+        Score: <a>{{ user.user_score }}</a>
+      </li>
+      <li class="list-group-item">
+        Games played: <a>{{ user.user_games_played }}</a>
+      </li>
+      <li class="list-group-item">
+        Role: <a>{{ user.role_id_fk }}</a>
+      </li>
+      <li class="list-group-item">
+        Classroom: <a>{{ user.classroom_id_fk }}</a>
+      </li>
+    </ul>
+  </div>
+</div>

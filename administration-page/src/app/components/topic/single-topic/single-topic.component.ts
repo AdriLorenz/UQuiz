@@ -8,6 +8,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class SingleTopicComponent implements OnInit {
   @Input() topic: Topic;
+  @Input() theme_name: string;
 
   @Output() topicToDelete: EventEmitter<Topic> = new EventEmitter();
   handleDelete() {
@@ -16,5 +17,7 @@ export class SingleTopicComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.topic, this.theme_name);
+  }
 }
