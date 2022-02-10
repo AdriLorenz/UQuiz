@@ -12,48 +12,48 @@ module.exports = (app) => {
   routerQuestions.get("/data", questions.getQuestionsWithTopic);
 
   //question with topics with themes page
-  routerQuestions.get(
-    "/theme/:theme_id_fk",
-    auth.checkAuthenticated,
-    auth.authRole(2),
-    async (req, res, next) => {
-      try {
-        const questionsWithTopicsWithThemes =
-          await theme.getThemesWithTopicAndQuestions();
+  // routerQuestions.get(
+  //   "/theme/:theme_id_fk",
+  //   auth.checkAuthenticated,
+  //   auth.authRole(2),
+  //   async (req, res, next) => {
+  //     try {
+  //       const questionsWithTopicsWithThemes =
+  //         await theme.getThemesWithTopicAndQuestions();
 
-        res.render("../views/questionsByThemes.ejs", {
-          questionsWithTopicsWithThemes,
-        });
-      } catch (error) {
-        next(error);
-      }
-    }
-  );
+  //       res.render("../views/questionsByThemes.ejs", {
+  //         questionsWithTopicsWithThemes,
+  //       });
+  //     } catch (error) {
+  //       next(error);
+  //     }
+  //   }
+  // );
 
   // create page
-  routerQuestions.get(
-    "/create",
-    auth.checkAuthenticated,
-    auth.authRole(2),
-    async (req, res) => {
-      let themes = await theme.returnThemes();
-      let topics = await topic.returnTopics();
-      res.render("../views/create-question.ejs", { themes, topics });
-    }
-  );
+  // routerQuestions.get(
+  //   "/create",
+  //   auth.checkAuthenticated,
+  //   auth.authRole(2),
+  //   async (req, res) => {
+  //     let themes = await theme.returnThemes();
+  //     let topics = await topic.returnTopics();
+  //     res.render("../views/create-question.ejs", { themes, topics });
+  //   }
+  // );
 
   // edit page
-  routerQuestions.get(
-    "/edit/:question_id",
-    auth.checkAuthenticated,
-    auth.authRole(2),
-    async (req, res) => {
-      const question = await questions.getAQuestionWithAnswers;
-      res.render("../views/edit-question.ejs", {
-        question,
-      });
-    }
-  );
+  // routerQuestions.get(
+  //   "/edit/:question_id",
+  //   auth.checkAuthenticated,
+  //   auth.authRole(2),
+  //   async (req, res) => {
+  //     const question = await questions.getAQuestionWithAnswers;
+  //     res.render("../views/edit-question.ejs", {
+  //       question,
+  //     });
+  //   }
+  // );
 
   // get one question with answers
   routerQuestions.get("/WithAnswers/:question_id", questions.getOneWithAnswers);
