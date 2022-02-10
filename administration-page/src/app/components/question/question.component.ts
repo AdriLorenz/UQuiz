@@ -29,10 +29,10 @@ export class QuestionComponent implements OnInit {
         .deleteQuestionWithAnswers(questionToDelete.question_id)
         .subscribe((res) => console.log(res));
 
-      // this.questionsWithAnswers.splice(
-      //   this.questionsWithAnswers.indexOf(questionToDelete),
-      //   1
-      // );
+      this.topicWithQuestions.questions.splice(
+        this.topicWithQuestions.questions.indexOf(questionToDelete),
+        1
+      );
       // display success popup
     } catch (err) {
       console.log(err);

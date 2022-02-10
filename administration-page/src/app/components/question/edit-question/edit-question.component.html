@@ -11,7 +11,7 @@
               name="question_content"
               autocomplete="off"
               type="text"
-              ngModel
+              [(ngModel)]="questionWithAnswers.question_content"
             />
           </div>
         </div>
@@ -29,7 +29,7 @@
               name="correctAnswer"
               type="text"
               autocomplete="off"
-              ngModel
+              [(ngModel)]="correctAnswer.answer_content"
             />
           </div>
         </div>
@@ -43,7 +43,7 @@
             <label name="wrongAnswer1">Wrong Answer 1: </label>
           </div>
           <div class="col-8">
-            <input name="wrongAnswer1" type="text" autocomplete="off" ngModel />
+            <input name="wrongAnswer1" type="text" autocomplete="off" />
           </div>
         </div>
       </div>
@@ -105,13 +105,28 @@
 
       <div class="row">
         <div class="col-4 correctAnswerField">
-          <input name="correctAnswer" type="text" autocomplete="off" ngModel />
+          <input
+            name="correctAnswer"
+            type="text"
+            autocomplete="off"
+            [(ngModel)]="correctAnswer.answer_content"
+          />
         </div>
         <div class="col-4 wrongAnswer1Field">
-          <input name="wrongAnswer1" type="text" autocomplete="off" ngModel />
+          <input
+            name="wrongAnswer1"
+            type="text"
+            autocomplete="off"
+            [(ngModel)]="wrongAnswer1.answer_content"
+          />
         </div>
         <div class="col-4 wrongAnswer2Field">
-          <input name="wrongAnswer2" type="text" autocomplete="off" ngModel />
+          <input
+            name="wrongAnswer2"
+            type="text"
+            autocomplete="off"
+            [(ngModel)]="wrongAnswer2.answer_content"
+          />
         </div>
       </div>
 

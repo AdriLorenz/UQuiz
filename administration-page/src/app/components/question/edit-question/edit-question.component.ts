@@ -27,34 +27,34 @@ export class EditQuestionComponent implements OnInit {
     console.log(formValue, 1);
     console.log(this.questionWithAnswers.question_content);
     formValue.reset();
-    // let answers: Answer[];
-    // let currentWrongAnswer: number;
+    let answers: Answer[];
+    let currentWrongAnswer: number;
 
-    // this.questionWithAnswers.answers.forEach((answer) => {
-    //   if (answer.answer_status) {
-    //     answer.answer_content = formValue.correctAnswer;
-    //   }
-    //   answer.answer_content = formValue.wrongAnswer + currentWrongAnswer;
-    //   currentWrongAnswer--;
-    // });
+    this.questionWithAnswers.answers.forEach((answer) => {
+      if (answer.answer_status) {
+        answer.answer_content = formValue.correctAnswer;
+      }
+      answer.answer_content = formValue.wrongAnswer + currentWrongAnswer;
+      currentWrongAnswer--;
+    });
 
-    // const questionWithAnswers = new QuestionWithAnswers(
-    //   this.questionWithAnswers.question_id,
-    //   formValue.question_content,
-    //   formValue.question_difficulty,
-    //   this.questionWithAnswers.topic_id_fk,
-    //   this.questionWithAnswers.answers
-    // );
+    const questionWithAnswers = new QuestionWithAnswers(
+      this.questionWithAnswers.question_id,
+      formValue.question_content,
+      formValue.question_difficulty,
+      this.questionWithAnswers.topic_id_fk,
+      this.questionWithAnswers.answers
+    );
 
-    // console.log(questionWithAnswers);
+    console.log(questionWithAnswers);
 
-    // try {
-    //   this.questionService.editQuestionWithAnswers(questionWithAnswers);
-    //   // display success popup
-    // } catch (error) {
-    //   console.log(error);
-    //   //display error popup
-    // }
+    try {
+      this.questionService.editQuestionWithAnswers(questionWithAnswers);
+      // display success popup
+    } catch (error) {
+      console.log(error);
+      //display error popup
+    }
   }
 
   ngOnInit(): void {
@@ -70,7 +70,8 @@ export class EditQuestionComponent implements OnInit {
         this.questionWithAnswers.answers.forEach((answer) => {
           if (answer.answer_status) {
             this.correctAnswer = answer;
-          } else if (answer) this.wrongAnswer1 = answer;
+          } else if (wrongAnswerCount == 2) this.wrongAnswer2 = answer;
+          else this.wrongAnswer1 = answer;
         });
         console.log(this.questionWithAnswers.answers);
       });

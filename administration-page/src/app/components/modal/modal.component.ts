@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, Inject } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal',
@@ -7,33 +8,17 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent {
-  title = 'appBootstrap';
-  elRef: ElementRef;
+  constructor(
+    public dialogo: MatDialogRef<ModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public mensaje: string
+  ) {}
 
-  closeResult: string;
-
-  constructor(private modalService: NgbModal, elRef: ElementRef) {
-    this.elRef = elRef;
+  cerrarDialogo(): void {
+    this.dialogo.close(false);
+  }
+  confirmado(): void {
+    this.dialogo.close(true);
   }
 
-  open(content: any) {
-    this.modalService.open({ ariaLabelledBy: 'modal-basic-title' }).result.then(
-      (result) => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
+  ngOnInit() {}
 }
