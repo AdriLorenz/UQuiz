@@ -23,7 +23,6 @@ exports.getQuestionsWithTopic = async (req, res) => {
 };
 
 exports.getOneWithAnswers = async (req, res) => {
-  console.log("alsdjfasdflsakhjlkdsfskjfasdf");
   try {
     const questionWithAnswers = await Question.findOne({
       where: { question_id: req.params.question_id },
@@ -126,65 +125,22 @@ async function createAnswer(content, status) {
 // Update question and answers by id question
 exports.updateQuestionAndAnswers = async (req, res) => {
   try {
-    await Question.update(req.body, {
+    const updatedQuestion = {
+      question_id: req.body.question_id,
+      question_content: req.body.question_content,
+      question_difficulty: req.body.question_difficulty,
+      topic_id_fk: req.body.topic_id_fk,
+    };
+
+    await Question.update(updatedQuestion, {
       where: {
         question_id: req.params.question_id,
       },
     });
 
-    const getAnswerId = async () => {
-      try {
-        const answer = await Answer.findAll({
-          where: {
-            answer_points: 0,
-            question_id_fk: req.params.question_id,
-          },
-        });
-        return answer[1].dataValues.answer_id;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    const answerId = await getAnswerId();
-    console.log("The last question ID is: " + answerId);
-
-    await Answer.update(
-      {
-        answer_content: req.body.correctAnswer,
-        answer_points: 10,
-      },
-      {
-        where: {
-          question_id_fk: req.params.question_id,
-          answer_points: 10,
-        },
-      }
-    );
-    await Answer.update(
-      {
-        answer_content: req.body.wrongAnswer1,
-      },
-      {
-        where: {
-          answer_id: answerId - 1,
-          question_id_fk: req.params.question_id,
-          answer_points: 0,
-        },
-      }
-    );
-    await Answer.update(
-      {
-        answer_content: req.body.wrongAnswer2,
-      },
-      {
-        where: {
-          answer_id: answerId,
-          question_id_fk: req.params.question_id,
-          answer_points: 0,
-        },
-      }
-    );
-    res.redirect("/questions");
+    req.body.answers.forEach((answer) => {
+      Answer.update(answer, { where: { answer_id: answer.answer_id } });
+    });
   } catch (err) {
     console.log(err);
   }
