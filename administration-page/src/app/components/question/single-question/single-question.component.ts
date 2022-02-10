@@ -16,17 +16,17 @@ export class SingleQuestionComponent implements OnInit {
   @Input() questionWithAnswers: QuestionWithAnswers;
   @Input() theme_name: string;
   @Input() topic_name: string;
-  @Input() modal: ModalComponent;
 
-  constructor(public dialogo: MatDialog) {}
-  mostrarDialogo(): void {
-    this.dialogo
+  constructor(public modal: MatDialog) {}
+
+  showModal(): void {
+    this.modal
       .open(ModalComponent, {
         data: `Do you want to delete this?`,
       })
       .afterClosed()
-      .subscribe((confirmado: Boolean) => {
-        if (confirmado) {
+      .subscribe((confirmed: Boolean) => {
+        if (confirmed) {
           this.questionToDelete.emit();
         } else {
         }

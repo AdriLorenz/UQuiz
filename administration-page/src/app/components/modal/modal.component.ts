@@ -9,15 +9,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ModalComponent {
   constructor(
-    public dialogo: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public mensaje: string
+    public modal: MatDialogRef<ModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public message: string
   ) {}
 
-  cerrarDialogo(): void {
-    this.dialogo.close(false);
+  closeModal(): void {
+    this.modal.close(false);
   }
-  confirmado(): void {
-    this.dialogo.close(true);
+  confirmModal(): void {
+    this.modal.close(true);
   }
 
   ngOnInit() {}

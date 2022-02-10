@@ -22,6 +22,8 @@ export class TopicService {
     );
   }
   createTopic(topicData: Topic): Observable<any> {
+    let bodyEncoded = new URLSearchParams();
+
     return this.httpClient.post(this.endpoint, topicData);
   }
 

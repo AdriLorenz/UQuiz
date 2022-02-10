@@ -35,6 +35,12 @@ export class TopicComponent implements OnInit {
   deleteTopic(topicToDelete: Topic) {
     try {
       this.topicService.deleteTopic(topicToDelete.topic_id);
+      this.topicService
+        .deleteTopic(topicToDelete.topic_id)
+        .subscribe((res) => console.log(res));
+
+      // delete in local array
+      //this.themes.splice(this.themes.indexOf(themeToDelete), 1);
       // display success message
     } catch (error) {
       console.log(error);

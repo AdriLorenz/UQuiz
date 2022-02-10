@@ -39,6 +39,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: 'themes/create', component: AddThemeComponent },
@@ -96,6 +97,7 @@ const appRoutes: Routes = [
     MatDialogModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    ReactiveFormsModule,
   ],
   providers: [QuestionService],
   bootstrap: [AppComponent],

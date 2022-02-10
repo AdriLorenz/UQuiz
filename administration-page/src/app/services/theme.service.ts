@@ -40,7 +40,18 @@ export class ThemeService {
   }
 
   createTheme(newThemeData: Theme): Observable<any> {
-    return this.httpClient.post(this.endpoint, newThemeData);
+    let bodyEncoded = new URLSearchParams();
+    bodyEncoded.append('theme_name', newThemeData.theme_name);
+    bodyEncoded.append('theme_name', newThemeData.theme_img_path);
+
+    const body = bodyEncoded.toString();
+    console.log(body);
+
+    return this.httpClient.post(
+      this.endpoint,
+      body,
+      httpOptionsUsingUrlEncoded
+    );
   }
 
   deleteTheme(id: number): Observable<any> {
