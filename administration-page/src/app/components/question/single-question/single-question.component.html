@@ -9,12 +9,17 @@
     </li>
     <div class="row crud">
       <div class="col-4">
-        <input type="image" src="../../../../assets/images/edit.png" />
+        <a
+          routerLink="/{{ theme_name }}/{{ topic_name }}/{{
+            questionWithAnswers.question_id
+          }}"
+          ><input type="image" src="../../../../assets/images/edit.png"
+        /></a>
       </div>
       <div class="col-4">
         <p class="card-text"></p>
       </div>
-      <div (click)="handleDelete()" class="col-4 delete">
+      <div (click)="open()" class="col-4 delete">
         <input type="image" src="../../../../assets/images/trash-can.png" />
       </div>
     </div>

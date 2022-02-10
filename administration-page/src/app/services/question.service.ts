@@ -29,7 +29,9 @@ export class QuestionService {
   }
 
   getQuestionWithAnswersById(id: number): Observable<QuestionWithAnswers> {
-    return this.httpClient.get<QuestionWithAnswers>(this.endpoint + '/' + id);
+    return this.httpClient.get<QuestionWithAnswers>(
+      this.endpoint + '/WithAnswers/' + id
+    );
   }
 
   createQuestionWithAnswers(

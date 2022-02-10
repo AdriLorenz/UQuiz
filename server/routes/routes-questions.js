@@ -55,8 +55,12 @@ module.exports = (app) => {
     }
   );
 
+  // get one question with answers
+  routerQuestions.get("/WithAnswers/:question_id", questions.getOneWithAnswers);
+
   //get questions with answers
   routerQuestions.get("/WithAnswers", questions.getQuestionsWithAnswers);
+
   // Route get question by id
   routerQuestions.get(
     "/:question_id",

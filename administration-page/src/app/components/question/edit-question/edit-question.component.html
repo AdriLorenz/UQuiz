@@ -1,1 +1,129 @@
-<p>edit-question works!</p>
+<div class="container">
+  <div class="contentMobile">
+    <form (ngSubmit)="editQuestion(form.value)" #form="ngForm">
+      <div class="questionContent">
+        <div class="row">
+          <div class="col-4">
+            <label name="question_content">Question content: </label>
+          </div>
+          <div class="col-8">
+            <input
+              name="question_content"
+              autocomplete="off"
+              type="text"
+              ngModel
+            />
+          </div>
+        </div>
+      </div>
+
+      <br /><br />
+
+      <div class="correctAnswer">
+        <div class="row">
+          <div class="col-4">
+            <label name="correctAnswer">Correct Answer: </label>
+          </div>
+          <div class="col-8">
+            <input
+              name="correctAnswer"
+              type="text"
+              autocomplete="off"
+              ngModel
+            />
+          </div>
+        </div>
+      </div>
+
+      <br /><br />
+
+      <div class="wrongAnswer1">
+        <div class="row">
+          <div class="col-4">
+            <label name="wrongAnswer1">Wrong Answer 1: </label>
+          </div>
+          <div class="col-8">
+            <input name="wrongAnswer1" type="text" autocomplete="off" ngModel />
+          </div>
+        </div>
+      </div>
+
+      <br /><br />
+
+      <div class="wrongAnswer2">
+        <div class="row">
+          <div class="col-4">
+            <label name="wrongAnswer2">Wrong Answer 2: </label>
+          </div>
+          <div class="col-8">
+            <input name="wrongAnswer2" type="text" autocomplete="off" ngModel />
+          </div>
+        </div>
+      </div>
+
+      <br /><br />
+
+      <button class="buttonSubmit" type="submit">Edit question</button>
+    </form>
+  </div>
+</div>
+
+<div class="container">
+  <div class="contentDesktop">
+    <form (ngSubmit)="editQuestion(form.value)" #form="ngForm">
+      <div class="questionContent">
+        <div class="row">
+          <div class="col-4">
+            <label name="question_content">Question content: </label>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <input
+                name="question_content"
+                autocomplete="off"
+                type="text"
+                [(ngModel)]="questionWithAnswers.question_content"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br /><br />
+
+      <div class="row">
+        <div class="col-4 correctAnswerLabel">
+          <label name="correctAnswer">Correct Answer: </label>
+        </div>
+        <div class="col-4 wrongAnswer1Label">
+          <label name="wrongAnswer1">Wrong Answer 1: </label>
+        </div>
+        <div class="col-4 wrongAnswer2Label">
+          <label name="wrongAnswer2">Wrong Answer 2: </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4 correctAnswerField">
+          <input name="correctAnswer" type="text" autocomplete="off" ngModel />
+        </div>
+        <div class="col-4 wrongAnswer1Field">
+          <input name="wrongAnswer1" type="text" autocomplete="off" ngModel />
+        </div>
+        <div class="col-4 wrongAnswer2Field">
+          <input name="wrongAnswer2" type="text" autocomplete="off" ngModel />
+        </div>
+      </div>
+
+      <br /><br /><br />
+
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4"></div>
+        <div class="col-4">
+          <button class="buttonSubmit" type="submit">Edit question</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

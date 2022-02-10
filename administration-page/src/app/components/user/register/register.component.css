@@ -5,6 +5,9 @@
 
 label {
   font-size: 25px;
+}
+
+.mainInfo {
   margin-right: 300px;
 }
 
@@ -79,11 +82,26 @@ a {
   color: rgb(255, 255, 255);
   width: 100px;
   padding: 14px 20px;
-  margin-right: 10px;
   margin: 8px;
   border-radius: 4px;
 }
 
 .options {
   text-align: start;
+}
+
+.labels {
+  text-align: end;
+}
+
+/* @media only screen and (min-width: 769px) {
+  .mobile {
+    display: none;
+  }
+} */
+
+@media screen and (max-width: 768px) {
+  .backButton {
+    display: none;
+  }
 }

@@ -24,3 +24,12 @@
   padding-left: 10px;
   margin-bottom: 30px;
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding-top: 30px;
+  }
+  .buttonSubmit {
+    width: 130%;
+  }
+}

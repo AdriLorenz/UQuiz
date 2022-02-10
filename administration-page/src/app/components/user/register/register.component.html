@@ -9,7 +9,9 @@
 
   <div class="row">
     <div class="col-12">
-      <label for="name" class="name">Name</label>
+      <div class="mainInfo">
+        <label for="name" class="name">Name</label>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -28,7 +30,9 @@
 
   <div class="row">
     <div class="col-12">
-      <label for="email" class="name">Email</label>
+      <div class="mainInfo">
+        <label for="email" class="name">Email</label>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -47,7 +51,9 @@
 
   <div class="row">
     <div class="col-12">
-      <label for="password">Password</label>
+      <div class="mainInfo">
+        <label for="password">Password</label>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -66,7 +72,9 @@
 
   <div class="row">
     <div class="col-12">
-      <label for="repeatPassword">Repeat password</label>
+      <div class="mainInfo">
+        <label for="repeatPassword">Repeat password</label>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -85,7 +93,9 @@
 
   <div class="roles row">
     <div class="col-6">
-      <label for="role_id_fk">Role</label>
+      <div class="labels">
+        <label for="role_id_fk">Role</label>
+      </div>
     </div>
     <div class="col-6">
       <div class="options">
@@ -100,7 +110,9 @@
 
   <div class="classroom row">
     <div class="col-6">
-      <label for="classroom_id_fk">Classroom</label>
+      <div class="labels">
+        <label for="classroom_id_fk">Classroom</label>
+      </div>
     </div>
     <div class="col-6">
       <div class="options">
@@ -118,11 +130,18 @@
 
   <br />
 
-  <div class="buttons">
-    <input class="registerButton" type="submit" value="Submit" />
-
-    <a href="/users">
-      <input class="backButton" type="button" value="Back" />
-    </a>
+  <div class="row">
+    <div class="col-4"></div>
+    <div class="col-2">
+      <div class="buttons">
+        <input class="backButton" type="button" value="Back" />
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="buttons">
+        <input class="registerButton" type="submit" value="Submit" />
+      </div>
+    </div>
+    <div class="col-4"></div>
   </div>
 </div>

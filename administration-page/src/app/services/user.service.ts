@@ -1,7 +1,17 @@
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+};
+
+const httpOptionsUsingUrlEncoded = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded',
+  }),
+};
 
 @Injectable({
   providedIn: 'root',

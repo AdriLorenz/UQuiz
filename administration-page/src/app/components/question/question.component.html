@@ -1,19 +1,36 @@
+<app-create-question-button
+  [theme_name]="theme_name"
+  [topic_name]="topic_name"
+></app-create-question-button>
 <div class="container desktop">
-  <div class="row">
-    <div class="col-6" *ngFor="let question of questionsWithAnswers">
-      <app-single-question
-        [questionWithAnswers]="question"
-        (questionToDelete)="deleteQuestion(question)"
-      ></app-single-question>
+  <div *ngIf="topicWithQuestions.questions.length; else noQuestions">
+    <div class="row">
+      <div class="col-6" *ngFor="let question of topicWithQuestions.questions">
+        <app-single-question
+          [questionWithAnswers]="question"
+          [theme_name]="theme_name"
+          [topic_name]="topic_name"
+          (questionToDelete)="deleteQuestion(question)"
+          (openModal)="openModal()"
+        ></app-single-question>
+      </div>
     </div>
   </div>
 </div>
 
+<ng-template #noQuestions>
+  <p>... No questions</p>
+</ng-template>
+
 <div class="container mobile">
-  <div class="row" *ngFor="let question of questionsWithAnswers">
+  <div class="row" *ngFor="let question of topicWithQuestions.questions">
     <div class="col-16">
       <app-single-question
         [questionWithAnswers]="question"
+        [theme_name]="theme_name"
+        [topic_name]="topic_name"
+        (questionToDelete)="deleteQuestion(question)"
+        (openModal)="openModal()"
       ></app-single-question>
     </div>
   </div>

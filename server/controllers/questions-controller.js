@@ -22,6 +22,19 @@ exports.getQuestionsWithTopic = async (req, res) => {
   }
 };
 
+exports.getOneWithAnswers = async (req, res) => {
+  console.log("alsdjfasdflsakhjlkdsfskjfasdf");
+  try {
+    const questionWithAnswers = await Question.findOne({
+      where: { question_id: req.params.question_id },
+      include: [db.answers],
+    });
+    res.send(questionWithAnswers);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 exports.returnQuestions = async (req, res) => {
   try {
     const question = await Question.findAll();
@@ -35,6 +48,7 @@ exports.returnQuestions = async (req, res) => {
 // Get question by id
 exports.getQuestionWithTopicByIdQuestion = async (req, res) => {
   try {
+    console.log("asfasf2425324543252345243");
     const question = await Question.findOne({
       where: {
         question_id: req.params.question_id,

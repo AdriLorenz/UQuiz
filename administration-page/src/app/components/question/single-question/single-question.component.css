@@ -3,12 +3,10 @@
   margin: 0 auto; /* Added */
   float: none; /* Added */
   margin-bottom: 10px; /* Added */
-  cursor: pointer;
 }
 
 input {
   width: 30px;
-  max-width: 10%;
 }
 
 .imageHeader {
