@@ -36,22 +36,26 @@ import { RegisterButtonComponent } from './components/user/register-button/regis
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from './components/modal/modal.component';
 
-const appRoutes: Routes = [
-  { path: '', component: RegisterComponent },
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
+const appRoutes: Routes = [
+  { path: 'themes/create', component: AddThemeComponent },
+  { path: 'themes', component: ThemeComponent },
+  { path: '', component: RegisterComponent },
   { path: ':theme_name/:topic_name/questions', component: QuestionComponent },
   {
     path: ':theme_name/:topic_name/:question_id',
     component: EditQuestionComponent,
   },
   { path: ':theme_name/topics', component: TopicComponent },
-  { path: 'themes', component: ThemeComponent },
   { path: 'users', component: UserComponent },
+  { path: 'questions/create', component: CreateQuestionComponent },
+  { path: 'topic/create', component: CreateTopicComponent },
 
-  // {path:"", component:},
-  // {path:"", component:},
-  // {path:"", component:},
-  //{path:"**", component: NotFoundComponent},
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
@@ -81,6 +85,7 @@ const appRoutes: Routes = [
     CreateThemeButtonComponent,
     RegisterButtonComponent,
     ModalComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,6 +94,9 @@ const appRoutes: Routes = [
     NgbModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
   ],
   providers: [QuestionService],
   bootstrap: [AppComponent],

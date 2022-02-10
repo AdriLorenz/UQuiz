@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-question-button',
@@ -9,7 +10,11 @@ export class CreateQuestionButtonComponent implements OnInit {
   @Input() theme_name: string;
   @Input() topic_name: string;
 
-  constructor() {}
+  goToCreateQuestionPage() {
+    this.router.navigateByUrl('/questions/create');
+  }
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 }

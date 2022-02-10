@@ -1,6 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { QuestionWithAnswers } from 'src/app/models/questionWithAnswers';
 import { ModalComponent } from '../../modal/modal.component';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-single-question',
@@ -13,7 +18,20 @@ export class SingleQuestionComponent implements OnInit {
   @Input() topic_name: string;
   @Input() modal: ModalComponent;
 
-  constructor() {}
+  constructor(public dialogo: MatDialog) {}
+  mostrarDialogo(): void {
+    this.dialogo
+      .open(ModalComponent, {
+        data: `Do you want to delete this?`,
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          this.questionToDelete.emit();
+        } else {
+        }
+      });
+  }
 
   ngOnInit(): void {
     console.log(this.theme_name, this.topic_name);
