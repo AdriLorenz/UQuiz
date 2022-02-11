@@ -8,12 +8,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CreateTopicButtonComponent implements OnInit {
   @Input() theme_name: string;
+  @Input() themeId: number;
 
   goToCreateTopicPage() {
-    this.router.navigateByUrl('/topic/create');
+    this.router.navigateByUrl('theme/' + this.themeId + '/topic/create');
   }
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('theme ID: ' + this.themeId);
+  }
 }

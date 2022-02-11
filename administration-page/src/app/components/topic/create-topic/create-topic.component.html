@@ -6,7 +6,12 @@
           <label name="topic_name">Topic name: </label>
         </div>
         <div class="col-8">
-          <input name="topic_name" autocomplete="off" type="text" />
+          <input
+            name="topic_name"
+            [(ngModel)]="topic.topic_name"
+            autocomplete="off"
+            type="text"
+          />
         </div>
       </div>
     </div>
@@ -26,7 +31,12 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <input name="topic_name" autocomplete="off" type="text" />
+            <input
+              name="topic_name"
+              [(ngModel)]="topic.topic_name"
+              autocomplete="off"
+              type="text"
+            />
           </div>
         </div>
       </div>
@@ -38,7 +48,9 @@
       <div class="col-4"></div>
       <div class="col-4"></div>
       <div class="col-4">
-        <button class="buttonSubmit" type="submit">Create topic</button>
+        <button (click)="onSubmit()" class="buttonSubmit" type="submit">
+          Create topic
+        </button>
       </div>
     </div>
   </div>

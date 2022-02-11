@@ -1,6 +1,7 @@
 <app-create-question-button
   [theme_name]="theme_name"
   [topic_name]="topic_name"
+  [topicId]="this.topicWithQuestions.topic_id"
 ></app-create-question-button>
 <div class="container desktop">
   <div *ngIf="topicWithQuestions.questions.length; else noQuestions">

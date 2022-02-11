@@ -52,8 +52,11 @@ const appRoutes: Routes = [
   },
   { path: ':theme_name/topics', component: TopicComponent },
   { path: 'users', component: UserComponent },
-  { path: 'questions/create', component: CreateQuestionComponent },
-  { path: 'topic/create', component: CreateTopicComponent },
+  {
+    path: 'topic/:topic_id_fk/questions/create',
+    component: CreateQuestionComponent,
+  },
+  { path: 'theme/:theme_id_fk/topic/create', component: CreateTopicComponent },
 
   { path: '**', component: PageNotFoundComponent },
 ];

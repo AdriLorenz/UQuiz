@@ -9,9 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CreateQuestionButtonComponent implements OnInit {
   @Input() theme_name: string;
   @Input() topic_name: string;
+  @Input() topicId: number;
 
   goToCreateQuestionPage() {
-    this.router.navigateByUrl('/questions/create');
+    this.router.navigateByUrl('topic/' + this.topicId + '/questions/create');
   }
 
   constructor(private router: Router) {}
