@@ -9,7 +9,13 @@
   </div>
   <div class="row crud">
     <div class="col-4 test">
-      <input type="image" src="../../../../assets/images/edit.png" />
+      <a
+        routerLink="/{{ theme_name }} /{{ topic.topic_name }}/{{
+          topic.topic_id
+        }}"
+      >
+        <input type="image" src="../../../../assets/images/edit.png"
+      /></a>
     </div>
     <div class="col-4">
       <p class="card-text"></p>

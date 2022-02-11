@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Topic } from 'src/app/models/topic';
 import { TopicService } from 'src/app/services/topic.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-topic',
@@ -8,15 +9,31 @@ import { TopicService } from 'src/app/services/topic.service';
   styleUrls: ['./edit-topic.component.css'],
 })
 export class EditTopicComponent implements OnInit {
-  constructor(private topicService: TopicService) {}
+  constructor(
+    private topicService: TopicService,
+    private route: ActivatedRoute
+  ) {}
 
-  @Input() topic: Topic;
+  public topic: Topic;
+  topic_id: number;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(
+      (params) => (this.topic_id = +params.get('topic_id')! || 0)
+    );
 
-  updateTopic(updatedTopicData: Topic) {
+    this.topicService.getOne(this.topic_id).subscribe((res) => {
+      this.topic = res;
+      console.log(this.topic);
+      console.log(1);
+    });
+  }
+
+  updateTopic() {
     try {
-      this.topicService.updateTopic(updatedTopicData);
+      this.topicService
+        .updateTopic(this.topic)
+        .subscribe((res) => console.log(res));
       // display success message;
     } catch (error) {
       console.log(error);
