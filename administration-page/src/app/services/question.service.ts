@@ -49,6 +49,9 @@ export class QuestionService {
   }
 
   editQuestionWithAnswers(updatedQuestionWithAnswers: QuestionWithAnswers) {
+    console.log(
+      this.endpoint + '/edit/' + updatedQuestionWithAnswers.question_id
+    );
     return this.httpClient.put(
       this.endpoint + '/edit/' + updatedQuestionWithAnswers.question_id,
       updatedQuestionWithAnswers

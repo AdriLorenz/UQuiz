@@ -1,6 +1,6 @@
 <div class="container">
   <div class="contentMobile">
-    <form (ngSubmit)="editQuestion(form.value)" #form="ngForm">
+    <form (ngSubmit)="editQuestion()" #form="ngForm">
       <div class="questionContent">
         <div class="row">
           <div class="col-4">
@@ -43,7 +43,12 @@
             <label name="wrongAnswer1">Wrong Answer 1: </label>
           </div>
           <div class="col-8">
-            <input name="wrongAnswer1" type="text" autocomplete="off" />
+            <input
+              name="wrongAnswer1"
+              type="text"
+              autocomplete="off"
+              [(ngModel)]="wrongAnswer1.answer_content"
+            />
           </div>
         </div>
       </div>
@@ -56,7 +61,12 @@
             <label name="wrongAnswer2">Wrong Answer 2: </label>
           </div>
           <div class="col-8">
-            <input name="wrongAnswer2" type="text" autocomplete="off" ngModel />
+            <input
+              name="wrongAnswer2"
+              type="text"
+              autocomplete="off"
+              [(ngModel)]="wrongAnswer2.answer_content"
+            />
           </div>
         </div>
       </div>
@@ -70,7 +80,7 @@
 
 <div class="container">
   <div class="contentDesktop">
-    <form (ngSubmit)="editQuestion(form.value)" #form="ngForm">
+    <form (ngSubmit)="editQuestion()" #form="ngForm">
       <div class="questionContent">
         <div class="row">
           <div class="col-4">

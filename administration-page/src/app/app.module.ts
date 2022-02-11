@@ -1,4 +1,3 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -29,6 +28,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { CreateQuestionButtonComponent } from './components/question/create-question-button/create-question-button.component';
 import { CreateTopicButtonComponent } from './components/topic/create-topic-button/create-topic-button.component';
 import { CreateThemeButtonComponent } from './components/theme/create-theme-button/create-theme-button.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterButtonComponent } from './components/user/register-button/register-button.component';
@@ -39,15 +39,15 @@ import { ModalComponent } from './components/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   { path: 'themes/create', component: AddThemeComponent },
   { path: 'themes', component: ThemeComponent },
   { path: '', component: RegisterComponent },
   { path: ':theme_name/:topic_name/questions', component: QuestionComponent },
+  { path: ':theme_name/:topic_name/:topic_id', component: EditTopicComponent },
   {
-    path: ':theme_name/:topic_name/:question_id',
+    path: ':theme_name/:topic_name/editQuestion/:question_id',
     component: EditQuestionComponent,
   },
   { path: ':theme_name/topics', component: TopicComponent },

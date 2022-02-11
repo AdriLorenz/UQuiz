@@ -16,6 +16,11 @@ export class TopicService {
     return this.httpClient.get<Topic[]>(this.endpoint);
   }
 
+  getOne(topic_id: number): Observable<Topic> {
+    console.log(this.endpoint + '/' + topic_id);
+    return this.httpClient.get<Topic>(this.endpoint + '/' + topic_id);
+  }
+
   getOneTopicWithQuestions(topic_name: string): Observable<any> {
     return this.httpClient.get<TopicWithQuestions>(
       this.endpoint + '/' + topic_name + '/WithQuestions'
