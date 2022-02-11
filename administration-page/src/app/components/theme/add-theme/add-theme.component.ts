@@ -18,7 +18,8 @@ export class AddThemeComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.uploadForm = this.formBuilder.group({
-      customFile: [''],
+      theme_name: '',
+      theme_img_path: [null],
     });
   }
 
@@ -28,10 +29,7 @@ export class AddThemeComponent implements OnInit {
 
   createTheme() {
     try {
-      this.themeService.createTheme(this.themeToCreate).subscribe((data) => {
-        console.log(data);
-        this.themeToCreate;
-      });
+      this.themeService.createTheme(this.uploadForm);
       // display success message
     } catch (error) {
       console.log(error);
@@ -43,10 +41,13 @@ export class AddThemeComponent implements OnInit {
     this.createTheme();
   }
 
-  onFileSelect(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      // this.uploadForm.get('customFile').setValue(file);
-    }
+  onFileSelect(event) {
+    // @ts-ignore: Object is possibly 'null'.
+    const file = (event.target as HTMLInputElement).files[0];
+    this.uploadForm.patchValue({
+      theme_img_path: file,
+    });
+    // @ts-ignore: Object is possibly 'null'.
+    this.uploadForm.get('theme_img_path').updateValueAndValidity();
   }
 }

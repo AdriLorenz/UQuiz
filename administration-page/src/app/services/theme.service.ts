@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Theme } from '../models/theme';
 import { ThemeWithTopics } from '../models/themeWithTopics';
 import { Topic } from '../models/topic';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -21,7 +22,10 @@ const httpOptionsUsingUrlEncoded = {
 export class ThemeService {
   endpoint: string = 'http://localhost:5000/themes';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private formBuilder: FormBuilder
+  ) {}
 
   getThemesWithTopicWithQuestionsWithAnswers(): Observable<Theme[]> {
     return this.httpClient.get<Theme[]>(
@@ -39,18 +43,20 @@ export class ThemeService {
     return this.httpClient.get<Theme[]>(this.endpoint);
   }
 
-  createTheme(newThemeData: Theme): Observable<any> {
+  createTheme(uploadForm: FormGroup) {
     let bodyEncoded = new URLSearchParams();
-    bodyEncoded.append('theme_name', newThemeData.theme_name);
-    bodyEncoded.append('theme_name', newThemeData.theme_img_path);
+    var formData: any = new FormData();
+    formData.append('theme_name', uploadForm.get('theme_name')?.value);
+    formData.append('themeImage', uploadForm.get('theme_img_path')?.value);
 
     const body = bodyEncoded.toString();
-    console.log(body);
+    const test = formData.toString();
 
-    return this.httpClient.post(
-      this.endpoint,
-      body,
-      httpOptionsUsingUrlEncoded
+    console.log(test);
+
+    this.httpClient.post(this.endpoint, formData).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
     );
   }
 
