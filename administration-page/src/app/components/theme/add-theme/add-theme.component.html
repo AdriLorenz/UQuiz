@@ -6,40 +6,73 @@
           <label name="theme_name">Theme name: </label>
         </div>
         <div class="col-8">
-          <input name="theme_name" autocomplete="off" type="text" />
+          <input
+            [(ngModel)]="themeToCreate.theme_name"
+            name="theme_name"
+            id="theme_name"
+            autocomplete="off"
+            type="text"
+          />
         </div>
       </div>
     </div>
 
     <br /><br />
 
-    <button class="buttonSubmit" type="submit">Create theme</button>
+    <button class="buttonSubmit" (click)="onSubmit()" type="submit">
+      Create theme
+    </button>
   </div>
 </div>
 
 <div class="container">
   <div class="contentDesktop">
-    <div class="topicContent">
-      <div class="row">
-        <div class="col-4">
-          <label name="theme_name">Theme name: </label>
+    <form [formGroup]="uploadForm">
+      <div class="themeContent">
+        <div class="row">
+          <div class="col-4">
+            <label name="theme_name">Theme name: </label>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <input
+                [(ngModel)]="themeToCreate.theme_name"
+                name="theme_name"
+                id="theme_name"
+                autocomplete="off"
+                type="text"
+              />
+            </div>
+          </div>
         </div>
+        <br />
         <div class="row">
           <div class="col-12">
-            <input name="theme_name" autocomplete="off" type="text" />
+            <label class="form-label" for="customFile"
+              >Default file input example</label
+            >
+            <input
+              type="file"
+              class="form-control"
+              name="customFile"
+              id="customFile"
+              (change)="onFileSelect($event)"
+            />
           </div>
         </div>
       </div>
-    </div>
 
-    <br /><br /><br />
+      <br /><br /><br />
 
-    <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4"></div>
-      <div class="col-4">
-        <button class="buttonSubmit" type="submit">Create theme</button>
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4"></div>
+        <div class="col-4">
+          <button class="buttonSubmit" (click)="onSubmit()" type="submit">
+            Create theme
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

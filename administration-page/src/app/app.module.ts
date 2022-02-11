@@ -33,7 +33,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterButtonComponent } from './components/user/register-button/register-button.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from './components/modal/modal.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
@@ -97,6 +97,7 @@ const appRoutes: Routes = [
     MatDialogModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    ReactiveFormsModule,
   ],
   providers: [QuestionService],
   bootstrap: [AppComponent],
