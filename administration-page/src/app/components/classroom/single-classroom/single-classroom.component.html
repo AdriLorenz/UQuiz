@@ -1,0 +1,26 @@
+<div class="card" style="width: 15rem">
+  <div class="card-body">
+    <a
+      routerLink="/{{ classroom.classroom_name }}/users"
+      class="card-title text-center"
+    >
+      <h5>{{ classroom.classroom_name }}</h5>
+    </a>
+  </div>
+  <div class="row crud">
+    <div class="col-4 test">
+      <a
+        routerLink="/{{ classroom.classroom_name }}/{{
+          classroom.classroom_id
+        }}"
+      ></a>
+      <input type="image" src="../../../../assets/images/edit.png" />
+    </div>
+    <div class="col-4">
+      <p class="card-text"></p>
+    </div>
+    <div (click)="showModal()" class="col-4 delete">
+      <input type="image" src="../../../../assets/images/trash-can.png" />
+    </div>
+  </div>
+</div>

@@ -34,6 +34,7 @@ export class ThemeComponent implements OnInit {
       // display error message
     }
   }
+
   updateTheme(themeToUpdate: Theme) {
     try {
       this.themeService.updateTheme(themeToUpdate);

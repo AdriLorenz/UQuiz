@@ -1,11 +1,25 @@
 @media only screen and (min-width: 769px) {
   .mobile {
     display: none;
+    padding-top: 0px;
   }
 }
 
 @media screen and (max-width: 768px) {
   .desktop {
     display: none;
+    padding-top: 0px;
   }
+}
+
+.desktop {
+  padding-top: 20px;
+}
+
+.mobile {
+  padding-top: 20px;
+}
+
+.margins {
+  padding: 5px;
 }
