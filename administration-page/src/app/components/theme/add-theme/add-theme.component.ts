@@ -2,6 +2,8 @@ import { ThemeService } from 'src/app/services/theme.service';
 import { Component, OnInit } from '@angular/core';
 import { Theme } from 'src/app/models/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-theme',
@@ -12,10 +14,13 @@ export class AddThemeComponent implements OnInit {
   theme: Theme;
   public themeToCreate: Theme;
   uploadForm: FormGroup;
+  delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   constructor(
     private themeService: ThemeService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private location: Location,
+    private router: Router
   ) {
     this.uploadForm = this.formBuilder.group({
       theme_name: '',
@@ -27,9 +32,15 @@ export class AddThemeComponent implements OnInit {
     this.themeToCreate = new Theme(0, '', '');
   }
 
-  createTheme() {
+  async createTheme() {
     try {
       this.themeService.createTheme(this.uploadForm);
+
+      await this.delay(1000);
+
+      this.router.navigate([this.location.back()]).then(() => {
+        window.location.reload();
+      });
       // display success message
     } catch (error) {
       console.log(error);

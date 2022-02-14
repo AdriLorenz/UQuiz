@@ -20,7 +20,11 @@ module.exports = (app) => {
   // Route create a new theme
   //routerThemes.post("/", upload.single("themeImage"), themes.createTheme);
   // Route update theme by id
-  routerThemes.put("/:theme_id", themes.updateTheme);
+  routerThemes.put(
+    "/:theme_id",
+    upload.single("themeImage"),
+    themes.updateTheme
+  );
   // Route delete theme by id
   routerThemes.delete("/:theme_id", themes.deleteTheme);
 

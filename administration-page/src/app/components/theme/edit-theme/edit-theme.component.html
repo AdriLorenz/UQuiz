@@ -1,45 +1,94 @@
 <div class="container">
   <div class="contentMobile">
-    <div class="themeContent">
-      <div class="row">
-        <div class="col-4">
-          <label name="theme_name">Theme name: </label>
+    <form [formGroup]="uploadForm">
+      <div class="themeContent">
+        <div class="row">
+          <div class="col-4">
+            <label name="theme_name">Theme name: </label>
+          </div>
+          <div class="col-8">
+            <input
+              formControlName="theme_name"
+              name="theme_name"
+              id="theme_name"
+              autocomplete="off"
+              type="text"
+            />
+          </div>
         </div>
-        <div class="col-8">
-          <input name="theme_name" autocomplete="off" type="text" />
+        <br />
+        <div class="row">
+          <div class="col-12">
+            <label class="form-label" for="theme_img_path"
+              >Default file input example</label
+            >
+            <input
+              type="file"
+              class="form-control"
+              name="theme_img_path"
+              id="theme_img_path"
+              (change)="onFileSelect($event)"
+            />
+          </div>
         </div>
       </div>
-    </div>
 
-    <br /><br />
+      <br /><br />
 
-    <button class="buttonSubmit" type="submit">Edit theme</button>
+      <button class="buttonSubmit" (click)="updateTheme()" type="submit">
+        Create theme
+      </button>
+    </form>
   </div>
 </div>
 
 <div class="container">
   <div class="contentDesktop">
-    <div class="topicContent">
-      <div class="row">
-        <div class="col-4">
-          <label name="theme_name">Theme name: </label>
+    <form [formGroup]="uploadForm">
+      <div class="themeContent">
+        <div class="row">
+          <div class="col-4">
+            <label name="theme_name">Theme name: </label>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <input
+                formControlName="theme_name"
+                name="theme_name"
+                id="theme_name"
+                autocomplete="off"
+                type="text"
+                [(ngModel)]="theme.theme_name"
+              />
+            </div>
+          </div>
         </div>
+        <br />
         <div class="row">
           <div class="col-12">
-            <input name="theme_name" autocomplete="off" type="text" />
+            <label class="form-label" for="theme_img_path">Theme image:</label>
+            <input
+              type="file"
+              class="form-control"
+              name="themeImage"
+              id="theme_img_path"
+              (change)="onFileSelect($event)"
+            />
           </div>
         </div>
       </div>
-    </div>
 
-    <br /><br /><br />
+      <br /><br /><br />
 
-    <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4"></div>
-      <div class="col-4">
-        <button class="buttonSubmit" type="submit">Edit theme</button>
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4"></div>
+        <div class="col-4">
+          <button class="buttonSubmit" (click)="updateTheme()" type="submit">
+            Update Theme
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

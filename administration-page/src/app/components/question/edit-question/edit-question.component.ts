@@ -9,6 +9,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/modal.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-question',
@@ -16,11 +17,7 @@ import { ModalComponent } from '../../modal/modal.component';
   styleUrls: ['./edit-question.component.css'],
 })
 export class EditQuestionComponent implements OnInit {
-  constructor(
-    private questionService: QuestionService,
-    private route: ActivatedRoute,
-    public modal: MatDialog
-  ) {}
+  delay = (ms) => new Promise((res) => setTimeout(res, ms));
   question_id: number;
 
   questionWithAnswers: QuestionWithAnswers;
@@ -29,7 +26,15 @@ export class EditQuestionComponent implements OnInit {
   wrongAnswer2: Answer;
   correctAnswer: Answer;
 
-  editQuestion() {
+  constructor(
+    private questionService: QuestionService,
+    private route: ActivatedRoute,
+    public modal: MatDialog,
+    private location: Location,
+    private router: Router
+  ) {}
+
+  async editQuestion() {
     let answers: Answer[] = [];
     answers.push(this.correctAnswer, this.wrongAnswer1, this.wrongAnswer2);
 
@@ -41,6 +46,12 @@ export class EditQuestionComponent implements OnInit {
         .subscribe((res) => {
           console.log(res);
         });
+
+      await this.delay(1000);
+
+      this.router.navigate([this.location.back()]).then(() => {
+        window.location.reload();
+      });
       // display success popup
     } catch (error) {
       console.log(error);

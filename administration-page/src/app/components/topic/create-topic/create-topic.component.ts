@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Theme } from 'src/app/models/theme';
 import { Topic } from 'src/app/models/topic';
 import { TopicService } from 'src/app/services/topic.service';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-topic',
@@ -10,12 +12,15 @@ import { TopicService } from 'src/app/services/topic.service';
   styleUrls: ['./create-topic.component.css'],
 })
 export class CreateTopicComponent implements OnInit {
+  delay = (ms) => new Promise((res) => setTimeout(res, ms));
   theme_id: number;
   topic: Topic;
 
   constructor(
     private topicService: TopicService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -26,13 +31,19 @@ export class CreateTopicComponent implements OnInit {
     this.topic = new Topic(0, '', this.theme_id);
   }
 
-  createTopic() {
+  async createTopic() {
     try {
       this.topicService
         .createTopic(this.topic, this.theme_id)
         .subscribe((data) => {
           console.log(data);
         });
+
+      await this.delay(1000);
+
+      this.router.navigate([this.location.back()]).then(() => {
+        window.location.reload();
+      });
       // display success message
     } catch (error) {
       console.log(error);

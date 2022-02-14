@@ -64,10 +64,15 @@ export class ThemeService {
     return this.httpClient.delete(this.endpoint + '/' + id);
   }
 
-  updateTheme(updatedTheme: Theme): Observable<any> {
+  updateTheme(updatedTheme: any): Observable<any> {
+    console.log(updatedTheme);
     return this.httpClient.put(
       this.endpoint + '/' + updatedTheme.theme_id,
       updatedTheme
     );
+  }
+
+  getOneById(id: number): Observable<Theme> {
+    return this.httpClient.get<Theme>(this.endpoint + '/' + id);
   }
 }

@@ -1,26 +1,44 @@
 <div class="container">
   <div class="contentMobile">
-    <div class="themeContent">
-      <div class="row">
-        <div class="col-4">
-          <label name="theme_name">Theme name: </label>
+    <form [formGroup]="uploadForm">
+      <div class="themeContent">
+        <div class="row">
+          <div class="col-4">
+            <label name="theme_name">Theme name: </label>
+          </div>
+          <div class="col-8">
+            <input
+              formControlName="theme_name"
+              name="theme_name"
+              id="theme_name"
+              autocomplete="off"
+              type="text"
+            />
+          </div>
         </div>
-        <div class="col-8">
-          <input
-            name="theme_name"
-            id="theme_name"
-            autocomplete="off"
-            type="text"
-          />
+        <br />
+        <div class="row">
+          <div class="col-12">
+            <label class="form-label" for="theme_img_path"
+              >Default file input example</label
+            >
+            <input
+              type="file"
+              class="form-control"
+              name="theme_img_path"
+              id="theme_img_path"
+              (change)="onFileSelect($event)"
+            />
+          </div>
         </div>
       </div>
-    </div>
 
-    <br /><br />
+      <br /><br />
 
-    <button class="buttonSubmit" (click)="onSubmit()" type="submit">
-      Create theme
-    </button>
+      <button class="buttonSubmit" (click)="onSubmit()" type="submit">
+        Create theme
+      </button>
+    </form>
   </div>
 </div>
 

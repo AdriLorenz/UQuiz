@@ -63,29 +63,14 @@ exports.getUserByIdEJS = async (t, req, res) => {
 // Create a new user
 exports.createUser = async (req, res) => {
   try {
-    console.log("HEREEEEEEEEEE " + req.body.user_password);
     const hashedPassword = await bcrypt.hash(req.body.user_password, 3);
 
-    const getUserByEmail = async (req, res) => {
-      try {
-        const user = await User.findAll({
-          where: {
-            user_email: req.body.user_email,
-          },
-        });
-        return user.user_email;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    const email = await getUserByEmail(req, res);
-    console.log(email);
-    if (req.body.user_email === email) {
-      req.flash("error", "The email already exists");
-      return null;
-    } else if (req.body.repeatPassword !== req.body.user_password) {
-      req.flash("error", "The passwords do not match");
-      return null;
+    const userWithSameEmail = await User.findOne({
+      where: { user_email: req.body.user_email },
+    });
+
+    if (userWithSameEmail) {
+      return res.send("Email already used !");
     } else {
       User.create({
         user_name: req.body.user_name,

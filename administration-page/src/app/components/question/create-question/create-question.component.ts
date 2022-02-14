@@ -5,6 +5,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Question } from 'src/app/models/question';
 import { Answer } from 'src/app/models/answer';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-question',
@@ -12,6 +14,7 @@ import { Answer } from 'src/app/models/answer';
   styleUrls: ['./create-question.component.css'],
 })
 export class CreateQuestionComponent implements OnInit {
+  delay = (ms) => new Promise((res) => setTimeout(res, ms));
   questionWithAnswers: QuestionWithAnswers;
   topic_id: number;
   answers: Answer[];
@@ -21,7 +24,9 @@ export class CreateQuestionComponent implements OnInit {
 
   constructor(
     private questionService: QuestionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -48,13 +53,19 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   ////////////////////////
-  createQuestion() {
+  async createQuestion() {
     try {
       this.questionService
         .createQuestionWithAnswers(this.questionWithAnswers, this.topic_id)
         .subscribe((data) => {
           console.log(data);
         });
+
+      await this.delay(1000);
+
+      this.router.navigate([this.location.back()]).then(() => {
+        window.location.reload();
+      });
       // display success popup
     } catch (err) {
       console.log(err);

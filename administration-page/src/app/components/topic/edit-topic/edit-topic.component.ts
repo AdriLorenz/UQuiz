@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Topic } from 'src/app/models/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import {
   MatDialog,
   MatDialogRef,
@@ -15,14 +17,17 @@ import { ModalComponent } from '../../modal/modal.component';
   styleUrls: ['./edit-topic.component.css'],
 })
 export class EditTopicComponent implements OnInit {
+  delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  public topic: Topic;
+  topic_id: number;
+
   constructor(
     private topicService: TopicService,
     private route: ActivatedRoute,
-    public modal: MatDialog
+    public modal: MatDialog,
+    private location: Location,
+    private router: Router
   ) {}
-
-  public topic: Topic;
-  topic_id: number;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -36,11 +41,17 @@ export class EditTopicComponent implements OnInit {
     });
   }
 
-  updateTopic() {
+  async updateTopic() {
     try {
       this.topicService
         .updateTopic(this.topic)
         .subscribe((res) => console.log(res));
+
+      await this.delay(1000);
+
+      this.router.navigate([this.location.back()]).then(() => {
+        window.location.reload();
+      });
       // display success message;
     } catch (error) {
       console.log(error);

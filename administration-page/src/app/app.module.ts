@@ -45,6 +45,7 @@ import { CreateClassroomComponent } from './components/classroom/create-classroo
 import { EditClassroomComponent } from './components/classroom/edit-classroom/edit-classroom.component';
 import { CreateClassroomButtonComponent } from './components/classroom/create-classroom-button/create-classroom-button.component';
 import { SingleUserComponent } from './components/user/single-user/single-user.component';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 const appRoutes: Routes = [
   { path: 'themes/create', component: AddThemeComponent },
@@ -118,6 +119,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MatButtonModule,
     ReactiveFormsModule,
+    RxReactiveFormsModule,
   ],
   providers: [QuestionService],
   bootstrap: [AppComponent],

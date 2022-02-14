@@ -2,7 +2,7 @@
 const Sequelize = require("sequelize");
 
 // create connection
-const db = new Sequelize("school_chamber", "root", "adri123", {
+const db = new Sequelize("school_chamber", "root", "", {
   host: "localhost",
   dialect: "mysql",
 });
