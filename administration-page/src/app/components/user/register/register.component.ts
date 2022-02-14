@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
     this.myForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', Validators.required, Validators.email],
-      password: ['', Validators.required],
+      password: ['', Validators.required, Validators.minLength(6)],
       repeatPassword: ['', RxwebValidators.compare({ fieldName: 'password' })],
       role_id_fk: [0, Validators.required],
       classroom_id_fk: [0, Validators.required],

@@ -28,8 +28,10 @@
         <div
           *ngIf="
             myForm.get('name')?.invalid &&
+            myForm.get('name')?.errors &&
             (myForm.get('name')?.dirty || myForm.get('name')?.touched)
           "
+          class="errorMessage"
         >
           Please provide a name.
         </div>
@@ -58,6 +60,7 @@
         <div
           *ngIf="
             myForm.get('email')?.invalid &&
+            myForm.get('email')?.errors &&
             (myForm.get('email')?.dirty || myForm.get('email')?.touched)
           "
         >
@@ -85,6 +88,9 @@
           placeholder="Your password.."
           required
         />
+        <div *ngIf="myForm.get('password')?.hasError('minlength')">
+          Please provide a valid email address.
+        </div>
       </div>
     </div>
 
@@ -107,9 +113,6 @@
           placeholder="Repeat password.."
           required
         />
-        <small class="form-text text-danger">{{
-          myForm.controls.repeatPassword["errorMessage"]
-        }}</small>
       </div>
     </div>
 
@@ -151,6 +154,7 @@
             id="classroom_id_fk"
             required
           >
+            <option value="" selected disabled hidden>Choose here</option>
             <option
               *ngFor="let classroom of classrooms"
               value="{{ classroom.classroom_id }}"
@@ -178,7 +182,7 @@
             (click)="onSubmit(myForm)"
             type="submit"
             value="Submit"
-            [disabled]="!myForm.valid"
+            [disabled]="myForm.invalid"
           />
         </div>
       </div>

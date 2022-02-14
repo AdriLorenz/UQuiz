@@ -48,6 +48,7 @@ import { SingleUserComponent } from './components/user/single-user/single-user.c
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 const appRoutes: Routes = [
+  { path: 'login', component: LoginComponent },
   { path: 'themes/create', component: AddThemeComponent },
   { path: 'themes', component: ThemeComponent },
   { path: 'themes/:theme_name/:theme_id', component: EditThemeComponent },

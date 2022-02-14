@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+const User = require("./models").users;
 const flash = require("express-flash");
 const session = require("express-session");
 const express = require("express");
@@ -63,26 +64,12 @@ app.use(
 app.use(passport.initialize());
 app.use(express.static("public"));
 
-initializePassport(
-  passport,
-  (email) =>
-    User.findOne({
-      where: {
-        user_email: email,
-      },
-    }),
-  (id) =>
-    User.findOne({
-      where: {
-        user_id: id,
-      },
-    }),
-  (role) =>
-    User.findOne({
-      where: {
-        role_id_fk: role,
-      },
-    })
+initializePassport(passport, (email) =>
+  User.findOne({
+    where: {
+      user_email: email,
+    },
+  })
 );
 
 app.delete("/logout", (req, res) => {
@@ -99,6 +86,7 @@ require("./routes/routes-questions")(app);
 require("./routes/routes-topics")(app);
 require("./routes/routes-classrooms")(app);
 require("./routes/routes-roles")(app);
+require("./routes/routes-login")(app);
 require("./routes/routes")(app);
 
 app.listen(5000, () =>

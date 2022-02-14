@@ -7,7 +7,7 @@
 
   <br />
 
-  <form action="/login" method="POST">
+  <form action="/login" [formGroup]="myForm">
     <div class="row">
       <div class="col-12">
         <label for="email" class="name">Email</label>
@@ -17,6 +17,7 @@
       <div class="col-12">
         <input
           type="text"
+          formControlName="email"
           id="email"
           name="email"
           placeholder="Your email..."
@@ -34,6 +35,7 @@
     <div class="row">
       <div class="col-12">
         <input
+          formControlName="password"
           type="password"
           id="password"
           name="password"
@@ -47,7 +49,12 @@
     <div class="buttons">
       <div class="row">
         <div class="col-12">
-          <input class="loginButton" type="submit" value="Submit" />
+          <input
+            (click)="logIn()"
+            class="loginButton"
+            type="submit"
+            value="Submit"
+          />
         </div>
       </div>
     </div>
