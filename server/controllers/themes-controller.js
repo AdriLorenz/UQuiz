@@ -2,6 +2,8 @@
 const db = require("../models");
 const Theme = db.themes;
 
+const fs = require("fs");
+
 // Get all theme
 exports.getThemes = async (req, res) => {
   try {
@@ -86,7 +88,8 @@ exports.createTheme = async (req, res) => {
   try {
     await Theme.create({
       theme_name: req.body.theme_name,
-      theme_img_path: themeImagesDir + req.file.filename,
+      theme_img_path:
+        themeImagesDir + req.file.filename || req.body.theme_img_path,
     });
     res.json({
       message: "Theme Created",
@@ -98,12 +101,28 @@ exports.createTheme = async (req, res) => {
 
 // Update theme by id
 exports.updateTheme = async (req, res) => {
+  console.log(req.body);
   try {
-    await Theme.update(req.body, {
-      where: {
-        theme_id: req.params.theme_id,
+    if (req.body.theme_img_path)
+      fs.unlink(req.body.theme_img_path, (err) => {
+        console.log(err);
+        return;
+      });
+
+    const themeImagesDir = "\\images\\themes\\";
+    console.log(req.file);
+    await Theme.update(
+      {
+        theme_id: req.body.theme_id,
+        theme_name: req.body.theme_name,
+        theme_img_path: themeImagesDir + req.file.filename,
       },
-    });
+      {
+        where: {
+          theme_id: req.params.theme_id,
+        },
+      }
+    );
     res.json({
       message: "Theme Updated",
     });

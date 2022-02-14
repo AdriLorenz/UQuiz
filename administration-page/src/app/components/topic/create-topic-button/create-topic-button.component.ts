@@ -10,7 +10,7 @@ export class CreateTopicButtonComponent implements OnInit {
   @Input() theme_name: string;
 
   goToCreateTopicPage() {
-    this.router.navigateByUrl('/topic/create');
+    this.router.navigateByUrl('theme/{{themeId}}/topic/create');
   }
 
   constructor(private router: Router) {}

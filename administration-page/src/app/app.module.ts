@@ -51,6 +51,7 @@ const appRoutes: Routes = [
     component: EditQuestionComponent,
   },
   { path: ':theme_name/topics', component: TopicComponent },
+  { path: ':theme_name/:theme_id', component: EditThemeComponent },
   { path: 'users', component: UserComponent },
   { path: 'questions/create', component: CreateQuestionComponent },
   { path: 'topic/create', component: CreateTopicComponent },
