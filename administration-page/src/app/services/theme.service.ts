@@ -27,6 +27,14 @@ export class ThemeService {
     private formBuilder: FormBuilder
   ) {}
 
+  updateThemeName(id: number, name: string): Observable<any> {
+    console.log(name);
+    return this.httpClient.put(this.endpoint + '/' + id + '/editThemeName', {
+      theme_name: name,
+      theme_id: id,
+    });
+  }
+
   getThemesWithTopicWithQuestionsWithAnswers(): Observable<Theme[]> {
     return this.httpClient.get<Theme[]>(
       this.endpoint + '/withTopicsWithQuestionsWithAnswers'
@@ -64,12 +72,13 @@ export class ThemeService {
     return this.httpClient.delete(this.endpoint + '/' + id);
   }
 
-  updateTheme(updatedTheme: any): Observable<any> {
-    console.log(updatedTheme);
-    return this.httpClient.put(
-      this.endpoint + '/' + updatedTheme.theme_id,
-      updatedTheme
-    );
+  updateTheme(updatedTheme: FormGroup, theme_id: number): Observable<any> {
+    let formData: any = new FormData();
+
+    formData.append('theme_name', updatedTheme.get('theme_name')?.value);
+    formData.append('themeImage', updatedTheme.get('theme_img_path')?.value);
+
+    return this.httpClient.put(this.endpoint + '/' + theme_id, formData);
   }
 
   getOneById(id: number): Observable<Theme> {

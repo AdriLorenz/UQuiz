@@ -25,6 +25,10 @@ export class UserService {
     return this.httpClient.get<User[]>(this.endpoint);
   }
 
+  findById(id: number): Observable<User> {
+    return this.httpClient.get<User>(this.endpoint + '/' + id);
+  }
+
   createUser(newUserData: User): Observable<User> {
     return this.httpClient.post<User>(this.endpoint + '/register', newUserData);
   }
@@ -35,7 +39,7 @@ export class UserService {
 
   updateUser(updatedUser: User): Observable<any> {
     return this.httpClient.put(
-      this.endpoint + '/' + updatedUser.user_id,
+      this.endpoint + '/edit/' + updatedUser.user_id,
       updatedUser
     );
   }

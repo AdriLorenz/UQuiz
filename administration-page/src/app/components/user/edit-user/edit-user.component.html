@@ -1,147 +1,136 @@
 <div class="register">
-  <div class="row">
-    <div class="col-12">
-      <h1>Register</h1>
-    </div>
-  </div>
-
-  <br />
-
-  <div class="row">
-    <div class="col-12">
-      <div class="mainInfo">
-        <label for="name" class="name">Name</label>
+  <form (ngSubmit)="updateUser()">
+    <div class="row">
+      <div class="col-12">
+        <h1>Edit User</h1>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <input
-        type="text"
-        id="name"
-        name="name"
-        placeholder="Your name..."
-        required
-      />
-    </div>
-  </div>
 
-  <br />
+    <br />
 
-  <div class="row">
-    <div class="col-12">
-      <div class="mainInfo">
-        <label for="email" class="name">Email</label>
+    <div class="row">
+      <div class="col-12">
+        <div class="mainInfo">
+          <label for="name" class="name">Name</label>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <input
-        type="text"
-        id="email"
-        name="email"
-        placeholder="Your email..."
-        required
-      />
-    </div>
-  </div>
-
-  <br />
-
-  <div class="row">
-    <div class="col-12">
-      <div class="mainInfo">
-        <label for="password">Password</label>
+    <div class="row">
+      <div class="col-12">
+        <input
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="user.user_name"
+          required
+        />
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Your password.."
-        required
-      />
-    </div>
-  </div>
 
-  <br />
+    <br />
 
-  <div class="row">
-    <div class="col-12">
-      <div class="mainInfo">
-        <label for="repeatPassword">Repeat password</label>
+    <div class="row">
+      <div class="col-12">
+        <div class="mainInfo">
+          <label for="email" class="name">Email</label>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <input
-        type="password"
-        id="repeatPassword"
-        name="repeatPassword"
-        placeholder="Repeat password.."
-        required
-      />
+    <div class="row">
+      <div class="col-12">
+        <input
+          type="text"
+          id="email"
+          name="email"
+          [(ngModel)]="user.user_email"
+          required
+        />
+      </div>
     </div>
-  </div>
 
-  <br />
+    <br />
 
-  <!-- <div class="roles row">
-    <div class="col-6">
-      <div class="labels">
-        <label for="role_id_fk">Role</label>
+    <div class="row">
+      <div class="col-12">
+        <div class="mainInfo">
+          <label for="password">Password</label>
+        </div>
       </div>
     </div>
-    <div class="col-6">
-      <div class="options">
-        <select name="role_id_fk" id="role_id_fk">
-          <option *ngFor="let role of roles" value="{{ role.role_id }}">
-            {{ role.role_name }}
-          </option>
-        </select>
+    <div class="row">
+      <div class="col-12">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="user.user_password"
+          required
+        />
       </div>
     </div>
-  </div>
 
-  <div class="classroom row">
-    <div class="col-6">
-      <div class="labels">
-        <label for="classroom_id_fk">Classroom</label>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="options">
-        <select name="classroom_id_fk" id="classroom_id_fk">
-          <option
-            *ngFor="let classroom of classrooms"
-            value="{{ classroom.classroom_id }}"
-          >
-            {{ classroom.classroom_name }}
-          </option>
-        </select>
-      </div>
-    </div>
-  </div> -->
+    <br />
 
-  <br />
+    <div class="row">
+      <div class="col-12">
+        <div class="mainInfo">
+          <label for="repeatPassword">Repeat password</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <input
+          type="password"
+          id="repeatPassword"
+          name="repeatPassword"
+          [(ngModel)]="user.user_password"
+          required
+        />
+      </div>
+    </div>
 
-  <div class="row">
-    <div class="col-4"></div>
-    <div class="col-2">
-      <div class="buttons">
-        <input class="backButton" type="button" value="Back" />
+    <br />
+
+    <div class="roles row">
+      <div class="col-6">
+        <div class="labels">
+          <label for="role_id_fk">Role</label>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="options">
+          <select name="role_id_fk" id="role_id_fk">
+            <option *ngFor="let role of roles" value="{{ role.role_id }}">
+              {{ role.role_name }}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
-    <div class="col-2">
-      <div class="buttons">
-        <input class="registerButton" type="submit" value="Submit" />
+
+    <div class="classroom row">
+      <div class="col-6">
+        <div class="labels">
+          <label for="classroom_id_fk">Classroom</label>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="options">
+          <select name="classroom_id_fk" id="classroom_id_fk">
+            <option
+              *ngFor="let classroom of classrooms"
+              value="{{ classroom.classroom_id }}"
+            >
+              {{ classroom.classroom_name }}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
-    <div class="col-4"></div>
-  </div>
+
+    <br />
+
+    <button type="submit" class="btnSubmit">Editer</button>
+  </form>
 </div>

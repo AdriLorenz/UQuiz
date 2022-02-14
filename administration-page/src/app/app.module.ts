@@ -50,9 +50,10 @@ import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 const appRoutes: Routes = [
   { path: 'themes/create', component: AddThemeComponent },
   { path: 'themes', component: ThemeComponent },
+  { path: 'themes/:theme_name/:theme_id', component: EditThemeComponent },
   { path: '', component: RegisterComponent },
   { path: ':theme_name/:topic_name/questions', component: QuestionComponent },
-  { path: ':theme_name/:topic_name/:topic_id', component: EditTopicComponent },
+
   {
     path: ':theme_name/:topic_name/editQuestion/:question_id',
     component: EditQuestionComponent,
@@ -63,11 +64,15 @@ const appRoutes: Routes = [
     component: CreateQuestionComponent,
   },
   { path: 'theme/:theme_id_fk/topic/create', component: CreateTopicComponent },
-
+  { path: 'user/:user_id/edit', component: EditUserComponent },
   { path: 'classrooms', component: ClassroomComponent },
   { path: 'classrooms/create', component: CreateClassroomComponent },
-
+  {
+    path: 'classrooms/:classroom_id/edit',
+    component: EditClassroomComponent,
+  },
   { path: ':classroom_name/users', component: UserComponent },
+  { path: ':theme_name/:topic_name/:topic_id', component: EditTopicComponent },
   { path: 'user/create', component: RegisterComponent },
 
   { path: '**', component: PageNotFoundComponent },

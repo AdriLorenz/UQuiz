@@ -26,6 +26,12 @@ export class ClassroomService {
     return this.httpClient.get<Classroom[]>(this.endpoint);
   }
 
+  getClassroomById(id: number): Observable<Classroom> {
+    console.log(id);
+    console.log(this.endpoint + '/' + id);
+    return this.httpClient.get<Classroom>(this.endpoint + '/' + id);
+  }
+
   getUsersByClassroomName(
     classroom_name: string
   ): Observable<ClassroomWithUsers> {

@@ -99,6 +99,20 @@ exports.createTheme = async (req, res) => {
   }
 };
 
+// Update theme Name
+exports.updateThemeName = async (req, res) => {
+  try {
+    console.log(req.body);
+    await Theme.update(
+      { theme_name: req.body.theme_name },
+      { where: { theme_id: req.body.theme_id } }
+    );
+    res.json("theme updated");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // Update theme by id
 exports.updateTheme = async (req, res) => {
   console.log(req.body);
@@ -134,6 +148,20 @@ exports.updateTheme = async (req, res) => {
 // Delete theme by id
 exports.deleteTheme = async (req, res) => {
   try {
+    console.log(req.body);
+    const theme = await Theme.findOne({
+      where: { theme_id: req.params.theme_id },
+    });
+
+    if (theme.theme_img_path) {
+      const themeImagesDir = "./public";
+      console.log("had iamge");
+      fs.unlink(themeImagesDir + theme.theme_img_path, (err) => {
+        console.log(err);
+        return;
+      });
+    }
+
     await Theme.destroy({
       where: {
         theme_id: req.params.theme_id,

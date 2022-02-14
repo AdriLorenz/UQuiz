@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Classroom } from 'src/app/models/classroom';
 import { ClassroomService } from 'src/app/services/classroom.service';
@@ -9,8 +10,32 @@ import { ClassroomService } from 'src/app/services/classroom.service';
 })
 export class EditClassroomComponent implements OnInit {
   classroom: Classroom;
+  classroom_id: number;
 
-  constructor(private classroomService: ClassroomService) {}
+  constructor(
+    private classroomService: ClassroomService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {}
+  editClassroom() {
+    try {
+      this.classroomService
+        .updateClassroom(this.classroom)
+        .subscribe((res) => console.log(res));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((param) => {
+      this.classroom_id = +param.get('classroom_id')! || 0;
+    });
+
+    this.classroomService
+      .getClassroomById(this.classroom_id)
+      .subscribe((res) => {
+        this.classroom = res;
+      });
+  }
 }

@@ -11,6 +11,9 @@ module.exports = (app) => {
 
   // get image test theme
   routerThemes.get("/image/:id", themes.getImageTest);
+
+  //edit theme name
+  routerThemes.put("/:theme_id/editThemeName", themes.updateThemeName);
   // Route for topics inside a theme
   routerThemes.get("/:theme_name/topics", themes.getOneThemeWithTopics);
   // Route get all themes
@@ -19,6 +22,7 @@ module.exports = (app) => {
   routerThemes.get("/:theme_id", themes.getThemeById);
   // Route create a new theme
   //routerThemes.post("/", upload.single("themeImage"), themes.createTheme);
+
   // Route update theme by id
   routerThemes.put(
     "/:theme_id",
