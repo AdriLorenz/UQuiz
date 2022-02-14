@@ -26,7 +26,7 @@ export class UserService {
   }
 
   createUser(newUserData: User): Observable<User> {
-    return this.httpClient.post<User>(this.endpoint, newUserData);
+    return this.httpClient.post<User>(this.endpoint + '/register', newUserData);
   }
 
   deleteUser(id: number): Observable<any> {
@@ -35,7 +35,7 @@ export class UserService {
 
   updateUser(updatedUser: User): Observable<any> {
     return this.httpClient.put(
-      this.endpoint + '/' + updatedUser.id,
+      this.endpoint + '/' + updatedUser.user_id,
       updatedUser
     );
   }

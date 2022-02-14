@@ -9,6 +9,11 @@ module.exports = (app) => {
   routerClassrooms.get("/", classroom.getClassrooms);
   // Route get classroom by id
   routerClassrooms.get("/:classroom_id", classroom.getClassroomById);
+  // Route get users inside a classroom
+  routerClassrooms.get(
+    "/:classroom_name/users",
+    classroom.getOneClassroomWithUsers
+  );
   // Route create a new classroom
   routerClassrooms.post("", classroom.createClassroom);
   // Route update classroom by id

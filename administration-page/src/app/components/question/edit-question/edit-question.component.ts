@@ -3,6 +3,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { QuestionWithAnswers } from 'src/app/models/questionWithAnswers';
 import { Answer } from 'src/app/models/answer';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { ModalComponent } from '../../modal/modal.component';
 
 @Component({
   selector: 'app-edit-question',
@@ -12,7 +18,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EditQuestionComponent implements OnInit {
   constructor(
     private questionService: QuestionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public modal: MatDialog
   ) {}
   question_id: number;
 
@@ -59,6 +66,20 @@ export class EditQuestionComponent implements OnInit {
             wrongAnswerCount--;
           } else this.wrongAnswer1 = answer;
         });
+      });
+  }
+
+  showModal(): void {
+    this.modal
+      .open(ModalComponent, {
+        data: `Do you want to edit this?`,
+      })
+      .afterClosed()
+      .subscribe((confirmed: Boolean) => {
+        if (confirmed) {
+          this.editQuestion();
+        } else {
+        }
       });
   }
 }

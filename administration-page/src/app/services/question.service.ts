@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { QuestionWithAnswers } from '../models/questionWithAnswers';
 import { Question } from '../models/question';
+import { Answer } from '../models/answer';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -35,11 +36,28 @@ export class QuestionService {
   }
 
   createQuestionWithAnswers(
-    newQuestion: QuestionWithAnswers
+    newQuestion: QuestionWithAnswers,
+    topicId: number
   ): Observable<QuestionWithAnswers> {
+    let bodyEncoded = new URLSearchParams();
+    console.log('here');
+    bodyEncoded.append('question_content', newQuestion.question_content);
+    bodyEncoded.append(
+      'question_difficulty',
+      newQuestion.question_difficulty.toString()
+    );
+    bodyEncoded.append('topic_id_fk', topicId.toString());
+    bodyEncoded.append('correctAnswer', newQuestion.answers[0].answer_content);
+    bodyEncoded.append('wrongAnswer1', newQuestion.answers[1].answer_content);
+    bodyEncoded.append('wrongAnswer2', newQuestion.answers[2].answer_content);
+
+    const body = bodyEncoded.toString();
+    console.log(body);
+
     return this.httpClient.post<QuestionWithAnswers>(
       this.endpoint + '/',
-      newQuestion
+      body,
+      httpOptionsUsingUrlEncoded
     );
   }
 

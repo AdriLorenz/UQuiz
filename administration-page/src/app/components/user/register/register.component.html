@@ -17,6 +17,7 @@
   <div class="row">
     <div class="col-12">
       <input
+        [(ngModel)]="user.user_name"
         type="text"
         id="name"
         name="name"
@@ -38,6 +39,7 @@
   <div class="row">
     <div class="col-12">
       <input
+        [(ngModel)]="user.user_email"
         type="text"
         id="email"
         name="email"
@@ -59,6 +61,7 @@
   <div class="row">
     <div class="col-12">
       <input
+        [(ngModel)]="user.user_password"
         type="password"
         id="password"
         name="password"
@@ -99,7 +102,7 @@
     </div>
     <div class="col-6">
       <div class="options">
-        <select name="role_id_fk" id="role_id_fk">
+        <select [(ngModel)]="user.role_id_fk" name="role_id_fk" id="role_id_fk">
           <option *ngFor="let role of roles" value="{{ role.role_id }}">
             {{ role.role_name }}
           </option>
@@ -116,7 +119,11 @@
     </div>
     <div class="col-6">
       <div class="options">
-        <select name="classroom_id_fk" id="classroom_id_fk">
+        <select
+          [(ngModel)]="user.classroom_id_fk"
+          name="classroom_id_fk"
+          id="classroom_id_fk"
+        >
           <option
             *ngFor="let classroom of classrooms"
             value="{{ classroom.classroom_id }}"
@@ -139,7 +146,12 @@
     </div>
     <div class="col-2">
       <div class="buttons">
-        <input class="registerButton" type="submit" value="Submit" />
+        <input
+          class="registerButton"
+          (click)="onSubmit()"
+          type="submit"
+          value="Submit"
+        />
       </div>
     </div>
     <div class="col-4"></div>

@@ -39,6 +39,12 @@ import { ModalComponent } from './components/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClassroomComponent } from './components/classroom/classroom.component';
+import { SingleClassroomComponent } from './components/classroom/single-classroom/single-classroom.component';
+import { CreateClassroomComponent } from './components/classroom/create-classroom/create-classroom.component';
+import { EditClassroomComponent } from './components/classroom/edit-classroom/edit-classroom.component';
+import { CreateClassroomButtonComponent } from './components/classroom/create-classroom-button/create-classroom-button.component';
+import { SingleUserComponent } from './components/user/single-user/single-user.component';
 
 const appRoutes: Routes = [
   { path: 'themes/create', component: AddThemeComponent },
@@ -51,10 +57,17 @@ const appRoutes: Routes = [
     component: EditQuestionComponent,
   },
   { path: ':theme_name/topics', component: TopicComponent },
-  { path: ':theme_name/:theme_id', component: EditThemeComponent },
-  { path: 'users', component: UserComponent },
-  { path: 'questions/create', component: CreateQuestionComponent },
-  { path: 'topic/create', component: CreateTopicComponent },
+  {
+    path: 'topic/:topic_id_fk/questions/create',
+    component: CreateQuestionComponent,
+  },
+  { path: 'theme/:theme_id_fk/topic/create', component: CreateTopicComponent },
+
+  { path: 'classrooms', component: ClassroomComponent },
+  { path: 'classrooms/create', component: CreateClassroomComponent },
+
+  { path: ':classroom_name/users', component: UserComponent },
+  { path: 'user/create', component: RegisterComponent },
 
   { path: '**', component: PageNotFoundComponent },
 ];
@@ -87,6 +100,12 @@ const appRoutes: Routes = [
     RegisterButtonComponent,
     ModalComponent,
     PageNotFoundComponent,
+    ClassroomComponent,
+    SingleClassroomComponent,
+    CreateClassroomComponent,
+    EditClassroomComponent,
+    CreateClassroomButtonComponent,
+    SingleUserComponent,
   ],
   imports: [
     BrowserModule,

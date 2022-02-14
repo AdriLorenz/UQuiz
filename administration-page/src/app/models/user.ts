@@ -1,6 +1,17 @@
+import { Role } from './role';
+
 export class User {
+  public user_id: number;
+  public user_name: string;
+  public user_email: string;
+  public user_password: string;
+  public user_score: number;
+  public user_games_played: number;
+  public classroom_id_fk: number;
+  public role_id_fk: number;
+  public roles: Role;
   constructor(
-    $id: number,
+    $user_id: number,
     $user_name: string,
     $user_email: string,
     $user_password: string,
@@ -9,7 +20,7 @@ export class User {
     $classroom_id_fk: number,
     $role_id_fk: number
   ) {
-    this.id = $id;
+    this.user_id = $user_id;
     this.user_name = $user_name;
     this.user_email = $user_email;
     this.user_password = $user_password;
@@ -18,12 +29,4 @@ export class User {
     this.classroom_id_fk = $classroom_id_fk;
     this.role_id_fk = $role_id_fk;
   }
-  public id: number;
-  public user_name: string;
-  public user_email: string;
-  public user_password: string;
-  public user_score: number;
-  public user_games_played: number;
-  public classroom_id_fk: number;
-  public role_id_fk: number;
 }

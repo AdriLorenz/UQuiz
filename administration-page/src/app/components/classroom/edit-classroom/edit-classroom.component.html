@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="contentMobile">
+    <div class="classroomContent">
+      <div class="row">
+        <div class="col-4">
+          <label name="classroom_name">Classroom name: </label>
+        </div>
+        <div class="col-8">
+          <input
+            name="classroom_name"
+            [(ngModel)]="classroom.classroom_name"
+            autocomplete="off"
+            type="text"
+          />
+        </div>
+      </div>
+    </div>
+
+    <br /><br />
+
+    <button class="buttonSubmit" type="submit">Create classroom</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="contentDesktop">
+    <div class="classroomContent">
+      <div class="row">
+        <div class="col-4">
+          <label name="classroom_name">classroom name: </label>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <input
+              name="classroom_name"
+              [(ngModel)]="classroom.classroom_name"
+              autocomplete="off"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br /><br /><br />
+
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4"></div>
+      <div class="col-4">
+        <button class="buttonSubmit" type="submit">Create classroom</button>
+      </div>
+    </div>
+  </div>
+</div>

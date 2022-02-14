@@ -2,6 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Topic } from 'src/app/models/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { ActivatedRoute } from '@angular/router';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { ModalComponent } from '../../modal/modal.component';
 
 @Component({
   selector: 'app-edit-topic',
@@ -11,7 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 export class EditTopicComponent implements OnInit {
   constructor(
     private topicService: TopicService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public modal: MatDialog
   ) {}
 
   public topic: Topic;
@@ -39,5 +46,19 @@ export class EditTopicComponent implements OnInit {
       console.log(error);
       // display error message
     }
+  }
+
+  showModal(): void {
+    this.modal
+      .open(ModalComponent, {
+        data: `Do you want to edit this?`,
+      })
+      .afterClosed()
+      .subscribe((confirmed: Boolean) => {
+        if (confirmed) {
+          this.updateTopic();
+        } else {
+        }
+      });
   }
 }

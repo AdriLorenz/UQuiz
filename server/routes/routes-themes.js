@@ -11,9 +11,8 @@ module.exports = (app) => {
 
   // get image test theme
   routerThemes.get("/image/:id", themes.getImageTest);
-
+  // Route for topics inside a theme
   routerThemes.get("/:theme_name/topics", themes.getOneThemeWithTopics);
-
   // Route get all themes
   routerThemes.get("/", themes.getThemes);
   // Route get theme by id

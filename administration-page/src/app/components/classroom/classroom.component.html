@@ -1,0 +1,26 @@
+<app-create-classroom-button></app-create-classroom-button>
+<div class="container desktop">
+  <div class="row">
+    <div class="col-4" *ngFor="let classroom of classrooms">
+      <div class="margins">
+        <app-single-classroom
+          [classroom]="classroom"
+          (classroomToDelete)="deleteClassroom(classroom)"
+          (classroomToUpdate)="updateClassroom(classroom)"
+        ></app-single-classroom>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mobile">
+  <div class="row" *ngFor="let classroom of classrooms">
+    <div class="col-12">
+      <app-single-classroom
+        [classroom]="classroom"
+        (classroomToDelete)="deleteClassroom(classroom)"
+        (classroomToUpdate)="updateClassroom(classroom)"
+      ></app-single-classroom>
+    </div>
+  </div>
+</div>

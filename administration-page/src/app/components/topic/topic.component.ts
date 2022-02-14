@@ -40,7 +40,10 @@ export class TopicComponent implements OnInit {
         .subscribe((res) => console.log(res));
 
       // delete in local array
-      //this.themes.splice(this.themes.indexOf(themeToDelete), 1);
+      this.themeWithTopics.topics.splice(
+        this.themeWithTopics.topics.indexOf(topicToDelete),
+        1
+      );
       // display success message
     } catch (error) {
       console.log(error);

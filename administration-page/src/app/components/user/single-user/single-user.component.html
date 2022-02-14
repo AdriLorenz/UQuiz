@@ -1,0 +1,40 @@
+<div class="card" style="width: 18rem">
+  <div class="card-header">
+    <a>{{ user.user_name }}</a>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      Email: <a>{{ user.user_email }}</a>
+    </li>
+    <li class="list-group-item">
+      Score: <a>{{ user.user_score }}</a>
+    </li>
+    <li class="list-group-item">
+      Games played: <a>{{ user.user_games_played }}</a>
+    </li>
+    <li class="list-group-item" *ngIf="user.role_id_fk == 1; else admin">
+      Role: <a>Basic</a>
+    </li>
+    <ng-template #admin
+      ><li class="list-group-item">Role: <a>Administrator</a></li></ng-template
+    >
+    <li class="list-group-item">
+      Classroom: <a>{{ user.classroom_id_fk }}</a>
+    </li>
+  </ul>
+  <div class="row crud">
+    <div class="col-4 test">
+      <a> <input type="image" src="../../../../assets/images/edit.png" /></a>
+    </div>
+    <div class="col-4">
+      <p class="card-text"></p>
+    </div>
+    <div class="col-4 delete">
+      <input
+        (click)="showModal()"
+        type="image"
+        src="../../../../assets/images/trash-can.png"
+      />
+    </div>
+  </div>
+</div>

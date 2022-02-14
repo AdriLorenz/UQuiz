@@ -30,6 +30,19 @@ exports.getClassroomById = async (req, res) => {
   }
 };
 
+exports.getOneClassroomWithUsers = async (req, res) => {
+  try {
+    const classroom = await Classroom.findOne({
+      where: { classroom_name: req.params.classroom_name },
+      include: [db.users],
+    });
+    console.log(classroom);
+    res.send(classroom);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // Create a new classroom
 exports.createClassroom = async (req, res) => {
   try {
