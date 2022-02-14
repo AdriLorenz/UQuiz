@@ -41,15 +41,22 @@ export class EditThemeComponent implements OnInit {
   }
 
   updateTheme() {
-    try {
-      console.log(this.theme);
-      this.themeService
-        .updateTheme(this.uploadForm)
-        .subscribe((res) => console.log(res));
-      // display success message;
-    } catch (error) {
-      console.log(error);
-      // display error message
+    if (this.uploadForm.value.theme_img_path) {
+      try {
+        this.themeService
+          .updateTheme(this.uploadForm, this.theme.theme_id)
+          .subscribe((res) => console.log(res));
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        this.themeService
+          .updateThemeName(this.theme.theme_id, this.theme.theme_name)
+          .subscribe((res) => console.log(res));
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
