@@ -66,37 +66,38 @@ exports.createUser = async (req, res) => {
     console.log("HEREEEEEEEEEE " + req.body.user_password);
     const hashedPassword = await bcrypt.hash(req.body.user_password, 3);
 
-    // const getUserByEmail = async (req, res) => {
-    //   try {
-    //     const user = await User.findAll({
-    //       where: {
-    //         user_email: req.body.user_email,
-    //       },
-    //     });
-    //     return user.user_email;
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    // const email = await getUserByEmail(req, res);
-    // console.log(email);
-    // if (req.body.user_email === email) {
-    //   req.flash("error", "The email already exists");
-    //   return null;
-    // } else if (req.body.repeatPassword !== req.body.user_password) {
-    //   req.flash("error", "The passwords do not match");
-    //   return null;
-    // } else {
-    User.create({
-      user_name: req.body.user_name,
-      user_email: req.body.user_email,
-      user_password: hashedPassword,
-      role_id_fk: req.body.role_id_fk,
-      classroom_id_fk: req.body.classroom_id_fk,
-    });
-    res.json({
-      message: "User Created",
-    });
+    const getUserByEmail = async (req, res) => {
+      try {
+        const user = await User.findAll({
+          where: {
+            user_email: req.body.user_email,
+          },
+        });
+        return user.user_email;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const email = await getUserByEmail(req, res);
+    console.log(email);
+    if (req.body.user_email === email) {
+      req.flash("error", "The email already exists");
+      return null;
+    } else if (req.body.repeatPassword !== req.body.user_password) {
+      req.flash("error", "The passwords do not match");
+      return null;
+    } else {
+      User.create({
+        user_name: req.body.user_name,
+        user_email: req.body.user_email,
+        user_password: hashedPassword,
+        role_id_fk: req.body.role_id_fk,
+        classroom_id_fk: req.body.classroom_id_fk,
+      });
+      res.json({
+        message: "User Created",
+      });
+    }
   } catch (res) {
     console.log(res);
   }
