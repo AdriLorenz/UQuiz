@@ -1,5 +1,8 @@
+import { Observable } from 'rxjs';
+import { AuthService } from './../../services/auth.service';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/services/login.service';
+import { LoginLogoutService } from 'src/app/services/login-logout.service';
 import {
   FormBuilder,
   FormControl,
@@ -7,6 +10,7 @@ import {
   Validator,
   Validators,
 } from '@angular/forms';
+import { asLiteral } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +19,13 @@ import {
 })
 export class LoginComponent implements OnInit {
   myForm: FormGroup;
+  unauthorizedError: boolean;
 
-  constructor(private loginService: LoginService, private fb: FormBuilder) {
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.myForm = this.fb.group({
       email: '',
       password: '',
@@ -26,13 +35,14 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   logIn() {
-    try {
-      console.log(this.myForm.value);
-      this.loginService.loginUser(this.myForm.value).subscribe((res) => {
-        console.log(res);
+    this.authService
+      .validate(this.myForm.value.email, this.myForm.value.password)!
+      .then((response) => {
+        this.authService.setUserInfo({ user: response });
+        this.router.navigate(['themes']);
+      })
+      .catch((error) => {
+        this.unauthorizedError = true;
       });
-    } catch (error) {
-      console.log(error);
-    }
   }
 }

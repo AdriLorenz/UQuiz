@@ -1,5 +1,6 @@
 module.exports = (app) => {
   const role = require("../controllers/roles-controller");
+  const auth = require("../controllers/auth");
 
   // Init express router
   const routerRoles = require("express").Router();
@@ -15,5 +16,6 @@ module.exports = (app) => {
   // Route delete role by id
   routerRoles.delete("/:role_id", role.deleteRole);
 
+  routerRoles.use(auth.checkAuthenticated);
   app.use("/roles", routerRoles);
 };

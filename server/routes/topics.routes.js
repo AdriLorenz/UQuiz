@@ -1,5 +1,6 @@
 module.exports = (app) => {
   const topic = require("../controllers/topics-controller");
+  const auth = require("../controllers/auth");
 
   const routerTopics = require("express").Router();
 
@@ -23,5 +24,6 @@ module.exports = (app) => {
   // Route delete topic by id
   routerTopics.delete("/:topic_id", topic.deleteTopic);
 
+  routerTopics.use(auth.checkAuthenticated);
   app.use("/topics", routerTopics);
 };

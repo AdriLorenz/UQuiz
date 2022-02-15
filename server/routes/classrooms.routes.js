@@ -1,6 +1,7 @@
 module.exports = (app) => {
   // Import Classrooms Controller
   const classroom = require("../controllers/classrooms-controller");
+  const auth = require("../controllers/auth");
 
   // Init express router
   const routerClassrooms = require("express").Router();
@@ -21,5 +22,6 @@ module.exports = (app) => {
   // Route delete classroom by id
   routerClassrooms.delete("/:classroom_id", classroom.deleteClassroom);
 
+  routerClassrooms.use(auth.checkAuthenticated);
   app.use("/classrooms", routerClassrooms);
 };

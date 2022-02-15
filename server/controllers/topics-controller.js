@@ -1,4 +1,5 @@
 // Import Topic Model
+const { rmSync } = require("fs");
 const db = require("../models");
 const Topic = db.topics;
 
@@ -25,15 +26,6 @@ exports.getOneTopicWithQuestionsWithAnswers = async (req, res) => {
   }
 };
 
-exports.returnTopics = async (req, res) => {
-  try {
-    const topic = await Topic.findAll();
-    return topic;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 // Get topic by id
 exports.getTopicById = async (req, res) => {
   try {
@@ -46,6 +38,13 @@ exports.getTopicById = async (req, res) => {
 
 // Create a new topic
 exports.createTopic = async (req, res) => {
+  console.log(req.body);
+  if (!req.body.topic_name || !req.body.theme_id_fk) {
+    console.log("not");
+    res.status(400).send("Please provide all information to create a topic.");
+
+    return;
+  }
   try {
     await Topic.create(req.body);
     res.json({

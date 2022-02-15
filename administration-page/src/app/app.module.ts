@@ -1,9 +1,12 @@
+import { NotAuthenticatedGuard } from './guards/not-authenticated.guard';
+import { RoleGuard } from './guards/role.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { QuestionComponent } from './components/question/question.component';
 import { QuestionService } from './services/question.service';
 import { UserComponent } from './components/user/user.component';
@@ -46,35 +49,95 @@ import { EditClassroomComponent } from './components/classroom/edit-classroom/ed
 import { CreateClassroomButtonComponent } from './components/classroom/create-classroom-button/create-classroom-button.component';
 import { SingleUserComponent } from './components/user/single-user/single-user.component';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { HttpErrorInterceptorService } from './services/http-error-interceptor.service';
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'themes/create', component: AddThemeComponent },
-  { path: 'themes', component: ThemeComponent },
-  { path: 'themes/:theme_name/:theme_id', component: EditThemeComponent },
-  { path: '', component: RegisterComponent },
-  { path: ':theme_name/:topic_name/questions', component: QuestionComponent },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [NotAuthenticatedGuard],
+  },
+  {
+    path: 'themes/create',
+    component: AddThemeComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
+    path: 'themes',
+    component: ThemeComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
+    path: 'themes/:theme_name/:theme_id',
+    component: EditThemeComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
+    path: '',
+    component: RegisterComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
+    path: ':theme_name/:topic_name/questions',
+    component: QuestionComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
 
   {
     path: ':theme_name/:topic_name/editQuestion/:question_id',
     component: EditQuestionComponent,
+    canActivate: [AuthGuard, RoleGuard],
   },
-  { path: ':theme_name/topics', component: TopicComponent },
+  {
+    path: ':theme_name/topics',
+    component: TopicComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
   {
     path: 'topic/:topic_id_fk/questions/create',
     component: CreateQuestionComponent,
+    canActivate: [AuthGuard, RoleGuard],
   },
-  { path: 'theme/:theme_id_fk/topic/create', component: CreateTopicComponent },
-  { path: 'user/:user_id/edit', component: EditUserComponent },
-  { path: 'classrooms', component: ClassroomComponent },
-  { path: 'classrooms/create', component: CreateClassroomComponent },
+  {
+    path: 'theme/:theme_id_fk/topic/create',
+    component: CreateTopicComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
+    path: 'user/:user_id/edit',
+    component: EditUserComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
+    path: 'classrooms',
+    component: ClassroomComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
+    path: 'classrooms/create',
+    component: CreateClassroomComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
   {
     path: 'classrooms/:classroom_id/edit',
     component: EditClassroomComponent,
+    canActivate: [AuthGuard, RoleGuard],
   },
-  { path: ':classroom_name/users', component: UserComponent },
-  { path: ':theme_name/:topic_name/:topic_id', component: EditTopicComponent },
-  { path: 'user/create', component: RegisterComponent },
+  {
+    path: ':classroom_name/users',
+    component: UserComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
+    path: ':theme_name/:topic_name/:topic_id',
+    component: EditTopicComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
+    path: 'user/create',
+    component: RegisterComponent,
+    canActivate: [AuthGuard, RoleGuard],
+  },
 
   { path: '**', component: PageNotFoundComponent },
 ];
@@ -127,7 +190,13 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RxReactiveFormsModule,
   ],
-  providers: [QuestionService],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

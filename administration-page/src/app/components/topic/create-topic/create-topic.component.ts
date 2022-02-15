@@ -5,6 +5,8 @@ import { Topic } from 'src/app/models/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-topic',
@@ -36,17 +38,19 @@ export class CreateTopicComponent implements OnInit {
       this.topicService
         .createTopic(this.topic, this.theme_id)
         .subscribe((data) => {
+          console.log('asdfsadf');
           console.log(data);
         });
 
-      await this.delay(1000);
+      // await this.delay(1000);
 
-      this.router.navigate([this.location.back()]).then(() => {
-        window.location.reload();
-      });
+      // this.router.navigate([this.location.back()]).then(() => {
+      //   window.location.reload();
+      // });
       // display success message
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      alert(error.text);
       //display error message
     }
   }

@@ -11,15 +11,6 @@ exports.getClassrooms = async (req, res) => {
   }
 };
 
-exports.returnClassrooms = async (req, res) => {
-  try {
-    const classroom = await Classroom.findAll();
-    return classroom;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 // Get classroom by id
 exports.getClassroomById = async (req, res) => {
   try {

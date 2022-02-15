@@ -43,6 +43,11 @@
         />
       </div>
     </div>
+    <div class="row">
+      <div class="col-12" *ngIf="unauthorizedError">
+        <p class="errorMessage">Wrong email or password</p>
+      </div>
+    </div>
 
     <br />
 
