@@ -2,6 +2,8 @@ const db = require("../models"); // Import User Model
 
 const Role = db.roles;
 const User = db.users;
+const createUserScore =
+  require("../controllers/user_score-controller").createUserScore;
 
 // Import encryption
 const bcrypt = require("bcrypt");
@@ -46,13 +48,16 @@ exports.createUser = async (req, res) => {
     if (userWithSameEmail) {
       return res.send("Email already used !");
     } else {
-      User.create({
+      const user = await User.create({
         user_name: req.body.user_name,
         user_email: req.body.user_email,
         user_password: hashedPassword,
         role_id_fk: req.body.role_id_fk,
         classroom_id_fk: req.body.classroom_id_fk,
       });
+
+      await createUserScore(user.user_id);
+
       res.json({
         message: "User Created",
       });

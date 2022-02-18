@@ -17,17 +17,19 @@ const db = {};
 const models = [];
 
 const modules = [
-  require("./answer"),
-  require("./classroom"),
-  require("./question"),
-  require("./role"),
-  require("./theme"),
-  require("./topic"),
-  require("./user"),
+  require("./answer.model"),
+  require("./classroom.model"),
+  require("./question.model"),
+  require("./role.model"),
+  require("./theme.model"),
+  require("./topic.model"),
+  require("./user.model"),
+  require("./userScore.model"),
 ];
 
 modules.forEach((module) => {
   const model = module(sequelize, Sequelize);
+  console.log(model);
   db[model.name] = model;
   models.push(model);
 });
