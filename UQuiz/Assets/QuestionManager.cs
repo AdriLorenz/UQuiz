@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class QuestionManager : MonoBehaviour
 {
     private AudioSource beep;
-
+    
     [Header("Question Settings")]
     [SerializeField] GameObject question;
     [SerializeField] Text QuestionText;

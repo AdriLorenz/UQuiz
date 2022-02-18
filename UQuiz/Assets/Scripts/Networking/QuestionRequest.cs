@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
@@ -6,22 +7,21 @@ using SimpleJSON;
 
 public class QuestionRequest : MonoBehaviour
 {
-    Dropdown dropdown;
-    int id;
+    public static JSONNode questions;
+    public static List<QuestionWithAnswersModel> questionsWithAnswers;
     
     void Start() {
-        id = 0;
-        dropdown = GetComponent<Dropdown>();
+        string url = "http://localhost:5000/questions/WithAnswers";
+        questionsWithAnswers = new List<QuestionWithAnswersModel>();
+        StartCoroutine(GetQuestions(url));
     }
 
     void Update() {
-        string url = "http://localhost:5000/answers/question/" + id.ToString();
-        StartCoroutine(GetQuestions(url));
+        
     }
 
     private IEnumerator GetQuestions(string url)
     {
-        id++;
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
             request.SetRequestHeader("Content-Type", "application/json");
@@ -37,16 +37,38 @@ public class QuestionRequest : MonoBehaviour
                 //Debug.Log(request.downloadHandler.text);
 
                 JSONArray itemsData = (JSONArray) JSON.Parse(request.downloadHandler.text);
-                JSONNode themes = itemsData["question"]["question_content"];
-                string lastOne = "";
-                var list = new ArrayList();
+                QuestionRequest.questions = itemsData;
+                // var list = new ArrayList();
                 foreach (JSONNode i in itemsData) {
-                    if (!lastOne.Equals(i["question"]["question_content"])) {
-                        Debug.Log("The generated item is: \nName: " + i["question"]["question_content"]);
-                        lastOne = i["question"]["question_content"];
-                    } else {
+                    // Debug.Log("The generated item is: \nquestion content: " + i["question_content"]);
+                    var wrongAnswer1 = "";
+                    var wrongAnswer2 = "";
+                    var correctAnswer = "";
+                    var incorrectAnswerCounter = 0;
+                    
+                    for (int x=0; x < i["answers"].Count; x++) {
+                        
+                        if (i["answers"][x]["answer_status"].AsBool == true) {
+                            correctAnswer = i["answers"][x]["answer_content"].ToString();
+                            // Debug.Log("correct answer: " + i["answers"][x]["answer_content"].ToString());
+                        }
+                        else{
+                            if(incorrectAnswerCounter == 0){
+                                wrongAnswer1 = i["answers"][x]["answer_content"].ToString();
+                                // Debug.Log("incorrect answer 1: " + i["answers"][x]["answer_content"].ToString());
+                                incorrectAnswerCounter++;
+                            }
+                            else {
+                                wrongAnswer2 = i["answers"][x]["answer_content"].ToString();
+                                // Debug.Log("incorrect answer 2: " + i["answers"][x]["answer_content"].ToString());
+                            } 
+                        }
 
                     }
+                    
+                    questionsWithAnswers.Add(new QuestionWithAnswersModel (i["question_content"].ToString(),
+                    i["question_id"].AsInt, correctAnswer, wrongAnswer1, wrongAnswer2));
+                    // Debug.Log(questionsWithAnswers.Count);
                 }
             }
         }
