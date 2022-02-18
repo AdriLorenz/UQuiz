@@ -3,18 +3,6 @@ const db = require("../models");
 const Question = db.questions;
 const Answer = db.answers;
 
-// Get all answer
-exports.returnAnswers = async (req, res) => {
-  try {
-    const answer = await Answer.findAll({
-      include: [{ model: Question, required: true }],
-    });
-    return answer;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 exports.getAnswers = async (req, res) => {
   try {
     const answer = await Answer.findAll({

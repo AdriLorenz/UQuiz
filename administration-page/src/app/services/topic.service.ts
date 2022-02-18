@@ -27,7 +27,6 @@ export class TopicService {
   }
 
   getOne(topic_id: number): Observable<Topic> {
-    console.log(this.endpoint + '/' + topic_id);
     return this.httpClient.get<Topic>(this.endpoint + '/' + topic_id);
   }
 

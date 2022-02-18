@@ -2,6 +2,7 @@ module.exports = (app) => {
   const themes = require("../controllers/themes-controller");
 
   const routerThemes = require("express").Router();
+  const auth = require("../controllers/auth");
 
   const multer = require("multer");
   const upload = multer({ dest: "public/images/themes/" });
@@ -36,5 +37,6 @@ module.exports = (app) => {
     "/withTopicsWithQuestionsWithAnswers",
     themes.getThemesWithTopicsWithQuestionsWithAnswers
   );
+  routerThemes.use(auth.checkAuthenticated);
   app.use("/themes", routerThemes);
 };

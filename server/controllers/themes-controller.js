@@ -43,15 +43,6 @@ exports.getOneThemeWithTopics = async (req, res) => {
   }
 };
 
-exports.returnThemes = async (req, res) => {
-  try {
-    const theme = await Theme.findAll();
-    return theme;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 // Get theme by id
 exports.getThemeById = async (req, res) => {
   try {

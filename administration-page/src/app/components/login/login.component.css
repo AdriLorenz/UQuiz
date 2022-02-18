@@ -45,3 +45,7 @@ input[type="submit"]:hover {
 h1 {
   color: #da930f;
 }
+
+.errorMessage {
+  color: rgb(190, 32, 32);
+}

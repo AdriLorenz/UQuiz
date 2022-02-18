@@ -15,7 +15,7 @@ const httpOptionsUsingUrlEncoded = {
 @Injectable({
   providedIn: 'root',
 })
-export class LoginService {
+export class LoginLogoutService {
   endpoint: string = 'http://localhost:5000/login';
 
   constructor(private httpClient: HttpClient) {}
@@ -23,4 +23,13 @@ export class LoginService {
   loginUser(credentials: { email: string; password: string }): Observable<any> {
     return this.httpClient.post(this.endpoint, credentials);
   }
+
+  logOutUser(credentials: {
+    email: string;
+    password: string;
+  }): Observable<any> {
+    return this.httpClient.post(this.endpoint, credentials);
+  }
+
+  logoutUser() {}
 }

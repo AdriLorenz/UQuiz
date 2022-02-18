@@ -27,10 +27,14 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 function checkAuthenticated(req, res, next) {
+  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect("/login");
+  return res
+    .status(400)
+    .json({ statusCode: 400, message: "not authenticated" });
+  return next();
 }
 
 module.exports = {

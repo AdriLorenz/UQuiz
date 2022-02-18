@@ -9,14 +9,6 @@ exports.getRoles = async (req, res) => {
     console.log(err);
   }
 };
-exports.returnRoles = async (req, res) => {
-  try {
-    const role = await Role.findAll();
-    return role;
-  } catch (err) {
-    console.log(err);
-  }
-};
 
 // Get role by id
 exports.getRoleById = async (req, res) => {

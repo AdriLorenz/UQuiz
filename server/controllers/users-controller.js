@@ -20,17 +20,6 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-exports.returnUsers = async (req, res) => {
-  try {
-    const user = await User.findAll({
-      include: [{ model: Role, required: true }],
-    });
-    return user;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 // Get user by id
 exports.getUserById = async (req, res) => {
   try {
@@ -40,21 +29,6 @@ exports.getUserById = async (req, res) => {
     });
 
     res.send(user);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-exports.getUserByIdEJS = async (t, req, res) => {
-  try {
-    const user = await User.findAll({
-      where: {
-        user_id: t,
-      },
-
-      include: [{ model: Role, required: true }],
-    });
-    return user[0];
   } catch (err) {
     console.log(err);
   }

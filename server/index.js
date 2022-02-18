@@ -62,6 +62,8 @@ app.use(
 );
 
 app.use(passport.initialize());
+// persistent login sessions
+app.use(passport.session());
 app.use(express.static("public"));
 
 initializePassport(passport, (email) =>
@@ -74,19 +76,19 @@ initializePassport(passport, (email) =>
 
 app.delete("/logout", (req, res) => {
   req.logOut();
-  res.redirect("/login");
+  req.session = null;
 });
 
 // use router
-require("./routes/routes-answers")(app);
-require("./routes/routes-users")(app);
-require("./routes/routes-themes")(app);
-require("./routes/routes-questions")(app);
+require("./routes/answers.routes")(app);
+require("./routes/users.routes")(app);
+require("./routes/themes.routes")(app);
+require("./routes/questions.routes")(app);
 
-require("./routes/routes-topics")(app);
-require("./routes/routes-classrooms")(app);
-require("./routes/routes-roles")(app);
-require("./routes/routes-login")(app);
+require("./routes/topics.routes")(app);
+require("./routes/classrooms.routes")(app);
+require("./routes/roles.routes")(app);
+require("./routes/login.routes")(app);
 require("./routes/routes")(app);
 
 app.listen(5000, () =>

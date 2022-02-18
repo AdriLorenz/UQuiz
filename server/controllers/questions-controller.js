@@ -34,16 +34,6 @@ exports.getOneWithAnswers = async (req, res) => {
   }
 };
 
-exports.returnQuestions = async (req, res) => {
-  try {
-    const question = await Question.findAll();
-    console.log(question);
-    return question;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 // Get question by id
 exports.getQuestionWithTopicByIdQuestion = async (req, res) => {
   try {

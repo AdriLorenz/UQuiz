@@ -4,6 +4,7 @@ module.exports = (app) => {
   // Init express router
   const routerLogin = require("express").Router();
   routerLogin.post("/", passport.authenticate("local"), function (req, res) {
+    console.log(req.user);
     res.send(req.user);
     //console.log(req.user);
   });
