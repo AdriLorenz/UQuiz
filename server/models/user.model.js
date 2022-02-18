@@ -18,10 +18,7 @@ module.exports = (sequelize, Sequelize) => {
       user_password: {
         type: Sequelize.STRING,
       },
-      user_score: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
+
       user_games_played: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
@@ -47,6 +44,10 @@ module.exports = (sequelize, Sequelize) => {
     });
     User.belongsTo(models.classrooms, {
       foreignKey: "classroom_id_fk",
+    });
+    User.hasOne(models.user_score, {
+      onDelete: "CASCADE",
+      foreignKey: "user_id_fk",
     });
   };
 

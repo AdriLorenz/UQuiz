@@ -15,7 +15,7 @@ const initializePassport = require("./config/passport-config");
 
 const db = require("./models");
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   console.log("Dropped an resync db");
 });
 
@@ -84,6 +84,7 @@ require("./routes/answers.routes")(app);
 require("./routes/users.routes")(app);
 require("./routes/themes.routes")(app);
 require("./routes/questions.routes")(app);
+require("./routes/userScore.routes")(app);
 
 require("./routes/topics.routes")(app);
 require("./routes/classrooms.routes")(app);
