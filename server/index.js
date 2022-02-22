@@ -15,7 +15,7 @@ const initializePassport = require("./config/passport-config");
 
 const db = require("./models");
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync().then(() => {
   console.log("Dropped an resync db");
 });
 
@@ -35,7 +35,7 @@ const wss = new WebSocket.Server({ port: 8080 }, () => {
 wss.on("connection", (ws) => {
   ws.on("message", (data) => {
     console.log("data recieved %o " + data);
-    ws.send(data);
+    ws.send(data.toString());
   });
 });
 wss.on("listening", () => {

@@ -9,4 +9,6 @@ module.exports = (app) => {
 
   router.put("/:id", UserScore.updateUserScore);
   router.put("/add/:id", UserScore.addUserScore);
+
+  app.use("/usersScore", router);
 };

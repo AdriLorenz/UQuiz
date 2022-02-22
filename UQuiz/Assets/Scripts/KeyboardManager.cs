@@ -8,30 +8,64 @@ public class KeyboardManager : MonoBehaviour
     string word = null;
     int wordIndex = 0;
     string alpha;
-    public Text myName = null;
+    public InputField fieldText = null;
+    public InputField email;
+    public InputField password;
     
+
     public void AlphabetFunction (string alphabet) {
-        if (myName.text.Length < 10) {
-            wordIndex++;
-            word = word + alphabet;
-            myName.text = word;
+
+        if (fieldText == email) {
+            if (word == password.text) {
+                word = null;
+                    
+                wordIndex++;
+                word = word + alphabet;
+                email.text = word;
+            } else {
+                wordIndex++;
+                word = word + alphabet;
+                email.text = word;
+            }
+                
+        } else if (fieldText == password) {
+            if (word == email.text) {
+                word = null;
+
+                wordIndex++;
+                word = word + alphabet;
+                password.text = word; 
+            } else {
+                wordIndex++;
+                word = word + alphabet;
+                password.text = word;       
+            }   
         }
     }
 
     void Update() {
-        myName.text = myName.text;
-        Debug.Log(wordIndex);
+        if (email.isFocused) {
+            fieldText = email;
+        } else if (password.isFocused) {
+            fieldText = password;
+        }
     }
 
     public void DeleteEntireWord() {
-        myName.text = null;
+        fieldText.text = null;
         word = null;
         wordIndex = 0;
     }
 
     public void DeleteLastLetter() {
-        myName.text = myName.text.Remove(myName.text.Length - 1);
-        word = word.Remove(word.Length - 1);
-        wordIndex--;
+        if (fieldText == email) {
+            email.text = email.text.Remove(email.text.Length - 1);
+            word = word.Remove(word.Length - 1);
+            wordIndex--;
+        } else if (fieldText == password) {
+            password.text = password.text.Remove(password.text.Length - 1);
+            word = word.Remove(word.Length - 1);
+            wordIndex--;
+        }
     }
 }
