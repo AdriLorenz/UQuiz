@@ -2,8 +2,7 @@ const db = require("../models"); // Import User Model
 
 const Role = db.roles;
 const User = db.users;
-const createUserScore =
-  require("../controllers/user_score-controller").createUserScore;
+const createUserScore = require("./user_score.controller").createUserScore;
 
 // Import encryption
 const bcrypt = require("bcrypt");
@@ -18,7 +17,7 @@ exports.getUsers = async (req, res) => {
     });
     res.send(user);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -32,7 +31,7 @@ exports.getUserById = async (req, res) => {
 
     res.send(user);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -62,8 +61,8 @@ exports.createUser = async (req, res) => {
         message: "User Created",
       });
     }
-  } catch (res) {
-    console.log(res);
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 };
 
@@ -79,7 +78,7 @@ exports.updateUser = async (req, res) => {
       message: "User Updated",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -95,7 +94,7 @@ exports.deleteUser = async (req, res) => {
       message: "User Deleted",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 // Needs to be tested
@@ -107,6 +106,6 @@ exports.getAUserWithClassroomAndRole = async (req, res) => {
     });
     res.send(user);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error.message);
   }
 };

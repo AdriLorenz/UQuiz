@@ -1,6 +1,6 @@
 module.exports = (app) => {
-  const auth = require("../controllers/auth");
-  const user = require("../controllers/users-controller");
+  const auth = require("../controllers/auth.controller");
+  const user = require("../controllers/users.controller");
 
   // Init express router
   const routerUser = require("express").Router();
@@ -17,6 +17,6 @@ module.exports = (app) => {
   // Route delete user by id
   routerUser.delete("/:user_id", user.deleteUser);
 
-  routerUser.use(auth.checkAuthenticated);
+  //routerUser.use(auth.checkAuthenticated);
   app.use("/users", routerUser);
 };

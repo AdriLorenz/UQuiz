@@ -6,7 +6,7 @@ exports.getRoles = async (req, res) => {
     const role = await Role.findAll();
     res.send(role);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -16,7 +16,7 @@ exports.getRoleById = async (req, res) => {
     const role = await Role.findByPk(req.params.role_id);
     res.send(role);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -28,7 +28,7 @@ exports.createRole = async (req, res) => {
       message: "Role Created",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -44,7 +44,7 @@ exports.updateRole = async (req, res) => {
       message: "Role Updated",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -60,6 +60,6 @@ exports.deleteRole = async (req, res) => {
       message: "Role Deleted",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };

@@ -10,7 +10,7 @@ exports.getThemes = async (req, res) => {
     const theme = await Theme.findAll({ include: [db.topics] });
     res.send(theme);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -25,8 +25,8 @@ exports.getThemesWithTopicsWithQuestionsWithAnswers = async (req, res) => {
       ],
     });
     res.send(theme);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 };
 
@@ -36,10 +36,9 @@ exports.getOneThemeWithTopics = async (req, res) => {
       where: { theme_name: req.params.theme_name },
       include: [db.topics],
     });
-    console.log(theme);
     res.send(theme);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 };
 
@@ -49,7 +48,7 @@ exports.getThemeById = async (req, res) => {
     const theme = await Theme.findByPk(req.params.theme_id);
     res.send(theme);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -68,7 +67,7 @@ exports.getImageTest = async (req, res) => {
   <p>some text</p>`
     );
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -86,36 +85,34 @@ exports.createTheme = async (req, res) => {
       message: "Theme Created",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
 // Update theme Name
 exports.updateThemeName = async (req, res) => {
   try {
-    console.log(req.body);
     await Theme.update(
       { theme_name: req.body.theme_name },
       { where: { theme_id: req.body.theme_id } }
     );
     res.json("theme updated");
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error.message);
   }
 };
 
 // Update theme by id
 exports.updateTheme = async (req, res) => {
-  console.log(req.body);
   try {
     if (req.body.theme_img_path)
       fs.unlink(req.body.theme_img_path, (err) => {
-        console.log(err);
+        res.status(500).send(err.message);
         return;
       });
 
     const themeImagesDir = "\\images\\themes\\";
-    console.log(req.file);
+
     await Theme.update(
       {
         theme_id: req.body.theme_id,
@@ -132,23 +129,22 @@ exports.updateTheme = async (req, res) => {
       message: "Theme Updated",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
 // Delete theme by id
 exports.deleteTheme = async (req, res) => {
   try {
-    console.log(req.body);
     const theme = await Theme.findOne({
       where: { theme_id: req.params.theme_id },
     });
 
     if (theme.theme_img_path) {
       const themeImagesDir = "./public";
-      console.log("had iamge");
+
       fs.unlink(themeImagesDir + theme.theme_img_path, (err) => {
-        console.log(err);
+        res.status(500).send(err.message);
         return;
       });
     }
@@ -162,6 +158,6 @@ exports.deleteTheme = async (req, res) => {
       message: "Theme Deleted",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };

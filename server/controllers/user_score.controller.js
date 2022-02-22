@@ -14,12 +14,13 @@ exports.getAllUserScore = async (req, res) => {
 exports.getUserScoresOrdered = async (req, res) => {
   try {
     const userScoresOrdered = await UserScore.findAll({
-      order: ["user_score", "DESC"],
+      // order: ["user_score", "DESC"],
     });
-
-    return userScoresOrdered;
+    console.log(userScoresOrdered);
+    res.send(userScoresOrdered);
   } catch (error) {
-    res.status(500).send(`An error has occured : ${error.message}`);
+    // res.status(500).send(`An error has occured : ${error.message}`);
+    res.status(500).send(error.message);
   }
 };
 

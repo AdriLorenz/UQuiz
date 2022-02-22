@@ -29,11 +29,10 @@ const modules = [
 
 modules.forEach((module) => {
   const model = module(sequelize, Sequelize);
-  console.log(model);
+
   db[model.name] = model;
   models.push(model);
 });
-console.log(models);
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

@@ -10,7 +10,7 @@ exports.getAnswers = async (req, res) => {
     });
     res.send(answer);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -20,7 +20,7 @@ exports.getAnswerById = async (req, res) => {
     const answer = await Answer.findByPk(req.params.answer_id);
     res.send(answer);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -36,7 +36,7 @@ exports.getAnswerOfQuestion = async (req, res) => {
 
     res.send(answer);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -48,7 +48,7 @@ exports.createAnswer = async (req, res) => {
       message: "Answer Created",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -64,7 +64,7 @@ exports.updateAnswer = async (req, res) => {
       message: "Answer Updated",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -80,6 +80,6 @@ exports.deleteAnswer = async (req, res) => {
       message: "Answer Deleted",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };

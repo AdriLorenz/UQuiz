@@ -8,7 +8,7 @@ exports.getQuestionsWithAnswers = async (req, res) => {
     const questions = await Question.findAll({ include: [db.answers] });
     res.send(questions);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -18,7 +18,7 @@ exports.getQuestionsWithTopic = async (req, res) => {
     const question = await Question.findAll({ include: [db.topics] });
     res.send(question);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -30,14 +30,13 @@ exports.getOneWithAnswers = async (req, res) => {
     });
     res.send(questionWithAnswers);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
 // Get question by id
 exports.getQuestionWithTopicByIdQuestion = async (req, res) => {
   try {
-    console.log("asfasf2425324543252345243");
     const question = await Question.findOne({
       where: {
         question_id: req.params.question_id,
@@ -46,7 +45,7 @@ exports.getQuestionWithTopicByIdQuestion = async (req, res) => {
     });
     res.send(question);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -61,7 +60,7 @@ exports.getQuestionByTheme = async (req, res) => {
     });
     return question;
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -73,7 +72,7 @@ exports.createQuestion = async (req, res) => {
       message: "Question Created",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -96,7 +95,7 @@ exports.createQuestionAndAnswers = async (req, res) => {
     });
     res.redirect("/questions");
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -108,7 +107,7 @@ async function createAnswer(content, status) {
     });
     return answer;
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 }
 
@@ -132,7 +131,7 @@ exports.updateQuestionAndAnswers = async (req, res) => {
       Answer.update(answer, { where: { answer_id: answer.answer_id } });
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -144,7 +143,7 @@ exports.getAQuestionWithAnswers = async (req, res) => {
     });
     res.send(question);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -159,14 +158,13 @@ exports.updateQuestion = async (req, res) => {
       message: "Question Updated",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
 // Delete question by id
 exports.deleteQuestion = async (req, res) => {
   try {
-    console.log(req.params.question_id);
     await Question.destroy({
       where: {
         question_id: req.params.question_id,
@@ -174,6 +172,6 @@ exports.deleteQuestion = async (req, res) => {
     });
     res.redirect("/questions");
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };

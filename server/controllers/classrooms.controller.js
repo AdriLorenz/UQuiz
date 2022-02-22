@@ -7,7 +7,7 @@ exports.getClassrooms = async (req, res) => {
     const classroom = await Classroom.findAll();
     res.send(classroom);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -17,7 +17,7 @@ exports.getClassroomById = async (req, res) => {
     const classroom = await Classroom.findByPk(req.params.classroom_id);
     res.send(classroom);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -27,10 +27,9 @@ exports.getOneClassroomWithUsers = async (req, res) => {
       where: { classroom_name: req.params.classroom_name },
       include: [db.users],
     });
-    console.log(classroom);
     res.send(classroom);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(err.message);
   }
 };
 
@@ -42,7 +41,7 @@ exports.createClassroom = async (req, res) => {
       message: "Classroom Created",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -58,7 +57,7 @@ exports.updateClassroom = async (req, res) => {
       message: "Classroom Updated",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -74,6 +73,6 @@ exports.deleteClassroom = async (req, res) => {
       message: "Classroom Deleted",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };

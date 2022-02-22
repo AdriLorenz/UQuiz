@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  //const { checkAuthenticated, authRole } = require("../controllers/auth");
+  //const { checkAuthenticated, authRole } = require("../controllers/auth.controller");
 
   // Init express router
   const routers = require("express").Router();

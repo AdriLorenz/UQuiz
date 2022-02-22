@@ -27,8 +27,6 @@ export class ClassroomService {
   }
 
   getClassroomById(id: number): Observable<Classroom> {
-    console.log(id);
-    console.log(this.endpoint + '/' + id);
     return this.httpClient.get<Classroom>(this.endpoint + '/' + id);
   }
 

@@ -40,7 +40,7 @@ export class QuestionService {
     topicId: number
   ): Observable<QuestionWithAnswers> {
     let bodyEncoded = new URLSearchParams();
-    console.log('here');
+
     bodyEncoded.append('question_content', newQuestion.question_content);
     bodyEncoded.append(
       'question_difficulty',
@@ -52,7 +52,6 @@ export class QuestionService {
     bodyEncoded.append('wrongAnswer2', newQuestion.answers[2].answer_content);
 
     const body = bodyEncoded.toString();
-    console.log(body);
 
     return this.httpClient.post<QuestionWithAnswers>(
       this.endpoint + '/',
@@ -62,14 +61,10 @@ export class QuestionService {
   }
 
   deleteQuestionWithAnswers(id: number) {
-    console.log(id);
     return this.httpClient.delete(this.endpoint + '/' + id);
   }
 
   editQuestionWithAnswers(updatedQuestionWithAnswers: QuestionWithAnswers) {
-    console.log(
-      this.endpoint + '/edit/' + updatedQuestionWithAnswers.question_id
-    );
     return this.httpClient.put(
       this.endpoint + '/edit/' + updatedQuestionWithAnswers.question_id,
       updatedQuestionWithAnswers

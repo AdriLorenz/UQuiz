@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  const UserScore = require("../controllers/user_score-controller");
+  const UserScore = require("../controllers/user_score.controller");
 
   const router = require("express").Router();
 
@@ -9,4 +9,6 @@ module.exports = (app) => {
 
   router.put("/:id", UserScore.updateUserScore);
   router.put("/add/:id", UserScore.addUserScore);
+
+  app.use("/usersScore", router);
 };

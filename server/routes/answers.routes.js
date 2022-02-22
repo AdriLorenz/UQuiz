@@ -1,8 +1,8 @@
 // Import express
 module.exports = (app) => {
   // Import Answers Controller
-  const answer = require("../controllers/answers-controller");
-  const auth = require("../controllers/auth");
+  const answer = require("../controllers/answers.controller");
+  const auth = require("../controllers/auth.controller");
 
   // Init express router
   const routerAnswers = require("express").Router();

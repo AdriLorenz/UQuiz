@@ -1,6 +1,6 @@
 module.exports = (app) => {
-  const topic = require("../controllers/topics-controller");
-  const auth = require("../controllers/auth");
+  const topic = require("../controllers/topics.controller");
+  const auth = require("../controllers/auth.controller");
 
   const routerTopics = require("express").Router();
 

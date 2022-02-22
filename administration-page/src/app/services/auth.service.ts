@@ -11,7 +11,7 @@ export class AuthService {
 
   private checkAuthenticated(): boolean {
     let userData = localStorage.getItem('userInfo');
-    console.log(userData);
+
     if (userData && JSON.parse(userData)) {
       return true;
     }
@@ -29,13 +29,12 @@ export class AuthService {
   public getUserRole() {
     let userData = localStorage.getItem('userInfo') || '';
     let userJson = JSON.parse(userData);
-    console.log(userJson['user']['role_id_fk']);
+
     return userJson['user']['role_id_fk'];
   }
 
   public setUserInfo(user) {
     localStorage.setItem('userInfo', JSON.stringify(user));
-    console.log(user);
   }
 
   public validate(email, password) {

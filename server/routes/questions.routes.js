@@ -1,7 +1,7 @@
 module.exports = (app) => {
   // Import Controller
-  const auth = require("../controllers/auth");
-  const questions = require("../controllers/questions-controller");
+  const auth = require("../controllers/auth.controller");
+  const questions = require("../controllers/questions.controller");
 
   // Init express router
   const routerQuestions = require("express").Router();

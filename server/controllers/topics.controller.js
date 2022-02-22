@@ -10,7 +10,7 @@ exports.getTopics = async (req, res) => {
     const topics = await Topic.findAll();
     res.send(topics);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error.message);
   }
 };
 
@@ -22,7 +22,7 @@ exports.getOneTopicWithQuestionsWithAnswers = async (req, res) => {
     });
     res.send(topic);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -32,15 +32,13 @@ exports.getTopicById = async (req, res) => {
     const topic = await Topic.findByPk(req.params.topic_id);
     res.send(topic);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
 // Create a new topic
 exports.createTopic = async (req, res) => {
-  console.log(req.body);
   if (!req.body.topic_name || !req.body.theme_id_fk) {
-    console.log("not");
     res.status(400).send("Please provide all information to create a topic.");
 
     return;
@@ -51,7 +49,7 @@ exports.createTopic = async (req, res) => {
       message: "Topic Created",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -67,7 +65,7 @@ exports.updateTopic = async (req, res) => {
       message: "Topic Updated",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -83,7 +81,7 @@ exports.deleteTopic = async (req, res) => {
       message: "Topic Deleted",
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 
   // exports.getTopicsOfTheme = async (req, res) => {
@@ -100,7 +98,7 @@ exports.deleteTopic = async (req, res) => {
 
   //     res.send(topic);
   //   } catch (error) {
-  //     console.log(error);
+  //     res.status(500).send(error.message);
   //   }
   // };
 };

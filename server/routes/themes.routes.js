@@ -1,8 +1,8 @@
 module.exports = (app) => {
-  const themes = require("../controllers/themes-controller");
+  const themes = require("../controllers/themes.controller");
 
   const routerThemes = require("express").Router();
-  const auth = require("../controllers/auth");
+  const auth = require("../controllers/auth.controller");
 
   const multer = require("multer");
   const upload = multer({ dest: "public/images/themes/" });

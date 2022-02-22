@@ -28,7 +28,6 @@ export class ThemeService {
   ) {}
 
   updateThemeName(id: number, name: string): Observable<any> {
-    console.log(name);
     return this.httpClient.put(this.endpoint + '/' + id + '/editThemeName', {
       theme_name: name,
       theme_id: id,
