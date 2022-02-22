@@ -4,7 +4,7 @@ const UserScore = db.user_score;
 
 exports.getAllUserScore = async (req, res) => {
   try {
-    const userScores = await UserScore.getAll();
+    const userScores = await UserScore.getAll({ include: [db.users] });
     res.send(userScores);
   } catch (error) {
     res.status(500).send(`An error has occured : ${error.message}`);
@@ -14,7 +14,8 @@ exports.getAllUserScore = async (req, res) => {
 exports.getUserScoresOrdered = async (req, res) => {
   try {
     const userScoresOrdered = await UserScore.findAll({
-      // order: ["user_score", "DESC"],
+      order: ["user_score", "DESC"],
+      include: [db.users],
     });
     console.log(userScoresOrdered);
     res.send(userScoresOrdered);

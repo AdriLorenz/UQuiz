@@ -19,18 +19,18 @@ db.sequelize.sync().then(() => {
 
 const WebSocket = require("ws");
 
-const wss = new WebSocket.Server({ port: 8080 }, () => {
+const wss = new WebSocket.Server({ port: 8080, clientTracking: true }, () => {
   console.log("server started");
 });
 
 wss.on("connection", (ws) => {
   ws.on("message", async (data) => {
-    console.log("data recieved %o " + data);
     ratings = await UserScore.findAll({
       order: [["user_score", "DESC"]],
+      include: [db.users],
     });
 
-    ws.send("data" + JSON.stringify(ratings));
+    ws.send(JSON.stringify({ ratings, numberOfClients: wss.clients.size }));
   });
 });
 wss.on("listening", (data) => {
