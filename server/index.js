@@ -24,13 +24,24 @@ const wss = new WebSocket.Server({ port: 8080 }, () => {
 });
 
 wss.on("connection", (ws) => {
-  ws.on("message", async (data) => {
-    console.log("data recieved %o " + data);
-    ratings = await UserScore.findAll({
+  ws.on("message", (data) => {
+    console.log("data recieved " + data);
+    ratings = UserScore.findAll({
       order: [["user_score", "DESC"]],
+      include: [db.users],
+    }).then((findData) => {
+      ws.send(JSON.stringify(findData));
     });
 
-    ws.send("data" + JSON.stringify(ratings));
+    // const formattedInfo = {
+    //   return_event: "ratings",
+    //   returned_payload: {
+    //     user_rankings:
+    //   }
+    // }
+
+    // ws.send("data" + JSON.stringify(ratings));
+    // ws.send(ratings);
   });
 });
 wss.on("listening", (data) => {

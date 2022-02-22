@@ -17,16 +17,33 @@ public class MenuManager : MonoBehaviour
     }
 
     void Start() {
-        
+        StartCoroutine(getThemes());
+        StartCoroutine(getMovement());
     }
 
     // Update is called once per frame
     void Update()
     {
-        movement = movementDropdown.options[movementDropdown.value].text;
-        theme = themeDropdown.options[themeDropdown.value].text;
-        Debug.Log(theme);
+    }
 
+    IEnumerator getThemes() {
+        new WaitForSeconds(1);
+        if (themeDropdown.options.Count != 0) {
+            theme = themeDropdown.options[themeDropdown.value].text;
+            yield return "yes";
+        } else {
+            yield return "no";
+        }
+    }
+
+    IEnumerator getMovement() {
+        new WaitForSeconds(1);
+        if (movementDropdown.options.Count != 0) {
+            movement = movementDropdown.options[movementDropdown.value].text;
+            yield return "yes";
+        } else {
+            yield return "no";
+        }
     }
 }
 
