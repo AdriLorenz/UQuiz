@@ -5,54 +5,55 @@ using UnityEngine.Networking;
 using SimpleJSON;
 using UnityEngine.UI;
 
-public class ThemeRequest: MonoBehaviour
-{
-    Dropdown dropdown;
-    string theme;
-    private string test;
-    string[] themesArray;
-    List<string> items;
-    
-    const string url = "http://localhost:5000/themes";
-
-    void Start() {
-        dropdown = GetComponent<Dropdown>();
-        items = new List<string>();
-        StartCoroutine(GetThemes(url));
-        
-        dropdown.options.Clear();
-        
-
-    }
-
-    private IEnumerator GetThemes(string url)
+namespace ThemeRequest {
+    public class ThemeRequest: MonoBehaviour
     {
-        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        Dropdown dropdown;
+        string theme;
+        private string test;
+        string[] themesArray;
+        List<string> items;
+        
+        const string url = "http://localhost:5000/themes";
+
+        void Start() {
+            dropdown = GetComponent<Dropdown>();
+            items = new List<string>();
+            StartCoroutine(GetThemes(url));
+            
+            
+
+        }
+
+        private IEnumerator GetThemes(string url)
         {
-            request.SetRequestHeader("Content-Type", "application/json");
-
-            yield return request.SendWebRequest();
-
-            if (request.result != UnityWebRequest.Result.Success)
+            using (UnityWebRequest request = UnityWebRequest.Get(url))
             {
-                Debug.Log(request.error);
-            }
-            else
-            {
-                //Debug.Log(request.downloadHandler.text);
+                request.SetRequestHeader("Content-Type", "application/json");
 
-                JSONArray itemsData = (JSONArray) JSON.Parse(request.downloadHandler.text);
-                JSONNode themes = itemsData["theme_name"];
+                yield return request.SendWebRequest();
 
-                foreach (JSONNode i in itemsData) {
-                    Debug.Log("The generated item is: \nName: " + i["theme_name"]);
-                    items.Add(i["theme_name"]);
+                if (request.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.Log(request.error);
                 }
-                foreach (var option in items) {
-                    Debug.Log(option);
-                    dropdown.options.Add(new Dropdown.OptionData() { text = option});
+                else
+                {
+                    //Debug.Log(request.downloadHandler.text);
+
+                    JSONArray itemsData = (JSONArray) JSON.Parse(request.downloadHandler.text);
+                    JSONNode themes = itemsData["theme_name"];
+
+                    foreach (JSONNode i in itemsData) {
+                        Debug.Log("The generated item is: \nName: " + i["theme_name"]);
+                        items.Add(i["theme_name"]);
+                    }
+                    foreach (var option in items) {
+                        Debug.Log(option);
+                        dropdown.options.Add(new Dropdown.OptionData() { text = option});
+                    }
+                    dropdown.value=1;
                 }
-                dropdown.value=1;
             }
         }
     }
