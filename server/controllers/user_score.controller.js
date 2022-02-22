@@ -14,7 +14,7 @@ exports.getAllUserScore = async (req, res) => {
 exports.getUserScoresOrdered = async (req, res) => {
   try {
     const userScoresOrdered = await UserScore.findAll({
-      // order: ["user_score", "DESC"],
+      order: ["user_score", "DESC"],
     });
     console.log(userScoresOrdered);
     res.send(userScoresOrdered);

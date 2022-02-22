@@ -2,7 +2,6 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 const db = require("./models");
-const UserScore = db.user_score;
 const User = require("./models").users;
 const flash = require("express-flash");
 const session = require("express-session");
@@ -10,6 +9,7 @@ const express = require("express");
 const cors = require("cors");
 const methodOverride = require("method-override");
 const passport = require("passport");
+const WebSocket = require("ws");
 
 const initializePassport = require("./config/passport-config");
 
@@ -17,41 +17,12 @@ db.sequelize.sync().then(() => {
   console.log("Dropped an resync db");
 });
 
-const WebSocket = require("ws");
-
-const wss = new WebSocket.Server({ port: 8080 }, () => {
-  console.log("server started");
+// Create web socket server
+const wss = new WebSocket.Server({ port: 8080, clientTracking: true }, () => {
+  console.log("Web socket server started");
 });
-
-wss.on("connection", (ws) => {
-  ws.on("message", (data) => {
-    console.log("data recieved " + data);
-    ratings = UserScore.findAll({
-      order: [["user_score", "DESC"]],
-      include: [db.users],
-    }).then((findData) => {
-      ws.send(JSON.stringify(findData));
-    });
-
-    // const formattedInfo = {
-    //   return_event: "ratings",
-    //   returned_payload: {
-    //     user_rankings:
-    //   }
-    // }
-
-    // ws.send("data" + JSON.stringify(ratings));
-    // ws.send(ratings);
-  });
-});
-wss.on("listening", (data) => {
-  console.log(data);
-});
-
-wss.on("open", function open() {
-  ws.send("All glory to WebSockets!");
-});
-
+// Initialise weSocketServer for user scores and number of Users connected
+require("./websockets/userScores.wss")(wss);
 // Init express
 const app = express();
 
