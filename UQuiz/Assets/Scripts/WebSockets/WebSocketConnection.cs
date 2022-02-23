@@ -16,43 +16,46 @@ public class WebSocketConnection : MonoBehaviour
     public Text name3_points;
     public Text name4_points;
     public Text name5_points;
+    public Text current_Users;
+    Text[] nameArray;
+    Text[] namePointsArray;
 
-    static JSONNode response;
+    public JSONNode response;
 
     WebSocket ws;
     int index;
     void Start()
     {
+        nameArray = new Text[] {name1, name2, name3, name4, name5};
+        namePointsArray = new Text[] {name1_points, name2_points, name3_points, name4_points, name5_points};
+
+        index = 0;
         response = null;
         StartCoroutine(WebsocketData());
-
         StartCoroutine(GetRanking());
+        
     }
 
     
     void Update()
-    {    }
+    {   
+        StartCoroutine(UpdatingCurrentUsers());
+        // Debug.Log(response);
+    }
+
+    IEnumerator GetCurrentUsers() {
+        yield return new WaitForSeconds(1);
+        current_Users.text = response["numberOfClients"];
+            }
 
     IEnumerator GetRanking() {
         yield return new WaitForSeconds(1);
 
-        name1_points.text = response[0]["user_score"].ToString();
-        name1.text = response[0]["user"]["user_name"];
-
-        name2.text = response[1]["user"]["user_name"];
-        name2_points.text = response[1]["user_score"];
-
-        name2.text = response[1]["user"]["user_name"];
-        name2_points.text = response[1]["user_score"];
-
-        name3.text = response[2]["user"]["user_name"];
-        name3_points.text = response[2]["user_score"];
-
-        name4.text = response[3]["user"]["user_name"];
-        name4_points.text = response[3]["user_score"];
-
-        name5.text = response[4]["user"]["user_name"];
-        name5_points.text = response[4]["user_score"];
+        for (int i=0; i < nameArray.Length; i++) {
+            nameArray[i].text = response["ratings"][index]["user"]["user_name"];
+            namePointsArray[i].text = response["ratings"][index]["user_score"];
+            index++;
+        }
 
         yield return null;
     }
@@ -60,14 +63,25 @@ public class WebSocketConnection : MonoBehaviour
         
         ws = new WebSocket("ws://localhost:8080");
         ws.Connect();
-        Debug.Log("asf");
         ws.OnMessage += (sender, e) => {
             // Debug.Log("Message recieved from " + ((WebSocket)sender).Url + ", Data : " + e.Data[0].ToString());
             response = JSON.Parse(e.Data);
-            Debug.Log(response[0]["user_score"]);
+            Debug.Log(response["numberOfClients"]);
         };
 
         ws.Send("Hello");
         yield return null;
+    }
+
+    public IEnumerator UpdatingCurrentUsers() {
+        yield return new WaitForSeconds(1);
+        
+        ws.OnMessage += (sender, e) => {
+            // Debug.Log("Message recieved from " + ((WebSocket)sender).Url + ", Data : " + e.Data[0].ToString());
+            response = JSON.Parse(e.Data);
+            // Debug.Log(response["numberOfClients"]);
+        };
+        ws.Send("Hello");
+        // StartCoroutine(GetCurrentUsers());
     }
 }
