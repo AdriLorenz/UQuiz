@@ -28,6 +28,7 @@ export class UserComponent implements OnInit {
     this.classroomService
       .getUsersByClassroomName(this.classroomName)
       .subscribe((data) => {
+        console.log(data);
         this.classroomWithUsers = data;
         console.log(this.classroomWithUsers);
       });

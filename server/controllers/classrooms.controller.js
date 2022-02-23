@@ -25,11 +25,11 @@ exports.getOneClassroomWithUsers = async (req, res) => {
   try {
     const classroom = await Classroom.findOne({
       where: { classroom_name: req.params.classroom_name },
-      include: [db.users],
+      include: [{ model: db.users, include: [db.user_score] }],
     });
     res.send(classroom);
   } catch (error) {
-    res.status(500).send(err.message);
+    res.status(500).send(error.message);
   }
 };
 

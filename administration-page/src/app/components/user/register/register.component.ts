@@ -63,7 +63,6 @@ export class RegisterComponent implements OnInit {
         form.value.email,
         form.value.password,
         0,
-        0,
         form.value.classroom_id_fk,
         form.value.role_id_fk
       );

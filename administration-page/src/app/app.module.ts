@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { QuestionComponent } from './components/question/question.component';
 import { QuestionService } from './services/question.service';
 import { UserComponent } from './components/user/user.component';
@@ -49,7 +49,6 @@ import { EditClassroomComponent } from './components/classroom/edit-classroom/ed
 import { CreateClassroomButtonComponent } from './components/classroom/create-classroom-button/create-classroom-button.component';
 import { SingleUserComponent } from './components/user/single-user/single-user.component';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
-import { HttpErrorInterceptorService } from './services/http-error-interceptor.service';
 
 const appRoutes: Routes = [
   {
@@ -190,13 +189,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RxReactiveFormsModule,
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorInterceptorService,
-      multi: true,
-    },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
