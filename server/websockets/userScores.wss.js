@@ -3,22 +3,43 @@ const UserScore = db.user_score;
 
 module.exports = (wss) => {
   wss.on("connection", (ws) => {
-    // ws.send(JSON.stringify({ numberOfClients: wss.clients.size }));
+    ws.isAlive = true;
+    ws.on("pong", () => (ws.isAlive = true));
+
+    const interval = setInterval(function ping() {
+      {
+        wss.clients.forEach((ws) => {
+          if (ws.isAlive == false) return ws.terminate();
+
+          ws.isAlive = false;
+          ws.ping();
+        });
+      }
+    }, 3000);
 
     wss.clients.forEach((client) => {
       client.send(JSON.stringify({ numberOfClients: wss.clients.size }));
     });
 
-    ws.on("message", async (data) => {
-      ratings = await UserScore.findAll({
-        order: [["user_score", "DESC"]],
-        include: [db.users],
-      });
+    ws.on("message", async (message) => {
+      if (message == "updateScore") {
+        const ratings = await UserScore.findAll({
+          order: [["user_score", "DESC"]],
+          include: [db.users],
+        });
 
-      ws.send(JSON.stringify({ ratings, numberOfClients: wss.clients.size }));
+        wss.clients.forEach((client) => {
+          client.send(JSON.stringify({ ratings }));
+        });
+      }
     });
-  });
-  wss.on("listening", (data) => {
-    console.log(data);
+
+    ws.on("close", () => {
+      clearInterval(interval);
+      console.log("interval cleared");
+      wss.clients.forEach((client) => {
+        client.send(JSON.stringify({ numberOfClients: wss.clients.size }));
+      });
+    });
   });
 };
