@@ -21,8 +21,4 @@ module.exports = (wss) => {
   wss.on("listening", (data) => {
     console.log(data);
   });
-
-  wss.on("open", function open() {
-    ws.send("All glory to WebSockets!");
-  });
 };

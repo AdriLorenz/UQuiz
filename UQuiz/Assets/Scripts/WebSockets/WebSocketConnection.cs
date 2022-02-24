@@ -24,23 +24,27 @@ public class WebSocketConnection : MonoBehaviour
 
     WebSocket ws;
     int index;
+    bool allowUpdate;
     void Start()
     {
+        allowUpdate = true;
         nameArray = new Text[] {name1, name2, name3, name4, name5};
         namePointsArray = new Text[] {name1_points, name2_points, name3_points, name4_points, name5_points};
 
         index = 0;
         response = null;
         StartCoroutine(WebsocketData());
-        StartCoroutine(GetRanking());
         
     }
 
     
     void Update()
     {   
-        StartCoroutine(UpdatingCurrentUsers());
-        // Debug.Log(response);
+        if (allowUpdate) {
+            StartCoroutine(GetCurrentUsers());
+            Debug.Log("reached here");
+            allowUpdate = false;
+        }
     }
 
     IEnumerator GetCurrentUsers() {
@@ -66,22 +70,14 @@ public class WebSocketConnection : MonoBehaviour
         ws.OnMessage += (sender, e) => {
             // Debug.Log("Message recieved from " + ((WebSocket)sender).Url + ", Data : " + e.Data[0].ToString());
             response = JSON.Parse(e.Data);
+            allowUpdate = true;
             Debug.Log(response["numberOfClients"]);
         };
 
         ws.Send("Hello");
-        yield return null;
-    }
 
-    public IEnumerator UpdatingCurrentUsers() {
-        yield return new WaitForSeconds(1);
+        StartCoroutine(GetRanking());
         
-        ws.OnMessage += (sender, e) => {
-            // Debug.Log("Message recieved from " + ((WebSocket)sender).Url + ", Data : " + e.Data[0].ToString());
-            response = JSON.Parse(e.Data);
-            // Debug.Log(response["numberOfClients"]);
-        };
-        ws.Send("Hello");
-        // StartCoroutine(GetCurrentUsers());
+        yield return null;
     }
 }

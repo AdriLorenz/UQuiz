@@ -6,12 +6,13 @@ using UnityEngine.Networking;
 
 public class LoginRequest : MonoBehaviour
 {
-
+    public Text errorMessage;
     public InputField emailField;
     public InputField passwordField;
     // Start is called before the first frame update
     void Start()
     {
+        errorMessage.text = null;
     }
 
     // Update is called once per frame
@@ -33,6 +34,7 @@ public class LoginRequest : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success) {
                 Debug.Log(www.error);
+                ShowErrors();
             } else {
                 Debug.Log("Login complete");
             }
@@ -40,8 +42,14 @@ public class LoginRequest : MonoBehaviour
     }
 
     public void SingIn () {
+        errorMessage.text = null;
+
         StartCoroutine(Login(emailField.text, passwordField.text));
         Debug.Log(emailField.text);
         Debug.Log(passwordField.text);
+    }
+
+    public void ShowErrors() {
+        errorMessage.text = "*email or password incorrect";
     }
 }

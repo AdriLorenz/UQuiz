@@ -58,14 +58,19 @@ public class KeyboardManager : MonoBehaviour
     }
 
     public void DeleteLastLetter() {
-        if (fieldText == email) {
-            email.text = email.text.Remove(email.text.Length - 1);
-            word = word.Remove(word.Length - 1);
-            wordIndex--;
-        } else if (fieldText == password) {
-            password.text = password.text.Remove(password.text.Length - 1);
-            word = word.Remove(word.Length - 1);
-            wordIndex--;
+        try {
+            if (fieldText == email) {
+                email.text = email.text.Remove(email.text.Length - 1);
+                word = word.Remove(word.Length - 1);
+                wordIndex--;
+            } else if (fieldText == password) {
+                password.text = password.text.Remove(password.text.Length - 1);
+                word = word.Remove(word.Length - 1);
+                wordIndex--;
+            } 
+
+        } catch (System.Exception ex) {
+            Debug.Log(ex);
         }
     }
 }

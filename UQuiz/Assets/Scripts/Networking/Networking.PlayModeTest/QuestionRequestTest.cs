@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
-using UnityEngine.UI;
-
 using UnityEngine.Networking;
+using UnityEngine.TestTools;
 using SimpleJSON;
 
-
-public class ThemeRequestTest
+public class QuestionRequestTest
 {
-    string firstTheme;
+    string firstQuestion;
 
     [UnityTest]
-    public IEnumerator ThemeRequestSendThemes_Correct()
+    public IEnumerator QuestionRequestSendQuestion_Correct()
     {
-        using (UnityWebRequest request = UnityWebRequest.Get("http://localhost:5000/themes"))
+        using (UnityWebRequest request = UnityWebRequest.Get("http://localhost:5000/questions/WithAnswers"))
         {
             request.SetRequestHeader("Content-Type", "application/json");
 
@@ -31,18 +28,18 @@ public class ThemeRequestTest
                 //Debug.Log(request.downloadHandler.text);
 
                 JSONArray itemsData = (JSONArray) JSON.Parse(request.downloadHandler.text);
-                firstTheme = itemsData[0]["theme_name"];
+                firstQuestion = itemsData[0]["question_content"];
 
-                Debug.Log(firstTheme.ToString());
+                Debug.Log(firstQuestion.ToString());
             }
         }
-        Assert.AreEqual("History", firstTheme);
+        Assert.AreEqual("History", firstQuestion);
     }
-
+    
     [UnityTest]
-    public IEnumerator ThemeRequestSendThemes_Incorrect()
+    public IEnumerator QuestionRequestSendQuestion_Incorrect()
     {
-        using (UnityWebRequest request = UnityWebRequest.Get("http://localhost:5000/themes"))
+        using (UnityWebRequest request = UnityWebRequest.Get("http://localhost:5000/questions/WithAnswers"))
         {
             request.SetRequestHeader("Content-Type", "application/json");
 
@@ -57,12 +54,11 @@ public class ThemeRequestTest
                 //Debug.Log(request.downloadHandler.text);
 
                 JSONArray itemsData = (JSONArray) JSON.Parse(request.downloadHandler.text);
-                JSONNode themes = itemsData["theme_name"];
-                firstTheme = itemsData[0]["theme_name"];
+                firstQuestion = itemsData[0]["question_content"];
 
-                Debug.Log(firstTheme.ToString());
+                Debug.Log(firstQuestion.ToString());
             }
         }
-        Assert.AreEqual("no", firstTheme);
+        Assert.AreEqual("History", firstQuestion);
     }
 }
