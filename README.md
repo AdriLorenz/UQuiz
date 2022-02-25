@@ -35,7 +35,7 @@ As for the game, It uses **Unity** because its a game engine easy to use but als
 
 Download links:
 
-From Github: https://github.com/ShundytheFox/School-chamber.git
+From Github: https://github.com/AdriLorenz/UnavoidableQuiz.git
 
 ## Prerequisites
 
@@ -57,17 +57,25 @@ For the server need a working environment with:
 The best option to start with this project is cloning it in your PC:
 
 ```
-git clone https://github.com/ShundytheFox/School-chamber.git
+git clone https://github.com/AdriLorenz/UnavoidableQuiz.git
 ```
 
-This project contains 2 different parts:
+This project contains 3 different parts:
 * The game
 * The server
+* The administration page
 
-Once you have cloned the project install all dependencies.
+Once you have cloned the project install all dependencies of the server.
 
 ```
 cd school-chamber/server
+npm install
+```
+
+After that, install the packages of the administration page
+
+```
+cd school-chamber/administration-page
 npm install
 ```
 
@@ -86,13 +94,21 @@ const db = new Sequelize
 
 After that, you should be able to run correctly the server.
 
-```
-Start the project in Visual Studio Code
+Start the server in Visual Studio Code
 
-cd UQuiz/server
+```
+cd school-chamber/server
 npm run dev
 ```
-To login in the administration page, you just must go to http://localhost:5000/login and you should be able to login.
+
+Now, start the administration page in Visual Studio Code
+
+```
+cd school-chamber/administration-page/src/app
+ng serve
+```
+
+To login in the administration page, you just must go to http://localhost:4200/login and you should be able to login (rembember that you need an admin role).
 
 As for the game, it is still in development, so the easiest way to test it in its current stage is to add it in the Unity Hub and play it inside the Unity Editor.
 
