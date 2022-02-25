@@ -7,7 +7,7 @@ There are a total of 5 chambers.
 The questions are storaged inside a server with its own database. Along with that, there is also an administration page where the teachers can see the active questions,
 insert new questions, edit the questions and delete questions, including its answers. There the teachers can also register new users for the game.
 
-There is also a ranking system, but it isn't implemented yet. The idea of the project is to learn while playing a VR videogame, using mechanics common in VR to 
+There is also a ranking system. The idea of the project is to learn while playing a VR videogame, using mechanics common in VR to 
 make it more interesting. For the record, this is a student project with the only idea to learn on how to made a fullstack app. This project was assigned by **Aiju**.
 
 ![Create Project](/documentation/Images/aiju.jpg)
@@ -15,7 +15,7 @@ make it more interesting. For the record, this is a student project with the onl
 ## Technologies used
 
 Due to the nature of the project, it need to clear things: a server and the game app. For the server It uses **NodeJs with Sequelize as its ORM**. The administration 
-page linked directly to the server uses .**EJS**
+page uses .**Angular**
 
 As for the game, It uses **Unity** because its a game engine easy to use but also very powerful.
 
