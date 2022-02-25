@@ -7,7 +7,9 @@ and click in the 'Submit' button to enter.
 
 ## Question page
 
-The next thing you will see is all the question and its answers. 
+The next thing you will see is the themes. Everything is sorted inside other fields. For example, to go to questions first you need to select a theme. After selecting a theme, you must select one topic (Will only appear the ones inside that theme) and after that, the questions inside the selected topic will show.
+
+<img src="/documentation/Images/ThemesPage.PNG" width="700" height="350">
 
 <img src="/documentation/Images/QuestionPage.PNG" width="700" height="350">
 
