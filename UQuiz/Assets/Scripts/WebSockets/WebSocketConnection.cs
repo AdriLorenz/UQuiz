@@ -34,7 +34,6 @@ public class WebSocketConnection : MonoBehaviour
         index = 0;
         response = null;
         StartCoroutine(WebsocketData());
-        
     }
 
     
@@ -49,8 +48,12 @@ public class WebSocketConnection : MonoBehaviour
 
     IEnumerator GetCurrentUsers() {
         yield return new WaitForSeconds(1);
-        current_Users.text = response["numberOfClients"];
-            }
+        try {
+            current_Users.text = response["numberOfClients"];
+        } catch (System.Exception ex) {
+            Debug.Log(ex);
+        }
+    }
 
     IEnumerator GetRanking() {
         yield return new WaitForSeconds(1);
@@ -64,20 +67,24 @@ public class WebSocketConnection : MonoBehaviour
         yield return null;
     }
     public IEnumerator WebsocketData() {
-        
-        ws = new WebSocket("ws://localhost:8080");
-        ws.Connect();
-        ws.OnMessage += (sender, e) => {
-            // Debug.Log("Message recieved from " + ((WebSocket)sender).Url + ", Data : " + e.Data[0].ToString());
-            response = JSON.Parse(e.Data);
-            allowUpdate = true;
-            Debug.Log(response["numberOfClients"]);
-        };
+        try {
+            ws = new WebSocket("ws://localhost:8080");
+            ws.Connect();
+            ws.OnMessage += (sender, e) => {
+                // Debug.Log("Message recieved from " + ((WebSocket)sender).Url + ", Data : " + e.Data[0].ToString());
+                response = JSON.Parse(e.Data);
+                allowUpdate = true;
+                Debug.Log(response["numberOfClients"]);
+            };
 
-        ws.Send("Hello");
+            ws.Send("Hello");
 
-        StartCoroutine(GetRanking());
-        
+            StartCoroutine(GetRanking());
+
+        } catch (System.Exception ex) {
+            Debug.Log(ex);
+        }
+
         yield return null;
     }
 }

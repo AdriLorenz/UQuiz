@@ -1,3 +1,5 @@
+const passport = require("passport");
+
 function authUser(req, res, next) {
   if (req.user == null) {
     res.status(403);
@@ -33,6 +35,16 @@ function checkAuthenticated(req, res, next) {
     .status(400)
     .json({ statusCode: 400, message: "not authenticated" });
 }
+
+// function checkAuthenticated(req, res, next) {
+//   passport.authenticate("local")(req, res, function () {
+//     if (req.user) {
+//       console.log("User not found");
+//     } else {
+//       res.redirect("/");
+//     }
+//   });
+// }
 
 module.exports = {
   authUser,
