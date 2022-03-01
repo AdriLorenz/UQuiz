@@ -28,6 +28,9 @@ public class QuestionController : MonoBehaviour
     private GameObject green;
     private GameObject red;
 
+    public GameObject endingScreen;
+    public GameObject questionScreen;
+
     public UnityEvent SnapZone;
     public UnityEvent Exit;
 
@@ -100,6 +103,7 @@ public class QuestionController : MonoBehaviour
                 questions[3] = item.wrongAnswer1.ToString();
                 questions[4] = item.wrongAnswer2.ToString();
                 SpawnCubes_1();
+                SetScreenText();
                 SnapZone.Invoke();
                 break;
             } else if (index == 5) {
@@ -110,6 +114,7 @@ public class QuestionController : MonoBehaviour
                 questions[4] = item.wrongAnswer2.ToString();
                 Debug.Log("I reached here");
                 SpawnCubes_1();
+                SetScreenText();
                 SnapZone.Invoke();
                 break;
             } else if (index == 9) {
@@ -119,16 +124,20 @@ public class QuestionController : MonoBehaviour
                 questions[3] = item.wrongAnswer1.ToString();
                 questions[4] = item.wrongAnswer2.ToString();
                 SpawnCubes_1();
+                SetScreenText();
                 SnapZone.Invoke();
+                break;
+            } else if (index > 9) {
+                questionScreen.SetActive(false);
+                endingScreen.SetActive(true);
+
+                Debug.Log("Exiting");
+                Exit.Invoke();
                 break;
             } else {
 
             }
         }
-        questionContent.text = questions[1].ToString();
-        correctAnswer.text = questions[2].ToString();
-        wrongAnswer1.text = questions[3].ToString();
-        wrongAnswer2.text = questions[4].ToString();
     }
 
     public void SpawnCubes_1() {
@@ -163,5 +172,12 @@ public class QuestionController : MonoBehaviour
         Destroy(blue);
         Destroy(green);
         Destroy(red);
+    }
+
+    private void SetScreenText () {
+        questionContent.text = questions[1].ToString();
+        correctAnswer.text = questions[2].ToString();
+        wrongAnswer1.text = questions[3].ToString();
+        wrongAnswer2.text = questions[4].ToString();
     }
 }

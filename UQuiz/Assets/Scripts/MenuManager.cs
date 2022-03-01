@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour
 {
     public Dropdown movementDropdown;
     public Dropdown themeDropdown;
+    public Text userName;
 
     public static string movement;
     public static string theme;
@@ -19,6 +20,7 @@ public class MenuManager : MonoBehaviour
     void Start() {
         StartCoroutine(getThemes());
         StartCoroutine(getMovement());
+        SetUserName();
     }
 
     // Update is called once per frame
@@ -44,6 +46,10 @@ public class MenuManager : MonoBehaviour
         } else {
             yield return "no";
         }
+    }
+
+    private void SetUserName() {
+        userName.text = "Welcome, " + LoginRequest.userName + "!";
     }
 }
 

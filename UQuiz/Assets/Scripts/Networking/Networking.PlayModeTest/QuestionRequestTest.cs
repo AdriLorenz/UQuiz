@@ -32,8 +32,8 @@ public class QuestionRequestTest
 
                 Debug.Log(firstQuestion.ToString());
             }
+            Assert.AreEqual(UnityWebRequest.Result.Success, request.result);
         }
-        Assert.AreEqual("History", firstQuestion);
     }
     
     [UnityTest]
@@ -58,7 +58,7 @@ public class QuestionRequestTest
 
                 Debug.Log(firstQuestion.ToString());
             }
+            Assert.AreEqual(UnityWebRequest.Result.Success, request.error);
         }
-        Assert.AreEqual("History", firstQuestion);
     }
 }

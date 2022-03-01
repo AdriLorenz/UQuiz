@@ -44,14 +44,18 @@ app.use(flash());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      secure: false,
+    },
   })
 );
 
 app.use(passport.initialize());
 // persistent login sessions
 app.use(passport.session());
+
 app.use(express.static("public"));
 
 initializePassport(passport, (email) =>
@@ -66,6 +70,17 @@ app.delete("/logout", (req, res) => {
   req.logOut();
   req.session = null;
 });
+
+// allowCrossDomain = function (req, res, next) {
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     req.headers["access-control-request-headers"]
+//   );
+// };
+// app.use(allowCrossDomain);
 
 // use router
 require("./routes/answers.routes")(app);

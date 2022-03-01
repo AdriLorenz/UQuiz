@@ -35,8 +35,9 @@ public class ThemeRequestTest
 
                 Debug.Log(firstTheme.ToString());
             }
+            Assert.AreEqual(UnityWebRequest.Result.Success, request.result);
         }
-        Assert.AreEqual("History", firstTheme);
+        
     }
 
     [UnityTest]
@@ -62,7 +63,7 @@ public class ThemeRequestTest
 
                 Debug.Log(firstTheme.ToString());
             }
+            Assert.AreEqual(UnityWebRequest.Result.Success, request.error);
         }
-        Assert.AreEqual("no", firstTheme);
     }
 }

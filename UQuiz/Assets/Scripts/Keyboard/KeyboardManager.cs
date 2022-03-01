@@ -15,7 +15,6 @@ namespace KeyboardController {
     
 
     public void AlphabetFunction (string alphabet) {
-        Debug.Log("pepe");
         if (fieldText == email) {
             Debug.Log("1");
             if (word == password.text) {
