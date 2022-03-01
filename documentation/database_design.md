@@ -32,5 +32,4 @@ With the users also implemented in a UML diagram, i was able to start coding.
 
 ## Database scripts
 
-* [Creation of the tables](/server/database/create-tables.sql)
-* [Insert test data](/server/database/insert-data.sql)
+* [Database script](/server/database/school-chamber.sql)
