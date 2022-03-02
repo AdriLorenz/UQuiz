@@ -40,6 +40,7 @@ function initialize(getUserByEmail) {
 
   passport.deserializeUser(async (email, done) => {
     this.getUserByEmail.then((data) => {
+      console.log(data.user_id);
       done(null, data.user_id);
     });
   });
