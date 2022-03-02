@@ -5,13 +5,13 @@ const user = require("../models/user.model");
 function initialize(passport, getUserByEmail) {
   const authenticateUser = async (email, password, done) => {
     const user = getUserByEmail(email);
-
     user.then(async (res) => {
       if (res === null) {
         return done(null, false, { message: "No user linked to that email" });
       }
       try {
         if (await bcrypt.compare(password, res.user_password)) {
+          console.log("HEREEEE");
           return done(null, res);
         } else {
           return done(null, false, { message: "Password incorrect" });

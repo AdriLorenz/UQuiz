@@ -19,8 +19,6 @@ module.exports = (app) => {
     "/:question_id",
     questions.getQuestionWithTopicByIdQuestion
   );
-  // Route get question by theme
-  routerQuestions.get("/theme/:theme_id_fk", questions.getQuestionByTheme);
 
   // Route create a new question
   routerQuestions.post("/", questions.createQuestionAndAnswers);

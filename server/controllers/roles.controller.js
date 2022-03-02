@@ -23,9 +23,10 @@ exports.getRoleById = async (req, res) => {
 // Create a new role
 exports.createRole = async (req, res) => {
   try {
-    await Role.create(req.body);
+    const role = await Role.create(req.body);
     res.json({
       message: "Role Created",
+      role,
     });
   } catch (err) {
     res.status(500).send(err.message);
@@ -35,13 +36,16 @@ exports.createRole = async (req, res) => {
 // Update role by id
 exports.updateRole = async (req, res) => {
   try {
-    await Role.update(req.body, {
+    const status = await Role.update(req.body, {
       where: {
         role_id: req.params.role_id,
       },
     });
+
+    const message =
+      status == 1 ? "Role updated" : "Nothing to updated or role not found";
     res.json({
-      message: "Role Updated",
+      message,
     });
   } catch (err) {
     res.status(500).send(err.message);
@@ -51,13 +55,15 @@ exports.updateRole = async (req, res) => {
 // Delete role by id
 exports.deleteRole = async (req, res) => {
   try {
-    await Role.destroy({
+    const status = await Role.destroy({
       where: {
         role_id: req.params.role_id,
       },
     });
+
+    const message = status == 1 ? "Role deleted" : "Role not found";
     res.json({
-      message: "Role Deleted",
+      message,
     });
   } catch (err) {
     res.status(500).send(err.message);

@@ -29,7 +29,7 @@ exports.getUserById = async (req, res) => {
       include: [{ model: Role, required: true }],
     });
 
-    res.send(user);
+    res.send(user || { message: "User not found" });
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -69,13 +69,17 @@ exports.createUser = async (req, res) => {
 // Update user by id
 exports.updateUser = async (req, res) => {
   try {
-    await User.update(req.body, {
+    const status = await User.update(req.body, {
       where: {
         user_id: req.params.user_id,
       },
     });
+
+    const message =
+      status == 1 ? "User updated" : "Nothing to update or user not found";
+
     res.json({
-      message: "User Updated",
+      message,
     });
   } catch (err) {
     res.status(500).send(err.message);
@@ -85,13 +89,16 @@ exports.updateUser = async (req, res) => {
 // Delete user by id
 exports.deleteUser = async (req, res) => {
   try {
-    await User.destroy({
+    const status = await User.destroy({
       where: {
         user_id: req.params.user_id,
       },
     });
+
+    const message = status == 1 ? "User deleted." : "User not found.";
+
     res.json({
-      message: "User Deleted",
+      message,
     });
   } catch (err) {
     res.status(500).send(err.message);
@@ -104,7 +111,7 @@ exports.getAUserWithClassroomAndRole = async (req, res) => {
       where: { user_id: req.params.user_id },
       include: [db.classrooms, db.roles],
     });
-    res.send(user);
+    res.send(user || { message: "User not found" });
   } catch (error) {
     res.status(500).send(error.message);
   }

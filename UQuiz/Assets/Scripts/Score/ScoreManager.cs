@@ -10,13 +10,13 @@ namespace Score
         public string text;
         public static int scoreValue = 0;
         private Text score;
-        
+
         void Start()
         {
             score = GetComponent<Text>();
         }
 
-        
+
         void Update()
         {
             score.text = "Score: " + scoreValue;
@@ -24,7 +24,8 @@ namespace Score
             ScoreManager.ExcludeNegativeScore();
         }
 
-        public static int ExcludeNegativeScore() {
+        public static int ExcludeNegativeScore()
+        {
             if (scoreValue < 0)
             {
                 scoreValue = 0;

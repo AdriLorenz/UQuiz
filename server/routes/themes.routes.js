@@ -10,9 +10,6 @@ module.exports = (app) => {
   // save image then create theme
   routerThemes.post("/", upload.single("themeImage"), themes.createTheme);
 
-  // get image test theme
-  routerThemes.get("/image/:id", themes.getImageTest);
-
   //edit theme name
   routerThemes.put("/:theme_id/editThemeName", themes.updateThemeName);
   // Route for topics inside a theme
@@ -33,10 +30,6 @@ module.exports = (app) => {
   // Route delete theme by id
   routerThemes.delete("/:theme_id", themes.deleteTheme);
 
-  routerThemes.get(
-    "/withTopicsWithQuestionsWithAnswers",
-    themes.getThemesWithTopicsWithQuestionsWithAnswers
-  );
-  routerThemes.use(auth.checkAuthenticated);
+  // routerThemes.use(auth.checkAuthenticated);
   app.use("/themes", routerThemes);
 };
