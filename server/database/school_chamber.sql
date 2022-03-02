@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 09 fév. 2022 à 18:24
+-- Généré le : ven. 25 fév. 2022 à 16:55
 -- Version du serveur : 10.4.21-MariaDB
 -- Version de PHP : 8.0.11
 
@@ -39,9 +39,9 @@ CREATE TABLE `answers` (
 --
 
 INSERT INTO `answers` (`answer_id`, `answer_content`, `answer_status`, `question_id_fk`) VALUES
-(1, 'El Rey Harold', 0, 1),
-(2, 'El Rey Guillermo', 1, 1),
-(3, 'Yo', 0, 1),
+(1, 'sdkjfs', 0, 1),
+(2, 'ali', 1, 1),
+(3, 'adrian', 0, 1),
 (4, '1945', 1, 2),
 (5, '1939', 0, 2),
 (6, '1944', 0, 2),
@@ -152,9 +152,9 @@ CREATE TABLE `themes` (
 --
 
 INSERT INTO `themes` (`theme_id`, `theme_name`, `theme_img_path`) VALUES
-(1, 'History', NULL),
-(2, 'Geography', NULL),
-(3, 'Computing', NULL),
+(1, 'Historia', NULL),
+(2, 'Geografía', NULL),
+(3, 'Informática', NULL),
 (14, 'test dimanche 1234', '\\images\\themes\\30727257c625422335becc87030c43a2'),
 (15, 'test final', '\\images\\themes\\3bf2c46f47178bb774f37b932daa1d1e');
 
@@ -191,7 +191,6 @@ CREATE TABLE `users` (
   `user_name` varchar(255) DEFAULT NULL,
   `user_email` varchar(255) DEFAULT NULL,
   `user_password` varchar(255) DEFAULT NULL,
-  `user_score` int(11) DEFAULT 0,
   `user_games_played` int(11) DEFAULT 0,
   `classroom_id_fk` int(11) DEFAULT NULL,
   `role_id_fk` int(11) DEFAULT NULL
@@ -206,6 +205,30 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `use
 (2, 'Pino', 'Pino@gmail.com', '1234', 3, 1, 2),
 (4, 'admin', 'admin@admin.com', '$2b$04$RyE3Ti75v2ZZCBli0ApYU.KuQePTjfAZS0LNUx4WZmgd0fyTNRWDC', 0, 1, 2);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user_scores`
+--
+
+CREATE TABLE `user_scores` (
+  `id` int(11) NOT NULL,
+  `user_score` int(11) DEFAULT 0,
+  `user_id_fk` int(11) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `user_scores`
+--
+
+INSERT INTO `user_scores` (`id`, `user_score`, `user_id_fk`, `createdAt`, `updatedAt`) VALUES
+(4, 100, 4, '2022-02-22 20:14:23', '2022-02-22 20:14:23'),
+(5, 200, 1, '2022-02-22 20:14:23', '2022-02-22 20:14:23'),
+(6, 234, 2, '2022-02-22 20:14:58', '2022-02-22 20:14:58'),
+(7, 234234, 1, '2022-02-22 20:14:58', '2022-02-22 20:14:58');
+
 --
 -- Index pour les tables déchargées
 --
@@ -215,7 +238,7 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `use
 --
 ALTER TABLE `answers`
   ADD PRIMARY KEY (`answer_id`),
-  ADD KEY `answers_ibfk_1` (`question_id_fk`);
+  ADD KEY `question_id_fk` (`question_id_fk`);
 
 --
 -- Index pour la table `classrooms`
@@ -228,7 +251,7 @@ ALTER TABLE `classrooms`
 --
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`question_id`),
-  ADD KEY `questions_ibfk_1` (`topic_id_fk`);
+  ADD KEY `topic_id_fk` (`topic_id_fk`);
 
 --
 -- Index pour la table `roles`
@@ -241,8 +264,6 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `themes`
   ADD PRIMARY KEY (`theme_id`);
-  
-select * from users;
 
 --
 -- Index pour la table `topics`
@@ -258,6 +279,13 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
   ADD KEY `classroom_id_fk` (`classroom_id_fk`),
   ADD KEY `role_id_fk` (`role_id_fk`);
+
+--
+-- Index pour la table `user_scores`
+--
+ALTER TABLE `user_scores`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id_fk` (`user_id_fk`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -306,6 +334,12 @@ ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT pour la table `user_scores`
+--
+ALTER TABLE `user_scores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- Contraintes pour les tables déchargées
 --
 
@@ -313,13 +347,13 @@ ALTER TABLE `users`
 -- Contraintes pour la table `answers`
 --
 ALTER TABLE `answers`
-  ADD CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`question_id_fk`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`question_id_fk`) REFERENCES `questions` (`question_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `questions`
 --
 ALTER TABLE `questions`
-  ADD CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`topic_id_fk`) REFERENCES `topics` (`topic_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`topic_id_fk`) REFERENCES `topics` (`topic_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `topics`
@@ -333,6 +367,12 @@ ALTER TABLE `topics`
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`classroom_id_fk`) REFERENCES `classrooms` (`classroom_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`role_id_fk`) REFERENCES `roles` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `user_scores`
+--
+ALTER TABLE `user_scores`
+  ADD CONSTRAINT `user_scores_ibfk_1` FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

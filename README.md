@@ -7,7 +7,7 @@ There are a total of 5 chambers.
 The questions are storaged inside a server with its own database. Along with that, there is also an administration page where the teachers can see the active questions,
 insert new questions, edit the questions and delete questions, including its answers. There the teachers can also register new users for the game.
 
-There is also a ranking system, but it isn't implemented yet. The idea of the project is to learn while playing a VR videogame, using mechanics common in VR to 
+There is also a ranking system. The idea of the project is to learn while playing a VR videogame, using mechanics common in VR to 
 make it more interesting. For the record, this is a student project with the only idea to learn on how to made a fullstack app. This project was assigned by **Aiju**.
 
 ![Create Project](/documentation/Images/aiju.jpg)
@@ -15,7 +15,7 @@ make it more interesting. For the record, this is a student project with the onl
 ## Technologies used
 
 Due to the nature of the project, it need to clear things: a server and the game app. For the server It uses **NodeJs with Sequelize as its ORM**. The administration 
-page linked directly to the server uses .**EJS**
+page uses **Angular**
 
 As for the game, It uses **Unity** because its a game engine easy to use but also very powerful.
 
@@ -35,7 +35,7 @@ As for the game, It uses **Unity** because its a game engine easy to use but als
 
 Download links:
 
-From Github: https://github.com/ShundytheFox/School-chamber.git
+From Github: https://github.com/AdriLorenz/UnavoidableQuiz.git
 
 ## Prerequisites
 
@@ -57,17 +57,25 @@ For the server need a working environment with:
 The best option to start with this project is cloning it in your PC:
 
 ```
-git clone https://github.com/ShundytheFox/School-chamber.git
+git clone https://github.com/AdriLorenz/UnavoidableQuiz.git
 ```
 
-This project contains 2 different parts:
+This project contains 3 different parts:
 * The game
 * The server
+* The administration page
 
-Once you have cloned the project install all dependencies.
+Once you have cloned the project install all dependencies of the server.
 
 ```
 cd school-chamber/server
+npm install
+```
+
+After that, install the packages of the administration page
+
+```
+cd school-chamber/administration-page
 npm install
 ```
 
@@ -86,13 +94,21 @@ const db = new Sequelize
 
 After that, you should be able to run correctly the server.
 
-```
-Start the project in Visual Studio Code
+Start the server in Visual Studio Code
 
-cd UQuiz/server
+```
+cd school-chamber/server
 npm run dev
 ```
-To login in the administration page, you just must go to http://localhost:5000/login and you should be able to login.
+
+Now, start the administration page in Visual Studio Code
+
+```
+cd school-chamber/administration-page/src/app
+ng serve
+```
+
+To login in the administration page, you just must go to http://localhost:4200/login and you should be able to login (rembember that you need an admin role).
 
 As for the game, it is still in development, so the easiest way to test it in its current stage is to add it in the Unity Hub and play it inside the Unity Editor.
 

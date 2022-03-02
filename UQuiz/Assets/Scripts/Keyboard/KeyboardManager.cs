@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KeyboardManager : MonoBehaviour
+namespace KeyboardController {
+    public class KeyboardManager : MonoBehaviour
 {
     string word = null;
     int wordIndex = 0;
     string alpha;
     public InputField fieldText = null;
-    public InputField email;
-    public InputField password;
+    public InputField email = null;
+    public InputField password = null;
     
 
     public void AlphabetFunction (string alphabet) {
-
         if (fieldText == email) {
+            Debug.Log("1");
             if (word == password.text) {
                 word = null;
-                    
+                Debug.Log("2");
                 wordIndex++;
                 word = word + alphabet;
                 email.text = word;
@@ -26,19 +27,22 @@ public class KeyboardManager : MonoBehaviour
                 wordIndex++;
                 word = word + alphabet;
                 email.text = word;
+                Debug.Log("3");
             }
                 
         } else if (fieldText == password) {
+            Debug.Log("4");
             if (word == email.text) {
                 word = null;
-
+                Debug.Log("5");
                 wordIndex++;
                 word = word + alphabet;
                 password.text = word; 
             } else {
                 wordIndex++;
                 word = word + alphabet;
-                password.text = word;       
+                password.text = word;
+                Debug.Log("6");    
             }   
         }
     }
@@ -58,14 +62,22 @@ public class KeyboardManager : MonoBehaviour
     }
 
     public void DeleteLastLetter() {
-        if (fieldText == email) {
-            email.text = email.text.Remove(email.text.Length - 1);
-            word = word.Remove(word.Length - 1);
-            wordIndex--;
-        } else if (fieldText == password) {
-            password.text = password.text.Remove(password.text.Length - 1);
-            word = word.Remove(word.Length - 1);
-            wordIndex--;
+        try {
+            if (fieldText == email) {
+                email.text = email.text.Remove(email.text.Length - 1);
+                word = word.Remove(word.Length - 1);
+                wordIndex--;
+            } else if (fieldText == password) {
+                password.text = password.text.Remove(password.text.Length - 1);
+                word = word.Remove(word.Length - 1);
+                wordIndex--;
+            } 
+
+        } catch (System.Exception ex) {
+            Debug.Log(ex);
         }
     }
 }
+
+}
+

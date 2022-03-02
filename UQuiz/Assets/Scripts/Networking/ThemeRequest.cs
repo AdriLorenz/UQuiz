@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 using SimpleJSON;
 using UnityEngine.UI;
 
-namespace ThemeRequest {
     public class ThemeRequest: MonoBehaviour
     {
         Dropdown dropdown;
@@ -57,4 +56,3 @@ namespace ThemeRequest {
             }
         }
     }
-}
