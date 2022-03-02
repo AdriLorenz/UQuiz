@@ -6,6 +6,7 @@ const User = require("./models").users;
 const flash = require("express-flash");
 const session = require("express-session");
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const methodOverride = require("method-override");
 const passport = require("passport");
@@ -34,6 +35,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
+  next();
+});
+
 // Set view engine to .ejs
 app.engine("html", require("ejs").renderFile);
 app.set("view-engine", "ejs");
@@ -41,10 +53,13 @@ app.set("view-engine", "ejs");
 app.use(methodOverride("_method"));
 
 app.use(flash());
+
+app.use(express.static("public"));
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     cookie: {
       secure: false,
@@ -56,9 +71,7 @@ app.use(passport.initialize());
 // persistent login sessions
 app.use(passport.session());
 
-app.use(express.static("public"));
-
-initializePassport(passport, (email) =>
+initializePassport((email) =>
   User.findOne({
     where: {
       user_email: email,
@@ -70,17 +83,6 @@ app.delete("/logout", (req, res) => {
   req.logOut();
   req.session = null;
 });
-
-// allowCrossDomain = function (req, res, next) {
-//   res.header("Access-Control-Allow-Credentials", "true");
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     req.headers["access-control-request-headers"]
-//   );
-// };
-// app.use(allowCrossDomain);
 
 // use router
 require("./routes/answers.routes")(app);

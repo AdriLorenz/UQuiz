@@ -144,8 +144,10 @@ exports.deleteTheme = async (req, res) => {
       const themeImagesDir = "./public";
 
       fs.unlink(themeImagesDir + theme.theme_img_path, (err) => {
-        res.status(500).send(err.message);
-        return;
+        if (err != null) {
+          res.status(500).send(err.message || "error");
+          return;
+        }
       });
     }
 
@@ -158,6 +160,6 @@ exports.deleteTheme = async (req, res) => {
       message: "Theme Deleted",
     });
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send(err.message || "error");
   }
 };

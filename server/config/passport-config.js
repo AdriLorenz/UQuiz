@@ -1,12 +1,14 @@
 const localStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 const user = require("../models/user.model");
+const passport = require("passport");
+global.getUserByEmail;
 
-function initialize(passport, getUserByEmail) {
+function initialize(getUserByEmail) {
   const authenticateUser = async (email, password, done) => {
-    const user = getUserByEmail(email);
+    this.getUserByEmail = getUserByEmail(email);
 
-    user.then(async (res) => {
+    this.getUserByEmail.then(async (res) => {
       if (res === null) {
         return done(null, false, { message: "No user linked to that email" });
       }
@@ -28,12 +30,17 @@ function initialize(passport, getUserByEmail) {
     )
   );
 
-  passport.serializeUser((user, done) => {
-    done(null, user.user_id);
+  passport.serializeUser(async (email, done) => {
+    this.getUserByEmail.then((data) => {
+      console.log("user being serialized " + data);
+      done(null, data);
+    });
   });
+
   passport.deserializeUser(async (email, done) => {
-    const user = getUserByEmail(email);
-    return done(null, user);
+    this.getUserByEmail.then((data) => {
+      done(null, data.user_id);
+    });
   });
 }
 

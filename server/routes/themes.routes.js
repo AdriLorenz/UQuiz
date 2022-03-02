@@ -18,7 +18,7 @@ module.exports = (app) => {
   // Route for topics inside a theme
   routerThemes.get("/:theme_name/topics", themes.getOneThemeWithTopics);
   // Route get all themes
-  routerThemes.get("/", auth.checkAuthenticated, themes.getThemes);
+  routerThemes.get("/", themes.getThemes);
   // Route get theme by id
   routerThemes.get("/:theme_id", themes.getThemeById);
   // Route create a new theme

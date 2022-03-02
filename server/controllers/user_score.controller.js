@@ -4,7 +4,7 @@ const UserScore = db.user_score;
 
 exports.getAllUserScore = async (req, res) => {
   try {
-    const userScores = await UserScore.getAll();
+    const userScores = await UserScore.FindAll();
     res.send(userScores);
   } catch (error) {
     res.status(500).send(`An error has occured : ${error.message}`);
