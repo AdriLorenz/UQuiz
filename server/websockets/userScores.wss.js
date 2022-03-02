@@ -18,18 +18,17 @@ module.exports = (wss) => {
     }, 3000);
 
     wss.clients.forEach((client) => {
-      client.send(JSON.stringify({ numberOfClients: wss.clients.size }));
+      const rating = getRating();
+      client.send(
+        JSON.stringify({ numberOfClients: wss.clients.size, rating })
+      );
     });
 
     ws.on("message", async (message) => {
       if (message == "updateScore") {
-        const ratings = await UserScore.findAll({
-          order: [["user_score", "DESC"]],
-          include: [db.users],
-        });
-
         wss.clients.forEach((client) => {
-          client.send(JSON.stringify({ ratings }));
+          const rating = getRating();
+          client.send(JSON.stringify({ rating }));
         });
       }
     });
@@ -43,3 +42,10 @@ module.exports = (wss) => {
     });
   });
 };
+
+async function getRating() {
+  return await UserScore.findAll({
+    order: [["user_score", "DESC"]],
+    include: [db.users],
+  });
+}
