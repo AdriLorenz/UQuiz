@@ -15,6 +15,7 @@ export class EditThemeComponent implements OnInit {
   delay = (ms) => new Promise((res) => setTimeout(res, ms));
   theme_id: number;
   theme: Theme;
+  error = false;
 
   constructor(
     private themeService: ThemeService,
@@ -45,23 +46,32 @@ export class EditThemeComponent implements OnInit {
     }
   }
 
-  updateTheme() {
-    if (this.uploadForm.value.theme_img_path) {
-      try {
-        this.themeService
-          .updateTheme(this.uploadForm, this.theme.theme_id)
-          .subscribe((res) => console.log(res));
-      } catch (error) {
-        console.log(error);
+  async updateTheme() {
+    if (this.theme.theme_name != '') {
+      if (this.uploadForm.value.theme_img_path) {
+        try {
+          this.themeService
+            .updateTheme(this.uploadForm, this.theme.theme_id)
+            .subscribe((res) => console.log(res));
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          this.themeService
+            .updateThemeName(this.theme.theme_id, this.theme.theme_name)
+            .subscribe((res) => console.log(res));
+        } catch (error) {
+          console.log(error);
+        }
       }
+      await this.delay(1000);
+
+      this.router.navigate([this.location.back()]).then(() => {
+        window.location.reload();
+      });
     } else {
-      try {
-        this.themeService
-          .updateThemeName(this.theme.theme_id, this.theme.theme_name)
-          .subscribe((res) => console.log(res));
-      } catch (error) {
-        console.log(error);
-      }
+      this.error = true;
     }
   }
 

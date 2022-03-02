@@ -54,8 +54,6 @@ public class LoginRequest : MonoBehaviour
         StartCoroutine(Login(emailField.text, passwordField.text));
         Debug.Log(emailField.text);
         Debug.Log(passwordField.text);
-
-        SceneManager.LoadScene("Menu");
     }
 
     public void ShowErrors() {
@@ -66,5 +64,7 @@ public class LoginRequest : MonoBehaviour
         JSONNode itemsData = JSON.Parse(response);
         userName = itemsData["user_name"];
         Debug.Log(userName);
+        SceneManager.LoadScene("Menu");
+
     }
 }

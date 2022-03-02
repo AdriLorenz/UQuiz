@@ -14,6 +14,7 @@ export class AddThemeComponent implements OnInit {
   theme: Theme;
   public themeToCreate: Theme;
   uploadForm: FormGroup;
+  error = false;
   delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   constructor(
@@ -33,18 +34,22 @@ export class AddThemeComponent implements OnInit {
   }
 
   async createTheme() {
-    try {
-      this.themeService.createTheme(this.uploadForm);
-
+    console.log(this.uploadForm.value.theme_name);
+    if (this.uploadForm.value.theme_name != '') {
+      try {
+        this.themeService.createTheme(this.uploadForm);
+        // display success message
+      } catch (error) {
+        console.log(error);
+        //display error message
+      }
       await this.delay(1000);
 
       this.router.navigate([this.location.back()]).then(() => {
         window.location.reload();
       });
-      // display success message
-    } catch (error) {
-      console.log(error);
-      //display error message
+    } else {
+      this.error = true;
     }
   }
 

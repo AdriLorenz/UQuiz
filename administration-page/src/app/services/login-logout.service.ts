@@ -21,7 +21,9 @@ export class LoginLogoutService {
   constructor(private httpClient: HttpClient) {}
 
   loginUser(credentials: { email: string; password: string }): Observable<any> {
-    return this.httpClient.post(this.endpoint, credentials);
+    return this.httpClient.post(this.endpoint, credentials, {
+      withCredentials: true,
+    });
   }
 
   logOutUser(credentials: {

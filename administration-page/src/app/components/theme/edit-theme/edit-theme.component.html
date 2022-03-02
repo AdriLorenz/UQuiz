@@ -13,6 +13,7 @@
               id="theme_name"
               autocomplete="off"
               type="text"
+              required
             />
           </div>
         </div>
@@ -74,6 +75,14 @@
               id="theme_img_path"
               (change)="onFileSelect($event)"
             />
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-12">
+            <div *ngIf="error" class="error">
+              <a>*Introduce the theme</a>
+            </div>
           </div>
         </div>
       </div>

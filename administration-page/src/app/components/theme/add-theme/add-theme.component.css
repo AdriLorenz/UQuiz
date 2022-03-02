@@ -92,3 +92,7 @@ input {
 .contentMobile {
   padding-top: 40px;
 }
+
+.error {
+  color: red;
+}

@@ -58,6 +58,8 @@ public class WebSocketConnection : MonoBehaviour
     IEnumerator GetRanking() {
         yield return new WaitForSeconds(1);
 
+        Debug.Log(nameArray[0]);
+
         for (int i=0; i < nameArray.Length; i++) {
             nameArray[i].text = response["ratings"][index]["user"]["user_name"];
             namePointsArray[i].text = response["ratings"][index]["user_score"];
