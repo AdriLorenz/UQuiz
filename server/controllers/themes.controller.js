@@ -14,22 +14,6 @@ exports.getThemes = async (req, res) => {
   }
 };
 
-exports.getThemesWithTopicsWithQuestionsWithAnswers = async (req, res) => {
-  try {
-    const theme = await Theme.findAll({
-      include: [
-        {
-          model: db.topics,
-          include: { model: db.questions, include: [db.answers] },
-        },
-      ],
-    });
-    res.send(theme);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-};
-
 exports.getOneThemeWithTopics = async (req, res) => {
   try {
     const theme = await Theme.findOne({
@@ -47,25 +31,6 @@ exports.getThemeById = async (req, res) => {
   try {
     const theme = await Theme.findByPk(req.params.theme_id);
     res.send(theme);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-};
-
-exports.getImageTest = async (req, res) => {
-  try {
-    const theme = await Theme.findByPk(req.params.id);
-
-    const chemin = theme.theme_img_path;
-
-    res.send(
-      `
-  <h1>Welome</h1>
-  <img
-  src="${chemin}"
-  style="height:300px;"/>
-  <p>some text</p>`
-    );
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -144,8 +109,8 @@ exports.deleteTheme = async (req, res) => {
       const themeImagesDir = "./public";
 
       fs.unlink(themeImagesDir + theme.theme_img_path, (err) => {
-        if (err != null) {
-          res.status(500).send(err.message || "error");
+        if (err !== null) {
+          res.status(500).send(err.message);
           return;
         }
       });
@@ -160,6 +125,8 @@ exports.deleteTheme = async (req, res) => {
       message: "Theme Deleted",
     });
   } catch (err) {
-    res.status(500).send(err.message || "error");
+    res
+      .status(500)
+      .send(err.message || "An error occured while deleting the theme");
   }
 };

@@ -43,22 +43,7 @@ exports.getQuestionWithTopicByIdQuestion = async (req, res) => {
       },
       include: [{ model: db.topics, required: true }],
     });
-    res.send(question);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-};
-
-// easier to get themes with corresponding questions
-exports.getQuestionByTheme = async (req, res) => {
-  try {
-    const question = await Question.findAll({
-      where: {
-        theme_id_fk: req.params.theme_id_fk,
-      },
-      include: [{ model: Theme, required: true }],
-    });
-    return question;
+    res.send(question || { message: "Question not found." });
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -93,7 +78,7 @@ exports.createQuestionAndAnswers = async (req, res) => {
     answers.forEach((answer) => {
       questionCreated.addAnswer(answer);
     });
-    res.redirect("/questions");
+    res.send({ message: "Question created successfully." });
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -113,6 +98,11 @@ async function createAnswer(content, status) {
 
 // Update question and answers by id question
 exports.updateQuestionAndAnswers = async (req, res) => {
+  console.log(req.body.answers);
+  if (!req.body.answers) {
+    res.send({ message: "No answers provided" });
+    return;
+  }
   try {
     const updatedQuestion = {
       question_id: req.body.question_id,
@@ -130,6 +120,7 @@ exports.updateQuestionAndAnswers = async (req, res) => {
     req.body.answers.forEach((answer) => {
       Answer.update(answer, { where: { answer_id: answer.answer_id } });
     });
+    res.send({ message: "Question and answers updated successfully" });
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -165,12 +156,14 @@ exports.updateQuestion = async (req, res) => {
 // Delete question by id
 exports.deleteQuestion = async (req, res) => {
   try {
-    await Question.destroy({
+    const status = await Question.destroy({
       where: {
         question_id: req.params.question_id,
       },
     });
-    res.redirect("/questions");
+    const message =
+      status == 1 ? "Question deleted successfully" : "Question not found";
+    res.send({ message });
   } catch (err) {
     res.status(500).send(err.message);
   }

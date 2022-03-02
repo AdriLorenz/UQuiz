@@ -14,6 +14,7 @@ function initialize(getUserByEmail) {
       }
       try {
         if (await bcrypt.compare(password, res.user_password)) {
+          console.log("HEREEEE");
           return done(null, res);
         } else {
           return done(null, false, { message: "Password incorrect" });

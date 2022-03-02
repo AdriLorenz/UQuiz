@@ -20,7 +20,7 @@ exports.getOneTopicWithQuestionsWithAnswers = async (req, res) => {
       where: { topic_name: req.params.topic_name },
       include: [{ model: db.questions, include: { model: db.answers } }],
     });
-    res.send(topic);
+    res.send(topic || { message: "Topic not found" });
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -30,7 +30,7 @@ exports.getOneTopicWithQuestionsWithAnswers = async (req, res) => {
 exports.getTopicById = async (req, res) => {
   try {
     const topic = await Topic.findByPk(req.params.topic_id);
-    res.send(topic);
+    res.send(topic || { message: "Topic is not found" });
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -56,13 +56,16 @@ exports.createTopic = async (req, res) => {
 // Update topic by id
 exports.updateTopic = async (req, res) => {
   try {
-    await Topic.update(req.body, {
+    const status = await Topic.update(req.body, {
       where: {
         topic_id: req.params.topic_id,
       },
     });
+
+    const message =
+      status == 1 ? "Topic updated" : "Nothing to update or topic not found";
     res.json({
-      message: "Topic Updated",
+      message,
     });
   } catch (err) {
     res.status(500).send(err.message);
@@ -72,33 +75,18 @@ exports.updateTopic = async (req, res) => {
 // Delete topic by id
 exports.deleteTopic = async (req, res) => {
   try {
-    await Topic.destroy({
+    const status = await Topic.destroy({
       where: {
         topic_id: req.params.topic_id,
       },
     });
+
+    const message = status == 1 ? "Topic deleted" : "Topic not found";
+
     res.json({
-      message: "Topic Deleted",
+      message,
     });
   } catch (err) {
     res.status(500).send(err.message);
   }
-
-  // exports.getTopicsOfTheme = async (req, res) => {
-  //   try {
-  //     themeReceived = await theme.findOne({
-  //       where: { theme_name: req.body.theme_name },
-  //     });
-
-  //     const topic = await Topic.findAll({
-  //       where: {
-  //         theme_id_fk: themeReceived.theme_id,
-  //       },
-  //     });
-
-  //     res.send(topic);
-  //   } catch (error) {
-  //     res.status(500).send(error.message);
-  //   }
-  // };
 };

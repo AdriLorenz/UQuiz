@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./index.js",
     "dev": "nodemon ./index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./tests/index.test.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,10 @@
   "dependencies": {
     "basename": "^0.1.2",
     "bcrypt": "^5.0.1",
+<<<<<<< HEAD
+=======
+    "body-parser": "^1.19.2",
+>>>>>>> c28cf4347abea88755a0cbca4b8e0cad6d54fb8b
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dgram": "^1.0.1",
@@ -36,5 +40,10 @@
     "path": "^0.12.7",
     "sequelize": "^6.8.0",
     "ws": "^8.4.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^9.2.1"
   }
 }
